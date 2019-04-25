@@ -1,0 +1,27 @@
+{
+    "projetApp": {
+        "conf": {
+            "home": {
+                "title": "Confs",
+                "createLabel": "Conf を追加",
+                "createOrEditLabel": "Confを追加または編集"
+            },
+            "created": "A new Conf is created with identifier {{ param }}",
+            "updated": "A Conf is updated with identifier {{ param }}",
+            "deleted": "A Conf is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Conf {{ id }}を削除してもよろしいですか？"
+            },
+            "detail": {
+                "title": "Conf"
+            },
+            "heuredebut": "Heuredebut",
+            "heurefin": "Heurefin",
+            "smtphost": "Smtphost",
+            "smtppassword": "Smtppassword",
+            "pushserver": "Pushserver",
+            "smtpuser": "Smtpuser",
+            "smsgateway": "Smsgateway"
+        }
+    }
+}

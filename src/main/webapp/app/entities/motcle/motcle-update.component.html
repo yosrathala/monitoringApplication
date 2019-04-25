@@ -1,0 +1,57 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-motcle-heading" jhiTranslate="projetApp.motcle.home.createOrEditLabel">Create or edit a Motcle</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!motcle.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="motcle.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="projetApp.motcle.nom" for="field_nom">Nom</label>
+                    <input type="text" class="form-control" name="nom" id="field_nom"
+                        [(ngModel)]="motcle.nom" required/>
+                    <div [hidden]="!(editForm.controls.nom?.dirty && editForm.controls.nom?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.nom?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="projetApp.motcle.motinclue" for="field_motinclue">Motinclue</label>
+                    <input type="text" class="form-control" name="motinclue" id="field_motinclue"
+                        [(ngModel)]="motcle.motinclue" required/>
+                    <div [hidden]="!(editForm.controls.motinclue?.dirty && editForm.controls.motinclue?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.motinclue?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="projetApp.motcle.motexclue" for="field_motexclue">Motexclue</label>
+                    <input type="text" class="form-control" name="motexclue" id="field_motexclue"
+                        [(ngModel)]="motcle.motexclue" required/>
+                    <div [hidden]="!(editForm.controls.motexclue?.dirty && editForm.controls.motexclue?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.motexclue?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

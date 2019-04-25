@@ -1,0 +1,74 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="projetApp.conf.home.title">Confs</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-conf" [routerLink]="['/conf/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="projetApp.conf.home.createLabel">
+            Create new Conf
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="confs">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="heuredebut"><span jhiTranslate="projetApp.conf.heuredebut">Heuredebut</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="heurefin"><span jhiTranslate="projetApp.conf.heurefin">Heurefin</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="smtphost"><span jhiTranslate="projetApp.conf.smtphost">Smtphost</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="smtppassword"><span jhiTranslate="projetApp.conf.smtppassword">Smtppassword</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="pushserver"><span jhiTranslate="projetApp.conf.pushserver">Pushserver</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="smtpuser"><span jhiTranslate="projetApp.conf.smtpuser">Smtpuser</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="smsgateway"><span jhiTranslate="projetApp.conf.smsgateway">Smsgateway</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let conf of confs ;trackBy: trackId">
+                <td><a [routerLink]="['/conf', conf.id, 'view' ]">{{conf.id}}</a></td>
+                <td>{{conf.heuredebut}}</td>
+                <td>{{conf.heurefin}}</td>
+                <td>{{conf.smtphost}}</td>
+                <td>{{conf.smtppassword}}</td>
+                <td>{{conf.pushserver}}</td>
+                <td>{{conf.smtpuser}}</td>
+                <td>{{conf.smsgateway}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/conf', conf.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/conf', conf.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'conf', { outlets: { popup: conf.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="confs && confs.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

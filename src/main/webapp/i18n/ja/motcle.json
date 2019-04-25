@@ -1,0 +1,24 @@
+{
+    "projetApp": {
+        "motcle": {
+            "home": {
+                "title": "Motcles",
+                "createLabel": "Motcle を追加",
+                "createOrEditLabel": "Motcleを追加または編集"
+            },
+            "created": "A new Motcle is created with identifier {{ param }}",
+            "updated": "A Motcle is updated with identifier {{ param }}",
+            "deleted": "A Motcle is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Motcle {{ id }}を削除してもよろしいですか？"
+            },
+            "detail": {
+                "title": "Motcle"
+            },
+            "nom": "Nom",
+            "motinclue": "Motinclue",
+            "motexclue": "Motexclue",
+            "recherche": "Recherche"
+        }
+    }
+}

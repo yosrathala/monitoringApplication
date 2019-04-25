@@ -1,0 +1,27 @@
+{
+    "projetApp": {
+        "recherche": {
+            "home": {
+                "title": "Recherches",
+                "createLabel": "Krijo një të ri Recherche",
+                "createOrEditLabel": "Krijo ose përpuno një Recherche"
+            },
+            "created": "Një Recherche i ri u krijua me identifikues {{ param }}",
+            "updated": "Një Recherche u përpunua me identifikues {{ param }}",
+            "deleted": "Një Recherche u fshi me identifikues {{ param }}",
+            "delete": {
+                "question": "Jeni i sigurtë që doni të fshini Recherche {{ id }}?"
+            },
+            "detail": {
+                "title": "Recherche"
+            },
+            "periodicite": "Periodicite",
+            "emailnotif": "Emailnotif",
+            "pushnotif": "Pushnotif",
+            "smsnotif": "Smsnotif",
+            "source": "Source",
+            "motcle": "Motcle",
+            "resultatRecherche": "Resultat Recherche"
+        }
+    }
+}

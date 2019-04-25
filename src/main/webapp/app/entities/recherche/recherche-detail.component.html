@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="recherche">
+            <h2><span jhiTranslate="projetApp.recherche.detail.title">Recherche</span> {{recherche.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="projetApp.recherche.periodicite">Periodicite</span></dt>
+                <dd>
+                    <span>{{recherche.periodicite}}</span>
+                </dd>
+                <dt><span jhiTranslate="projetApp.recherche.emailnotif">Emailnotif</span></dt>
+                <dd>
+                    <span>{{recherche.emailnotif}}</span>
+                </dd>
+                <dt><span jhiTranslate="projetApp.recherche.pushnotif">Pushnotif</span></dt>
+                <dd>
+                    <span>{{recherche.pushnotif}}</span>
+                </dd>
+                <dt><span jhiTranslate="projetApp.recherche.smsnotif">Smsnotif</span></dt>
+                <dd>
+                    <span>{{recherche.smsnotif}}</span>
+                </dd>
+                <dt><span jhiTranslate="projetApp.recherche.source">Source</span></dt>
+                <dd>
+                    <div *ngIf="recherche.source">
+                        <a [routerLink]="['/source', recherche.source?.id, 'view']">{{recherche.source?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="projetApp.recherche.motcle">Motcle</span></dt>
+                <dd>
+                    <div *ngIf="recherche.motcle">
+                        <a [routerLink]="['/motcle', recherche.motcle?.id, 'view']">{{recherche.motcle?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/recherche', recherche.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

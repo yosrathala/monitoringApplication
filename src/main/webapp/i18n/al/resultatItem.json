@@ -1,0 +1,24 @@
+{
+    "projetApp": {
+        "resultatItem": {
+            "home": {
+                "title": "Resultat Items",
+                "createLabel": "Krijo një të ri Resultat Item",
+                "createOrEditLabel": "Krijo ose përpuno një Resultat Item"
+            },
+            "created": "Një Resultat Item i ri u krijua me identifikues {{ param }}",
+            "updated": "Një Resultat Item u përpunua me identifikues {{ param }}",
+            "deleted": "Një Resultat Item u fshi me identifikues {{ param }}",
+            "delete": {
+                "question": "Jeni i sigurtë që doni të fshini Resultat Item {{ id }}?"
+            },
+            "detail": {
+                "title": "Resultat Item"
+            },
+            "contenu": "Contenu",
+            "statut": "Statut",
+            "taux": "Taux",
+            "resultatRecherche": "Resultat Recherche"
+        }
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "projetApp": {
+        "recherche": {
+            "home": {
+                "title": "Recherches",
+                "createLabel": "Recherche を追加",
+                "createOrEditLabel": "Rechercheを追加または編集"
+            },
+            "created": "A new Recherche is created with identifier {{ param }}",
+            "updated": "A Recherche is updated with identifier {{ param }}",
+            "deleted": "A Recherche is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Recherche {{ id }}を削除してもよろしいですか？"
+            },
+            "detail": {
+                "title": "Recherche"
+            },
+            "periodicite": "Periodicite",
+            "emailnotif": "Emailnotif",
+            "pushnotif": "Pushnotif",
+            "smsnotif": "Smsnotif",
+            "source": "Source",
+            "motcle": "Motcle",
+            "resultatRecherche": "Resultat Recherche"
+        }
+    }
+}

@@ -1,0 +1,35 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="motcle">
+            <h2><span jhiTranslate="projetApp.motcle.detail.title">Motcle</span> {{motcle.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="projetApp.motcle.nom">Nom</span></dt>
+                <dd>
+                    <span>{{motcle.nom}}</span>
+                </dd>
+                <dt><span jhiTranslate="projetApp.motcle.motinclue">Motinclue</span></dt>
+                <dd>
+                    <span>{{motcle.motinclue}}</span>
+                </dd>
+                <dt><span jhiTranslate="projetApp.motcle.motexclue">Motexclue</span></dt>
+                <dd>
+                    <span>{{motcle.motexclue}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/motcle', motcle.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

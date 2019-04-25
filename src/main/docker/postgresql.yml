@@ -1,0 +1,11 @@
+version: '2'
+services:
+    projet-postgresql:
+        image: postgres:10.4
+        # volumes:
+        #     - ~/volumes/jhipster/projet/postgresql/:/var/lib/postgresql/data/
+        environment:
+            - POSTGRES_USER=projet
+            - POSTGRES_PASSWORD=
+        ports:
+            - 5432:5432

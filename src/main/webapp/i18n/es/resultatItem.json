@@ -1,0 +1,24 @@
+{
+    "projetApp": {
+        "resultatItem": {
+            "home": {
+                "title": "Resultat Items",
+                "createLabel": "Crear nuevo Resultat Item",
+                "createOrEditLabel": "Crear o editar Resultat Item"
+            },
+            "created": "Un nuevo Resultat Item ha sido creado con el identificador {{ param }}",
+            "updated": "Un Resultat Item ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Resultat Item ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Resultat Item {{ id }}?"
+            },
+            "detail": {
+                "title": "Resultat Item"
+            },
+            "contenu": "Contenu",
+            "statut": "Statut",
+            "taux": "Taux",
+            "resultatRecherche": "Resultat Recherche"
+        }
+    }
+}

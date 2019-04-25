@@ -1,0 +1,27 @@
+{
+    "projetApp": {
+        "source": {
+            "home": {
+                "title": "Sources",
+                "createLabel": "Source を追加",
+                "createOrEditLabel": "Sourceを追加または編集"
+            },
+            "created": "A new Source is created with identifier {{ param }}",
+            "updated": "A Source is updated with identifier {{ param }}",
+            "deleted": "A Source is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Source {{ id }}を削除してもよろしいですか？"
+            },
+            "detail": {
+                "title": "Source"
+            },
+            "nom": "Nom",
+            "login": "Login",
+            "motPasse": "Mot Passe",
+            "url": "Url",
+            "key": "Key",
+            "dataHandler": "Data Handler",
+            "recherche": "Recherche"
+        }
+    }
+}

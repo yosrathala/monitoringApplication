@@ -1,0 +1,27 @@
+{
+    "projetApp": {
+        "conf": {
+            "home": {
+                "title": "Confs",
+                "createLabel": "Genera un nuovo Conf",
+                "createOrEditLabel": "Genera o modifica un Conf"
+            },
+            "created": "&Egrave; stato generato un nuovo Conf con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato Conf identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato Conf con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare Conf {{ id }}?"
+            },
+            "detail": {
+                "title": "Conf"
+            },
+            "heuredebut": "Heuredebut",
+            "heurefin": "Heurefin",
+            "smtphost": "Smtphost",
+            "smtppassword": "Smtppassword",
+            "pushserver": "Pushserver",
+            "smtpuser": "Smtpuser",
+            "smsgateway": "Smsgateway"
+        }
+    }
+}

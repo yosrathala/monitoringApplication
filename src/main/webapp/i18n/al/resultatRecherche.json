@@ -1,0 +1,23 @@
+{
+    "projetApp": {
+        "resultatRecherche": {
+            "home": {
+                "title": "Resultat Recherches",
+                "createLabel": "Krijo një të ri Resultat Recherche",
+                "createOrEditLabel": "Krijo ose përpuno një Resultat Recherche"
+            },
+            "created": "Një Resultat Recherche i ri u krijua me identifikues {{ param }}",
+            "updated": "Një Resultat Recherche u përpunua me identifikues {{ param }}",
+            "deleted": "Një Resultat Recherche u fshi me identifikues {{ param }}",
+            "delete": {
+                "question": "Jeni i sigurtë që doni të fshini Resultat Recherche {{ id }}?"
+            },
+            "detail": {
+                "title": "Resultat Recherche"
+            },
+            "date": "Date",
+            "resultatItem": "Resultat Item",
+            "recherche": "Recherche"
+        }
+    }
+}

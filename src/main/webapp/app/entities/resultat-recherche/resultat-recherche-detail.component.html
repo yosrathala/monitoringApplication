@@ -1,0 +1,33 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="resultatRecherche">
+            <h2><span jhiTranslate="projetApp.resultatRecherche.detail.title">Resultat Recherche</span> {{resultatRecherche.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="projetApp.resultatRecherche.date">Date</span></dt>
+                <dd>
+                    <span>{{resultatRecherche.date}}</span>
+                </dd>
+                <dt><span jhiTranslate="projetApp.resultatRecherche.recherche">Recherche</span></dt>
+                <dd>
+                    <div *ngIf="resultatRecherche.recherche">
+                        <a [routerLink]="['/recherche', resultatRecherche.recherche?.id, 'view']">{{resultatRecherche.recherche?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/resultat-recherche', resultatRecherche.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

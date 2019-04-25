@@ -1,0 +1,23 @@
+{
+    "projetApp": {
+        "resultatRecherche": {
+            "home": {
+                "title": "ResultatRecherches",
+                "createLabel": "Genera un nuovo Resultat Recherche",
+                "createOrEditLabel": "Genera o modifica un Resultat Recherche"
+            },
+            "created": "&Egrave; stato generato un nuovo Resultat Recherche con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato Resultat Recherche identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato Resultat Recherche con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare Resultat Recherche {{ id }}?"
+            },
+            "detail": {
+                "title": "Resultat Recherche"
+            },
+            "date": "Date",
+            "resultatItem": "Resultat Item",
+            "recherche": "Recherche"
+        }
+    }
+}

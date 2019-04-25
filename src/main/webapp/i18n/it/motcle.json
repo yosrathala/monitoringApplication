@@ -1,0 +1,24 @@
+{
+    "projetApp": {
+        "motcle": {
+            "home": {
+                "title": "Motcles",
+                "createLabel": "Genera un nuovo Motcle",
+                "createOrEditLabel": "Genera o modifica un Motcle"
+            },
+            "created": "&Egrave; stato generato un nuovo Motcle con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato Motcle identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato Motcle con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare Motcle {{ id }}?"
+            },
+            "detail": {
+                "title": "Motcle"
+            },
+            "nom": "Nom",
+            "motinclue": "Motinclue",
+            "motexclue": "Motexclue",
+            "recherche": "Recherche"
+        }
+    }
+}

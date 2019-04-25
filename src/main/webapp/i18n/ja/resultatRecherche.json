@@ -1,0 +1,23 @@
+{
+    "projetApp": {
+        "resultatRecherche": {
+            "home": {
+                "title": "ResultatRecherches",
+                "createLabel": "Resultat Recherche を追加",
+                "createOrEditLabel": "Resultat Rechercheを追加または編集"
+            },
+            "created": "A new Resultat Recherche is created with identifier {{ param }}",
+            "updated": "A Resultat Recherche is updated with identifier {{ param }}",
+            "deleted": "A Resultat Recherche is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Resultat Recherche {{ id }}を削除してもよろしいですか？"
+            },
+            "detail": {
+                "title": "Resultat Recherche"
+            },
+            "date": "Date",
+            "resultatItem": "Resultat Item",
+            "recherche": "Recherche"
+        }
+    }
+}

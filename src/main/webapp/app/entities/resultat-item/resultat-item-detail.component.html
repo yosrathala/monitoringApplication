@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="resultatItem">
+            <h2><span jhiTranslate="projetApp.resultatItem.detail.title">Resultat Item</span> {{resultatItem.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="projetApp.resultatItem.contenu">Contenu</span></dt>
+                <dd>
+                    <span>{{resultatItem.contenu}}</span>
+                </dd>
+                <dt><span jhiTranslate="projetApp.resultatItem.statut">Statut</span></dt>
+                <dd>
+                    <span>{{resultatItem.statut}}</span>
+                </dd>
+                <dt><span jhiTranslate="projetApp.resultatItem.taux">Taux</span></dt>
+                <dd>
+                    <span>{{resultatItem.taux}}</span>
+                </dd>
+                <dt><span jhiTranslate="projetApp.resultatItem.resultatRecherche">Resultat Recherche</span></dt>
+                <dd>
+                    <div *ngIf="resultatItem.resultatRecherche">
+                        <a [routerLink]="['/resultat-recherche', resultatItem.resultatRecherche?.id, 'view']">{{resultatItem.resultatRecherche?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/resultat-item', resultatItem.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

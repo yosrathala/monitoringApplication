@@ -1,0 +1,109 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-conf-heading" jhiTranslate="projetApp.conf.home.createOrEditLabel">Create or edit a Conf</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!conf.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="conf.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="projetApp.conf.heuredebut" for="field_heuredebut">Heuredebut</label>
+                    <input type="number" class="form-control" name="heuredebut" id="field_heuredebut"
+                        [(ngModel)]="conf.heuredebut" required/>
+                    <div [hidden]="!(editForm.controls.heuredebut?.dirty && editForm.controls.heuredebut?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.heuredebut?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.heuredebut?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="projetApp.conf.heurefin" for="field_heurefin">Heurefin</label>
+                    <input type="number" class="form-control" name="heurefin" id="field_heurefin"
+                        [(ngModel)]="conf.heurefin" required/>
+                    <div [hidden]="!(editForm.controls.heurefin?.dirty && editForm.controls.heurefin?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.heurefin?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.heurefin?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="projetApp.conf.smtphost" for="field_smtphost">Smtphost</label>
+                    <input type="text" class="form-control" name="smtphost" id="field_smtphost"
+                        [(ngModel)]="conf.smtphost" required/>
+                    <div [hidden]="!(editForm.controls.smtphost?.dirty && editForm.controls.smtphost?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.smtphost?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="projetApp.conf.smtppassword" for="field_smtppassword">Smtppassword</label>
+                    <input type="text" class="form-control" name="smtppassword" id="field_smtppassword"
+                        [(ngModel)]="conf.smtppassword" required/>
+                    <div [hidden]="!(editForm.controls.smtppassword?.dirty && editForm.controls.smtppassword?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.smtppassword?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="projetApp.conf.pushserver" for="field_pushserver">Pushserver</label>
+                    <input type="text" class="form-control" name="pushserver" id="field_pushserver"
+                        [(ngModel)]="conf.pushserver" required/>
+                    <div [hidden]="!(editForm.controls.pushserver?.dirty && editForm.controls.pushserver?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.pushserver?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="projetApp.conf.smtpuser" for="field_smtpuser">Smtpuser</label>
+                    <input type="text" class="form-control" name="smtpuser" id="field_smtpuser"
+                        [(ngModel)]="conf.smtpuser" required/>
+                    <div [hidden]="!(editForm.controls.smtpuser?.dirty && editForm.controls.smtpuser?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.smtpuser?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="projetApp.conf.smsgateway" for="field_smsgateway">Smsgateway</label>
+                    <input type="text" class="form-control" name="smsgateway" id="field_smsgateway"
+                        [(ngModel)]="conf.smsgateway" required/>
+                    <div [hidden]="!(editForm.controls.smsgateway?.dirty && editForm.controls.smsgateway?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.smsgateway?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+{
+    "name": "ResultatRecherche",
+    "fields": [
+        {
+            "fieldName": "date",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "resultatItem",
+            "otherEntityRelationshipName": "resultatRecherche",
+            "relationshipName": "resultatItem"
+        },
+        {
+            "relationshipName": "recherche",
+            "otherEntityName": "recherche",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190425134923",
+    "entityTableName": "resultat_recherche",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

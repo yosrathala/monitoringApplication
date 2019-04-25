@@ -1,0 +1,27 @@
+{
+    "projetApp": {
+        "recherche": {
+            "home": {
+                "title": "Recherches",
+                "createLabel": "Créer un nouveau Recherche",
+                "createOrEditLabel": "Créer ou éditer un Recherche"
+            },
+            "created": "Un nouveau Recherche a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Recherche avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Recherche avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Recherche {{ id }} ?"
+            },
+            "detail": {
+                "title": "Recherche"
+            },
+            "periodicite": "Periodicite",
+            "emailnotif": "Emailnotif",
+            "pushnotif": "Pushnotif",
+            "smsnotif": "Smsnotif",
+            "source": "Source",
+            "motcle": "Motcle",
+            "resultatRecherche": "Resultat Recherche"
+        }
+    }
+}

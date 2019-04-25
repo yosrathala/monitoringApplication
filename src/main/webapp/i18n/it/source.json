@@ -1,0 +1,27 @@
+{
+    "projetApp": {
+        "source": {
+            "home": {
+                "title": "Sources",
+                "createLabel": "Genera un nuovo Source",
+                "createOrEditLabel": "Genera o modifica un Source"
+            },
+            "created": "&Egrave; stato generato un nuovo Source con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato Source identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato Source con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare Source {{ id }}?"
+            },
+            "detail": {
+                "title": "Source"
+            },
+            "nom": "Nom",
+            "login": "Login",
+            "motPasse": "Mot Passe",
+            "url": "Url",
+            "key": "Key",
+            "dataHandler": "Data Handler",
+            "recherche": "Recherche"
+        }
+    }
+}

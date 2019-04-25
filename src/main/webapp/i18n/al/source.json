@@ -1,0 +1,27 @@
+{
+    "projetApp": {
+        "source": {
+            "home": {
+                "title": "Sources",
+                "createLabel": "Krijo një të ri Source",
+                "createOrEditLabel": "Krijo ose përpuno një Source"
+            },
+            "created": "Një Source i ri u krijua me identifikues {{ param }}",
+            "updated": "Një Source u përpunua me identifikues {{ param }}",
+            "deleted": "Një Source u fshi me identifikues {{ param }}",
+            "delete": {
+                "question": "Jeni i sigurtë që doni të fshini Source {{ id }}?"
+            },
+            "detail": {
+                "title": "Source"
+            },
+            "nom": "Nom",
+            "login": "Login",
+            "motPasse": "Mot Passe",
+            "url": "Url",
+            "key": "Key",
+            "dataHandler": "Data Handler",
+            "recherche": "Recherche"
+        }
+    }
+}
