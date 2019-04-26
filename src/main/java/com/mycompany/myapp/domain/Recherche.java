@@ -56,7 +56,26 @@ public class Recherche implements Serializable {
     @OneToMany(mappedBy = "recherche")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ResultatRecherche> resultatRecherches = new HashSet<>();
+
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+
+    public Recherche(Long id, @NotNull Integer periodicite, @NotNull Boolean emailnotif, @NotNull Boolean pushnotif,
+                     @NotNull Boolean smsnotif, Source source) {
+        super();
+        this.id = id;
+        this.periodicite = periodicite;
+        this.emailnotif = emailnotif;
+        this.pushnotif = pushnotif;
+        this.smsnotif = smsnotif;
+        this.source = source;
+
+    }
+
+    public Recherche() {
+
+    }
+
     public Long getId() {
         return id;
     }

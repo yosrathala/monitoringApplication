@@ -56,6 +56,22 @@ public class Source implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Recherche> recherches = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+
+    public Source(Long id, @NotNull String nom, @NotNull String login, @NotNull String motPasse, @NotNull String url,
+                  @NotNull String key) {
+        super();
+        this.id = id;
+        this.nom = nom;
+        this.login = login;
+        this.motPasse = motPasse;
+        this.url = url;
+        this.key = key;
+    }
+
+    public Source() {
+
+    }
+
     public Long getId() {
         return id;
     }
