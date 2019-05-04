@@ -1,0 +1,23 @@
+{
+    "projetApp": {
+        "userExtra": {
+            "home": {
+                "title": "User Extras",
+                "createLabel": "Krijo një të ri User Extra",
+                "createOrEditLabel": "Krijo ose përpuno një User Extra"
+            },
+            "created": "Një User Extra i ri u krijua me identifikues {{ param }}",
+            "updated": "Një User Extra u përpunua me identifikues {{ param }}",
+            "deleted": "Një User Extra u fshi me identifikues {{ param }}",
+            "delete": {
+                "question": "Jeni i sigurtë që doni të fshini User Extra {{ id }}?"
+            },
+            "detail": {
+                "title": "User Extra"
+            },
+            "phone": "Phone",
+            "phushid": "Phushid",
+            "user": "User"
+        }
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "projetApp": {
+        "userExtra": {
+            "home": {
+                "title": "User Extras",
+                "createLabel": "Crear nuevo User Extra",
+                "createOrEditLabel": "Crear o editar User Extra"
+            },
+            "created": "Un nuevo User Extra ha sido creado con el identificador {{ param }}",
+            "updated": "Un User Extra ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un User Extra ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar User Extra {{ id }}?"
+            },
+            "detail": {
+                "title": "User Extra"
+            },
+            "phone": "Phone",
+            "phushid": "Phushid",
+            "user": "User"
+        }
+    }
+}

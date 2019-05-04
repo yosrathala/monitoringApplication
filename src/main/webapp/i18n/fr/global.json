@@ -1,8 +1,7 @@
 {
     "global": {
         "title": "Projet",
-        "browsehappy":
-            "Vous utilisez un <strong>ancien</strong> navigateur. Veuillez <a href=\"http://browsehappy.com/?locale=fr\">mettre à jour votre navigateur</a> pour une meilleure expérience.",
+        "browsehappy": "Vous utilisez un <strong>ancien</strong> navigateur. Veuillez <a href=\"http://browsehappy.com/?locale=fr\">mettre à jour votre navigateur</a> pour une meilleure expérience.",
         "menu": {
             "home": "Accueil",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
@@ -14,6 +13,7 @@
                 "recherche": "Recherche",
                 "resultatItem": "Resultat Item",
                 "conf": "Conf",
+                "userExtra": "User Extra",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -50,15 +50,18 @@
             "confirmpassword": "Confirmation du nouveau mot de passe",
             "confirmpassword.placeholder": "Confirmation du nouveau mot de passe",
             "email": "Email",
-            "email.placeholder": "Votre email"
+            "email.placeholder": "Votre email",
+            "phone": "télephone",
+            "phone.placeholder": "votre numero télephone",
+            "phushid": "pushid",
+            "phushid.placeholder": "votre numero pushid"
         },
         "messages": {
             "info": {
                 "authenticated": {
                     "prefix": "Si vous voulez vous ",
                     "link": "connecter",
-                    "suffix":
-                        ", vous pouvez utiliser les comptes par défaut : <br/> - Administrateur (nom d'utilisateur=\"admin\" et mot de passe =\"admin\") <br/> - Utilisateur (nom d'utilisateur=\"user\" et mot de passe =\"user\")."
+                    "suffix": ", vous pouvez utiliser les comptes par défaut : <br/> - Administrateur (nom d'utilisateur=\"admin\" et mot de passe =\"admin\") <br/> - Utilisateur (nom d'utilisateur=\"user\" et mot de passe =\"user\")."
                 },
                 "register": {
                     "noaccount": "Vous n'avez pas encore de compte ?",
@@ -85,6 +88,18 @@
                     "minlength": "Votre email doit comporter au moins 5 caractères.",
                     "maxlength": "Votre email ne doit pas comporter plus de 50 caractères.",
                     "invalid": "Votre email n'est pas valide."
+                },
+                "phone": {
+                    "required": "Votre télephone est requis.",
+                    "minlength": "Votre télephone doit comporter au moins 7 caractères.",
+                    "maxlength": "Votre télephone ne doit pas comporter plus de 7 caractères.",
+                    "invalid": "Votre télephone n'est pas valide."
+                },
+                "phushid": {
+                    "required": "Votre pushid est requis.",
+                    "minlength": "Votre pushid  doit comporter au moins 7 caractères.",
+                    "maxlength": "Votre pushid  ne doit pas comporter plus de 7 caractères.",
+                    "invalid": "Votre pushid  n'est pas valide."
                 }
             }
         },

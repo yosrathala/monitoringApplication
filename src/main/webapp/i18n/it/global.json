@@ -1,8 +1,7 @@
 {
     "global": {
         "title": "Projet",
-        "browsehappy":
-            "Stai utilizzando un browser <strong> non aggiornato </ strong> <a href=\"http://browsehappy.com/?locale=it\"> Aggiorna il tuo browser per </a> migliorare la tua esperienza.",
+        "browsehappy": "Stai utilizzando un browser <strong> non aggiornato </ strong> <a href=\"http://browsehappy.com/?locale=it\"> Aggiorna il tuo browser per </a> migliorare la tua esperienza.",
         "menu": {
             "home": "Home",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
@@ -14,6 +13,7 @@
                 "recherche": "Recherche",
                 "resultatItem": "Resultat Item",
                 "conf": "Conf",
+                "userExtra": "User Extra",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -57,8 +57,7 @@
                 "authenticated": {
                     "prefix": "Se vuoi ",
                     "link": "accedere",
-                    "suffix":
-                        ", puoi provare gli account di default: <br/> - Amministratore (user = \"admin\" e la password = \"admin\") <br/> - utente (user = \"user\" e la password = \"user\")"
+                    "suffix": ", puoi provare gli account di default: <br/> - Amministratore (user = \"admin\" e la password = \"admin\") <br/> - utente (user = \"user\" e la password = \"user\")"
                 },
                 "register": {
                     "noaccount": "Non hai ancora un account?",

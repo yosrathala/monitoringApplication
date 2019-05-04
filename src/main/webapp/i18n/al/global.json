@@ -1,8 +1,7 @@
 {
     "global": {
         "title": "Projet",
-        "browsehappy":
-            "Ju po përdorni një browser të <strong>vjetëruar</strong>. Ju lutem <a href=\"http://browsehappy.com/?locale=en\">përditësoni browserin tuan</a> për të përmirësuar eksperiencën tuaj.",
+        "browsehappy": "Ju po përdorni një browser të <strong>vjetëruar</strong>. Ju lutem <a href=\"http://browsehappy.com/?locale=en\">përditësoni browserin tuan</a> për të përmirësuar eksperiencën tuaj.",
         "menu": {
             "home": "Kreu",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
@@ -14,6 +13,7 @@
                 "recherche": "Recherche",
                 "resultatItem": "Resultat Item",
                 "conf": "Conf",
+                "userExtra": "User Extra",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -57,8 +57,7 @@
                 "authenticated": {
                     "prefix": "Në qoftë se dëshironi ",
                     "link": "futuni",
-                    "suffix":
-                        ", ju mund të përdorni konton standarde:<br/>- Administrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" and password=\"user\")."
+                    "suffix": ", ju mund të përdorni konton standarde:<br/>- Administrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" and password=\"user\")."
                 },
                 "register": {
                     "noaccount": "A keni një ende konto?",
