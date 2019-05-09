@@ -56,7 +56,7 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         phone: 'BBBBBB',
-                        phushid: 'BBBBBB'
+                        pushid: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -74,7 +74,7 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         phone: 'BBBBBB',
-                        phushid: 'BBBBBB'
+                        pushid: 'BBBBBB'
                     },
                     elemDefault
                 );

@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface MotcleRepository extends JpaRepository<Motcle, Long> {
+public interface MotcleRepository extends JpaRepository<Motcle, Long>, JpaSpecificationExecutor<Motcle> {
 
 }

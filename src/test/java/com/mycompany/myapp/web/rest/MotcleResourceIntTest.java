@@ -3,8 +3,12 @@ package com.mycompany.myapp.web.rest;
 import com.mycompany.myapp.ProjetApp;
 
 import com.mycompany.myapp.domain.Motcle;
+import com.mycompany.myapp.domain.Recherche;
 import com.mycompany.myapp.repository.MotcleRepository;
+import com.mycompany.myapp.service.MotcleService;
 import com.mycompany.myapp.web.rest.errors.ExceptionTranslator;
+import com.mycompany.myapp.service.dto.MotcleCriteria;
+import com.mycompany.myapp.service.MotcleQueryService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -53,6 +57,12 @@ public class MotcleResourceIntTest {
     private MotcleRepository motcleRepository;
 
     @Autowired
+    private MotcleService motcleService;
+
+    @Autowired
+    private MotcleQueryService motcleQueryService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -74,7 +84,7 @@ public class MotcleResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final MotcleResource motcleResource = new MotcleResource(motcleRepository);
+        final MotcleResource motcleResource = new MotcleResource(motcleService, motcleQueryService);
         this.restMotcleMockMvc = MockMvcBuilders.standaloneSetup(motcleResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -229,6 +239,178 @@ public class MotcleResourceIntTest {
 
     @Test
     @Transactional
+    public void getAllMotclesByNomIsEqualToSomething() throws Exception {
+        // Initialize the database
+        motcleRepository.saveAndFlush(motcle);
+
+        // Get all the motcleList where nom equals to DEFAULT_NOM
+        defaultMotcleShouldBeFound("nom.equals=" + DEFAULT_NOM);
+
+        // Get all the motcleList where nom equals to UPDATED_NOM
+        defaultMotcleShouldNotBeFound("nom.equals=" + UPDATED_NOM);
+    }
+
+    @Test
+    @Transactional
+    public void getAllMotclesByNomIsInShouldWork() throws Exception {
+        // Initialize the database
+        motcleRepository.saveAndFlush(motcle);
+
+        // Get all the motcleList where nom in DEFAULT_NOM or UPDATED_NOM
+        defaultMotcleShouldBeFound("nom.in=" + DEFAULT_NOM + "," + UPDATED_NOM);
+
+        // Get all the motcleList where nom equals to UPDATED_NOM
+        defaultMotcleShouldNotBeFound("nom.in=" + UPDATED_NOM);
+    }
+
+    @Test
+    @Transactional
+    public void getAllMotclesByNomIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        motcleRepository.saveAndFlush(motcle);
+
+        // Get all the motcleList where nom is not null
+        defaultMotcleShouldBeFound("nom.specified=true");
+
+        // Get all the motcleList where nom is null
+        defaultMotcleShouldNotBeFound("nom.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllMotclesByMotinclueIsEqualToSomething() throws Exception {
+        // Initialize the database
+        motcleRepository.saveAndFlush(motcle);
+
+        // Get all the motcleList where motinclue equals to DEFAULT_MOTINCLUE
+        defaultMotcleShouldBeFound("motinclue.equals=" + DEFAULT_MOTINCLUE);
+
+        // Get all the motcleList where motinclue equals to UPDATED_MOTINCLUE
+        defaultMotcleShouldNotBeFound("motinclue.equals=" + UPDATED_MOTINCLUE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllMotclesByMotinclueIsInShouldWork() throws Exception {
+        // Initialize the database
+        motcleRepository.saveAndFlush(motcle);
+
+        // Get all the motcleList where motinclue in DEFAULT_MOTINCLUE or UPDATED_MOTINCLUE
+        defaultMotcleShouldBeFound("motinclue.in=" + DEFAULT_MOTINCLUE + "," + UPDATED_MOTINCLUE);
+
+        // Get all the motcleList where motinclue equals to UPDATED_MOTINCLUE
+        defaultMotcleShouldNotBeFound("motinclue.in=" + UPDATED_MOTINCLUE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllMotclesByMotinclueIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        motcleRepository.saveAndFlush(motcle);
+
+        // Get all the motcleList where motinclue is not null
+        defaultMotcleShouldBeFound("motinclue.specified=true");
+
+        // Get all the motcleList where motinclue is null
+        defaultMotcleShouldNotBeFound("motinclue.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllMotclesByMotexclueIsEqualToSomething() throws Exception {
+        // Initialize the database
+        motcleRepository.saveAndFlush(motcle);
+
+        // Get all the motcleList where motexclue equals to DEFAULT_MOTEXCLUE
+        defaultMotcleShouldBeFound("motexclue.equals=" + DEFAULT_MOTEXCLUE);
+
+        // Get all the motcleList where motexclue equals to UPDATED_MOTEXCLUE
+        defaultMotcleShouldNotBeFound("motexclue.equals=" + UPDATED_MOTEXCLUE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllMotclesByMotexclueIsInShouldWork() throws Exception {
+        // Initialize the database
+        motcleRepository.saveAndFlush(motcle);
+
+        // Get all the motcleList where motexclue in DEFAULT_MOTEXCLUE or UPDATED_MOTEXCLUE
+        defaultMotcleShouldBeFound("motexclue.in=" + DEFAULT_MOTEXCLUE + "," + UPDATED_MOTEXCLUE);
+
+        // Get all the motcleList where motexclue equals to UPDATED_MOTEXCLUE
+        defaultMotcleShouldNotBeFound("motexclue.in=" + UPDATED_MOTEXCLUE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllMotclesByMotexclueIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        motcleRepository.saveAndFlush(motcle);
+
+        // Get all the motcleList where motexclue is not null
+        defaultMotcleShouldBeFound("motexclue.specified=true");
+
+        // Get all the motcleList where motexclue is null
+        defaultMotcleShouldNotBeFound("motexclue.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllMotclesByRechercheIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Recherche recherche = RechercheResourceIntTest.createEntity(em);
+        em.persist(recherche);
+        em.flush();
+        motcle.addRecherche(recherche);
+        motcleRepository.saveAndFlush(motcle);
+        Long rechercheId = recherche.getId();
+
+        // Get all the motcleList where recherche equals to rechercheId
+        defaultMotcleShouldBeFound("rechercheId.equals=" + rechercheId);
+
+        // Get all the motcleList where recherche equals to rechercheId + 1
+        defaultMotcleShouldNotBeFound("rechercheId.equals=" + (rechercheId + 1));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is returned
+     */
+    private void defaultMotcleShouldBeFound(String filter) throws Exception {
+        restMotcleMockMvc.perform(get("/api/motcles?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(motcle.getId().intValue())))
+            .andExpect(jsonPath("$.[*].nom").value(hasItem(DEFAULT_NOM)))
+            .andExpect(jsonPath("$.[*].motinclue").value(hasItem(DEFAULT_MOTINCLUE)))
+            .andExpect(jsonPath("$.[*].motexclue").value(hasItem(DEFAULT_MOTEXCLUE)));
+
+        // Check, that the count call also returns 1
+        restMotcleMockMvc.perform(get("/api/motcles/count?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().string("1"));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is not returned
+     */
+    private void defaultMotcleShouldNotBeFound(String filter) throws Exception {
+        restMotcleMockMvc.perform(get("/api/motcles?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$").isEmpty());
+
+        // Check, that the count call also returns 0
+        restMotcleMockMvc.perform(get("/api/motcles/count?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().string("0"));
+    }
+
+
+    @Test
+    @Transactional
     public void getNonExistingMotcle() throws Exception {
         // Get the motcle
         restMotcleMockMvc.perform(get("/api/motcles/{id}", Long.MAX_VALUE))
@@ -239,7 +421,7 @@ public class MotcleResourceIntTest {
     @Transactional
     public void updateMotcle() throws Exception {
         // Initialize the database
-        motcleRepository.saveAndFlush(motcle);
+        motcleService.save(motcle);
 
         int databaseSizeBeforeUpdate = motcleRepository.findAll().size();
 
@@ -288,7 +470,7 @@ public class MotcleResourceIntTest {
     @Transactional
     public void deleteMotcle() throws Exception {
         // Initialize the database
-        motcleRepository.saveAndFlush(motcle);
+        motcleService.save(motcle);
 
         int databaseSizeBeforeDelete = motcleRepository.findAll().size();
 

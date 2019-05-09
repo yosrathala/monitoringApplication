@@ -29,8 +29,7 @@ export class SourceComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
-    filter: string;
-    orderProp: string;
+    source: ISource;
     constructor(
         protected sourceService: SourceService,
         protected parseLinks: JhiParseLinks,
@@ -40,9 +39,6 @@ export class SourceComponent implements OnInit, OnDestroy {
         protected router: Router,
         protected eventManager: JhiEventManager
     ) {
-        this.filter = '';
-        this.orderProp = 'name';
-        this.reverse = false;
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data.pagingParams.page;

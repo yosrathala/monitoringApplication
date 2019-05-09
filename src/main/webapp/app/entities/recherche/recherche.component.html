@@ -1,60 +1,68 @@
 <div>
     <h2 id="page-heading">
-        <span>Recherches</span>
+        <span jhiTranslate="projetApp.recherche.home.title">Recherches</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-recherche" [routerLink]="['/recherche/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
-            <span >
+            <span  jhiTranslate="projetApp.recherche.home.createLabel">
             Create new Recherche
             </span>
         </button>
     </h2>
     <jhi-alert></jhi-alert>
     <br/>
-    <span>Filter</span> <input type="text" (keyup)="appfilter($event.target.value)" class="form-control">
     <div class="table-responsive" *ngIf="recherches">
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="periodicite"><span>Periodicite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="emailnotif"><span>Emailnotif</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="pushnotif"><span>Pushnotif</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="smsnotif"><span>Smsnotif</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="source.id"><span>Source</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="motcle.id"><span>Motcle</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="motcle.id"><span jhiTranslate="projetApp.recherche.motcle">Motcle</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th><span jhiTranslate="projetApp.recherche.source">Source</span></th>
+            <th jhiSortBy="periodicite"><span jhiTranslate="projetApp.recherche.periodicite">Periodicite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="emailnotif"><span jhiTranslate="projetApp.recherche.emailnotif">Emailnotif</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="pushnotif"><span jhiTranslate="projetApp.recherche.pushnotif">Pushnotif</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="smsnotif"><span jhiTranslate="projetApp.recherche.smsnotif">Smsnotif</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+
                 <th></th>
             </tr>
             </thead>
-            <tbody>
+            <tbody  *ngIf ="recherches">
             <tr *ngFor="let recherche of recherches ;trackBy: trackId">
                 <td><a [routerLink]="['/recherche', recherche.id, 'view' ]">{{recherche.id}}</a></td>
+                <td>
+                    <div>
+                        <a [routerLink]="['../motcle', recherche.motcle?.id, 'view' ]" >{{recherche.motcle?.nom}}</a>
+                    </div>
+
+
+                </td>
+                <td>
+
+                    <ul class="list-unstyled">
+                        <li *ngFor="let Source of recherche.sources">
+
+                            <span class="badge badge-info">{{Source.nom}}</span>
+                        </li>
+                    </ul>
+
+                </td>
                 <td>{{recherche.periodicite}}</td>
                 <td>{{recherche.emailnotif}}</td>
                 <td>{{recherche.pushnotif}}</td>
                 <td>{{recherche.smsnotif}}</td>
-                <td>
-                    <div *ngIf="recherche.source">
-                        <a [routerLink]="['../source', recherche.source?.id, 'view' ]" >{{recherche.source?.nom}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="recherche.motcle">
-                        <a [routerLink]="['../motcle', recherche.motcle?.id, 'view' ]" >{{recherche.motcle?.nom}}</a>
-                    </div>
-                </td>
+
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
                                 [routerLink]="['/recherche', recherche.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline">View</span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/recherche', recherche.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline">Edit</span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/', 'recherche', { outlets: { popup: recherche.id + '/delete'} }]"
@@ -62,7 +70,7 @@
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline">Delete</span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
                     </div>
                 </td>

@@ -21,17 +21,19 @@
                 <dd>
                     <span>{{recherche.smsnotif}}</span>
                 </dd>
-                <dt><span jhiTranslate="projetApp.recherche.source">Source</span></dt>
-                <dd>
-                    <div *ngIf="recherche.source">
-                        <a [routerLink]="['/source', recherche.source?.id, 'view']">{{recherche.source?.id}}</a>
-                    </div>
-                </dd>
                 <dt><span jhiTranslate="projetApp.recherche.motcle">Motcle</span></dt>
                 <dd>
                     <div *ngIf="recherche.motcle">
-                        <a [routerLink]="['/motcle', recherche.motcle?.id, 'view']">{{recherche.motcle?.id}}</a>
+                        <a [routerLink]="['/motcle', recherche.motcle?.id, 'view']">{{recherche.motcle?.nom}}</a>
                     </div>
+                </dd>
+                <dt><span jhiTranslate="projetApp.recherche.source">Source</span></dt>
+                <dd>
+                    <ul class="list-unstyled">
+                        <li *ngFor="let source of recherche.sources">
+                            <span class="badge badge-info">{{source.nom}}</span>
+                        </li>
+                    </ul>
                 </dd>
             </dl>
 

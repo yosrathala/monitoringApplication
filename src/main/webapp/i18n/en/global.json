@@ -53,8 +53,8 @@
             "email.placeholder": "Your email",
             "phone": "phone",
             "phone.placeholder": "your phone number",
-            "phushid": "pushid",
-            "phushid.placeholder": "your pushid number"
+            "pushid": "pushid",
+            "pushid.placeholder": "your pushid number"
         },
         "messages": {
             "info": {

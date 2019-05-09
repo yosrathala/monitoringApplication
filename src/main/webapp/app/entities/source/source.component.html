@@ -1,33 +1,31 @@
 <div>
     <h2 id="page-heading">
-        <span>Sources</span>
+        <span jhiTranslate="projetApp.source.home.title">Sources</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-source" [routerLink]="['/source/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
-            <span >
+            <span  jhiTranslate="projetApp.source.home.createLabel">
             Create new Source
             </span>
         </button>
     </h2>
     <jhi-alert></jhi-alert>
     <br/>
-
-    <span >Filter</span> <input type="text" [(ngModel)]="filter" class="form-control">
     <div class="table-responsive" *ngIf="sources">
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="nom"><span>Nom</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="login"><span>Login</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="motPasse"><span>Mot Passe</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="url"><span>Url</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="key"><span>Key</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="dataHandler"><span>Data Handler</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th></th>
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="nom"><span jhiTranslate="projetApp.source.nom">Nom</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="login"><span jhiTranslate="projetApp.source.login">Login</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="motPasse"><span jhiTranslate="projetApp.source.motPasse">Mot Passe</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="url"><span jhiTranslate="projetApp.source.url">Url</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="key"><span jhiTranslate="projetApp.source.key">Key</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dataHandler"><span jhiTranslate="projetApp.source.dataHandler">Data Handler</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let source of (sources | pureFilter:filter:'name' | orderBy:orderProp:reverse)">
+            <tr *ngFor="let source of sources ;trackBy: trackId">
                 <td><a [routerLink]="['/source', source.id, 'view' ]">{{source.id}}</a></td>
                 <td>{{source.nom}}</td>
                 <td>{{source.login}}</td>
@@ -41,13 +39,13 @@
                                 [routerLink]="['/source', source.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline">View</span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/source', source.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline">Edit</span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/', 'source', { outlets: { popup: source.id + '/delete'} }]"
@@ -55,7 +53,7 @@
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline">Delete</span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
                     </div>
                 </td>

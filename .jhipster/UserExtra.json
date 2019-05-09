@@ -1,34 +1,32 @@
 {
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "relationships": [
-        {
-            "relationshipName": "user",
-            "otherEntityName": "user",
-            "relationshipType": "one-to-one",
-            "relationshipValidateRules": [],
-            "otherEntityField": "login",
-            "ownerSide": true,
-            "useJPADerivedIdentifier": true,
-            "otherEntityRelationshipName": "userExtra"
-        }
-    ],
+    "name": "UserExtra",
     "fields": [
         {
             "fieldName": "phone",
             "fieldType": "String"
         },
         {
-            "fieldName": "phushid",
+            "fieldName": "pushid",
             "fieldType": "String"
         }
     ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "user",
+            "otherEntityRelationshipName": "userExtra",
+            "relationshipName": "user",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
     "changelogDate": "20190501204258",
-    "dto": "no",
-    "searchEngine": false,
-    "service": "serviceImpl",
     "entityTableName": "user_extra",
-    "databaseType": "sql",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
     "jpaMetamodelFiltering": false,
-    "pagination": "pagination"
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
 }

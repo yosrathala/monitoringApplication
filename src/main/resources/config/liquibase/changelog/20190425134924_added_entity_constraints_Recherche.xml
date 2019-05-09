@@ -8,17 +8,22 @@
     -->
     <changeSet id="20190425134924-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="source_id"
-                                 baseTableName="recherche"
-                                 constraintName="fk_recherche_source_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="source"/>
-
         <addForeignKeyConstraint baseColumnNames="motcle_id"
                                  baseTableName="recherche"
                                  constraintName="fk_recherche_motcle_id"
                                  referencedColumnNames="id"
                                  referencedTableName="motcle"/>
 
+        <addForeignKeyConstraint baseColumnNames="recherche_id"
+                                 baseTableName="recherche_source"
+                                 constraintName="fk_recherche_source_recherche_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="recherche"/>
+        <addForeignKeyConstraint baseColumnNames="source_id"
+                                 baseTableName="recherche_source"
+                                 constraintName="fk_recherche_source_source_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="source"/>
+        
     </changeSet>
 </databaseChangeLog>

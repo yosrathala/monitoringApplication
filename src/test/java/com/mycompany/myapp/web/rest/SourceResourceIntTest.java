@@ -3,8 +3,12 @@ package com.mycompany.myapp.web.rest;
 import com.mycompany.myapp.ProjetApp;
 
 import com.mycompany.myapp.domain.Source;
+import com.mycompany.myapp.domain.Recherche;
 import com.mycompany.myapp.repository.SourceRepository;
+import com.mycompany.myapp.service.SourceService;
 import com.mycompany.myapp.web.rest.errors.ExceptionTranslator;
+import com.mycompany.myapp.service.dto.SourceCriteria;
+import com.mycompany.myapp.service.SourceQueryService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -62,6 +66,12 @@ public class SourceResourceIntTest {
     private SourceRepository sourceRepository;
 
     @Autowired
+    private SourceService sourceService;
+
+    @Autowired
+    private SourceQueryService sourceQueryService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -83,7 +93,7 @@ public class SourceResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final SourceResource sourceResource = new SourceResource(sourceRepository);
+        final SourceResource sourceResource = new SourceResource(sourceService, sourceQueryService);
         this.restSourceMockMvc = MockMvcBuilders.standaloneSetup(sourceResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -304,6 +314,298 @@ public class SourceResourceIntTest {
 
     @Test
     @Transactional
+    public void getAllSourcesByNomIsEqualToSomething() throws Exception {
+        // Initialize the database
+        sourceRepository.saveAndFlush(source);
+
+        // Get all the sourceList where nom equals to DEFAULT_NOM
+        defaultSourceShouldBeFound("nom.equals=" + DEFAULT_NOM);
+
+        // Get all the sourceList where nom equals to UPDATED_NOM
+        defaultSourceShouldNotBeFound("nom.equals=" + UPDATED_NOM);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSourcesByNomIsInShouldWork() throws Exception {
+        // Initialize the database
+        sourceRepository.saveAndFlush(source);
+
+        // Get all the sourceList where nom in DEFAULT_NOM or UPDATED_NOM
+        defaultSourceShouldBeFound("nom.in=" + DEFAULT_NOM + "," + UPDATED_NOM);
+
+        // Get all the sourceList where nom equals to UPDATED_NOM
+        defaultSourceShouldNotBeFound("nom.in=" + UPDATED_NOM);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSourcesByNomIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        sourceRepository.saveAndFlush(source);
+
+        // Get all the sourceList where nom is not null
+        defaultSourceShouldBeFound("nom.specified=true");
+
+        // Get all the sourceList where nom is null
+        defaultSourceShouldNotBeFound("nom.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllSourcesByLoginIsEqualToSomething() throws Exception {
+        // Initialize the database
+        sourceRepository.saveAndFlush(source);
+
+        // Get all the sourceList where login equals to DEFAULT_LOGIN
+        defaultSourceShouldBeFound("login.equals=" + DEFAULT_LOGIN);
+
+        // Get all the sourceList where login equals to UPDATED_LOGIN
+        defaultSourceShouldNotBeFound("login.equals=" + UPDATED_LOGIN);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSourcesByLoginIsInShouldWork() throws Exception {
+        // Initialize the database
+        sourceRepository.saveAndFlush(source);
+
+        // Get all the sourceList where login in DEFAULT_LOGIN or UPDATED_LOGIN
+        defaultSourceShouldBeFound("login.in=" + DEFAULT_LOGIN + "," + UPDATED_LOGIN);
+
+        // Get all the sourceList where login equals to UPDATED_LOGIN
+        defaultSourceShouldNotBeFound("login.in=" + UPDATED_LOGIN);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSourcesByLoginIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        sourceRepository.saveAndFlush(source);
+
+        // Get all the sourceList where login is not null
+        defaultSourceShouldBeFound("login.specified=true");
+
+        // Get all the sourceList where login is null
+        defaultSourceShouldNotBeFound("login.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllSourcesByMotPasseIsEqualToSomething() throws Exception {
+        // Initialize the database
+        sourceRepository.saveAndFlush(source);
+
+        // Get all the sourceList where motPasse equals to DEFAULT_MOT_PASSE
+        defaultSourceShouldBeFound("motPasse.equals=" + DEFAULT_MOT_PASSE);
+
+        // Get all the sourceList where motPasse equals to UPDATED_MOT_PASSE
+        defaultSourceShouldNotBeFound("motPasse.equals=" + UPDATED_MOT_PASSE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSourcesByMotPasseIsInShouldWork() throws Exception {
+        // Initialize the database
+        sourceRepository.saveAndFlush(source);
+
+        // Get all the sourceList where motPasse in DEFAULT_MOT_PASSE or UPDATED_MOT_PASSE
+        defaultSourceShouldBeFound("motPasse.in=" + DEFAULT_MOT_PASSE + "," + UPDATED_MOT_PASSE);
+
+        // Get all the sourceList where motPasse equals to UPDATED_MOT_PASSE
+        defaultSourceShouldNotBeFound("motPasse.in=" + UPDATED_MOT_PASSE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSourcesByMotPasseIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        sourceRepository.saveAndFlush(source);
+
+        // Get all the sourceList where motPasse is not null
+        defaultSourceShouldBeFound("motPasse.specified=true");
+
+        // Get all the sourceList where motPasse is null
+        defaultSourceShouldNotBeFound("motPasse.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllSourcesByUrlIsEqualToSomething() throws Exception {
+        // Initialize the database
+        sourceRepository.saveAndFlush(source);
+
+        // Get all the sourceList where url equals to DEFAULT_URL
+        defaultSourceShouldBeFound("url.equals=" + DEFAULT_URL);
+
+        // Get all the sourceList where url equals to UPDATED_URL
+        defaultSourceShouldNotBeFound("url.equals=" + UPDATED_URL);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSourcesByUrlIsInShouldWork() throws Exception {
+        // Initialize the database
+        sourceRepository.saveAndFlush(source);
+
+        // Get all the sourceList where url in DEFAULT_URL or UPDATED_URL
+        defaultSourceShouldBeFound("url.in=" + DEFAULT_URL + "," + UPDATED_URL);
+
+        // Get all the sourceList where url equals to UPDATED_URL
+        defaultSourceShouldNotBeFound("url.in=" + UPDATED_URL);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSourcesByUrlIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        sourceRepository.saveAndFlush(source);
+
+        // Get all the sourceList where url is not null
+        defaultSourceShouldBeFound("url.specified=true");
+
+        // Get all the sourceList where url is null
+        defaultSourceShouldNotBeFound("url.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllSourcesByKeyIsEqualToSomething() throws Exception {
+        // Initialize the database
+        sourceRepository.saveAndFlush(source);
+
+        // Get all the sourceList where key equals to DEFAULT_KEY
+        defaultSourceShouldBeFound("key.equals=" + DEFAULT_KEY);
+
+        // Get all the sourceList where key equals to UPDATED_KEY
+        defaultSourceShouldNotBeFound("key.equals=" + UPDATED_KEY);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSourcesByKeyIsInShouldWork() throws Exception {
+        // Initialize the database
+        sourceRepository.saveAndFlush(source);
+
+        // Get all the sourceList where key in DEFAULT_KEY or UPDATED_KEY
+        defaultSourceShouldBeFound("key.in=" + DEFAULT_KEY + "," + UPDATED_KEY);
+
+        // Get all the sourceList where key equals to UPDATED_KEY
+        defaultSourceShouldNotBeFound("key.in=" + UPDATED_KEY);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSourcesByKeyIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        sourceRepository.saveAndFlush(source);
+
+        // Get all the sourceList where key is not null
+        defaultSourceShouldBeFound("key.specified=true");
+
+        // Get all the sourceList where key is null
+        defaultSourceShouldNotBeFound("key.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllSourcesByDataHandlerIsEqualToSomething() throws Exception {
+        // Initialize the database
+        sourceRepository.saveAndFlush(source);
+
+        // Get all the sourceList where dataHandler equals to DEFAULT_DATA_HANDLER
+        defaultSourceShouldBeFound("dataHandler.equals=" + DEFAULT_DATA_HANDLER);
+
+        // Get all the sourceList where dataHandler equals to UPDATED_DATA_HANDLER
+        defaultSourceShouldNotBeFound("dataHandler.equals=" + UPDATED_DATA_HANDLER);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSourcesByDataHandlerIsInShouldWork() throws Exception {
+        // Initialize the database
+        sourceRepository.saveAndFlush(source);
+
+        // Get all the sourceList where dataHandler in DEFAULT_DATA_HANDLER or UPDATED_DATA_HANDLER
+        defaultSourceShouldBeFound("dataHandler.in=" + DEFAULT_DATA_HANDLER + "," + UPDATED_DATA_HANDLER);
+
+        // Get all the sourceList where dataHandler equals to UPDATED_DATA_HANDLER
+        defaultSourceShouldNotBeFound("dataHandler.in=" + UPDATED_DATA_HANDLER);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSourcesByDataHandlerIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        sourceRepository.saveAndFlush(source);
+
+        // Get all the sourceList where dataHandler is not null
+        defaultSourceShouldBeFound("dataHandler.specified=true");
+
+        // Get all the sourceList where dataHandler is null
+        defaultSourceShouldNotBeFound("dataHandler.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllSourcesByRechercheIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Recherche recherche = RechercheResourceIntTest.createEntity(em);
+        em.persist(recherche);
+        em.flush();
+        source.addRecherche(recherche);
+        sourceRepository.saveAndFlush(source);
+        Long rechercheId = recherche.getId();
+
+        // Get all the sourceList where recherche equals to rechercheId
+        defaultSourceShouldBeFound("rechercheId.equals=" + rechercheId);
+
+        // Get all the sourceList where recherche equals to rechercheId + 1
+        defaultSourceShouldNotBeFound("rechercheId.equals=" + (rechercheId + 1));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is returned
+     */
+    private void defaultSourceShouldBeFound(String filter) throws Exception {
+        restSourceMockMvc.perform(get("/api/sources?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(source.getId().intValue())))
+            .andExpect(jsonPath("$.[*].nom").value(hasItem(DEFAULT_NOM)))
+            .andExpect(jsonPath("$.[*].login").value(hasItem(DEFAULT_LOGIN)))
+            .andExpect(jsonPath("$.[*].motPasse").value(hasItem(DEFAULT_MOT_PASSE)))
+            .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL)))
+            .andExpect(jsonPath("$.[*].key").value(hasItem(DEFAULT_KEY)))
+            .andExpect(jsonPath("$.[*].dataHandler").value(hasItem(DEFAULT_DATA_HANDLER)));
+
+        // Check, that the count call also returns 1
+        restSourceMockMvc.perform(get("/api/sources/count?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().string("1"));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is not returned
+     */
+    private void defaultSourceShouldNotBeFound(String filter) throws Exception {
+        restSourceMockMvc.perform(get("/api/sources?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$").isEmpty());
+
+        // Check, that the count call also returns 0
+        restSourceMockMvc.perform(get("/api/sources/count?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().string("0"));
+    }
+
+
+    @Test
+    @Transactional
     public void getNonExistingSource() throws Exception {
         // Get the source
         restSourceMockMvc.perform(get("/api/sources/{id}", Long.MAX_VALUE))
@@ -314,7 +616,7 @@ public class SourceResourceIntTest {
     @Transactional
     public void updateSource() throws Exception {
         // Initialize the database
-        sourceRepository.saveAndFlush(source);
+        sourceService.save(source);
 
         int databaseSizeBeforeUpdate = sourceRepository.findAll().size();
 
@@ -369,7 +671,7 @@ public class SourceResourceIntTest {
     @Transactional
     public void deleteSource() throws Exception {
         // Initialize the database
-        sourceRepository.saveAndFlush(source);
+        sourceService.save(source);
 
         int databaseSizeBeforeDelete = sourceRepository.findAll().size();
 

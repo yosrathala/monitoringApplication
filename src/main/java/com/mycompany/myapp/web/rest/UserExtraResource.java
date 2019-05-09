@@ -1,16 +1,11 @@
 package com.mycompany.myapp.web.rest;
 import com.mycompany.myapp.domain.UserExtra;
-import com.mycompany.myapp.service.UserExtraService;
+import com.mycompany.myapp.repository.UserExtraRepository;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
-import com.mycompany.myapp.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +13,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -32,10 +26,10 @@ public class UserExtraResource {
 
     private static final String ENTITY_NAME = "userExtra";
 
-    private final UserExtraService userExtraService;
+    private final UserExtraRepository userExtraRepository;
 
-    public UserExtraResource(UserExtraService userExtraService) {
-        this.userExtraService = userExtraService;
+    public UserExtraResource(UserExtraRepository userExtraRepository) {
+        this.userExtraRepository = userExtraRepository;
     }
 
     /**
@@ -51,10 +45,7 @@ public class UserExtraResource {
         if (userExtra.getId() != null) {
             throw new BadRequestAlertException("A new userExtra cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        if (Objects.isNull(userExtra.getUser())) {
-            throw new BadRequestAlertException("Invalid association value provided", ENTITY_NAME, "null");
-        }
-        UserExtra result = userExtraService.save(userExtra);
+        UserExtra result = userExtraRepository.save(userExtra);
         return ResponseEntity.created(new URI("/api/user-extras/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -75,7 +66,7 @@ public class UserExtraResource {
         if (userExtra.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        UserExtra result = userExtraService.save(userExtra);
+        UserExtra result = userExtraRepository.save(userExtra);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, userExtra.getId().toString()))
             .body(result);
@@ -84,15 +75,12 @@ public class UserExtraResource {
     /**
      * GET  /user-extras : get all the userExtras.
      *
-     * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of userExtras in body
      */
     @GetMapping("/user-extras")
-    public ResponseEntity<List<UserExtra>> getAllUserExtras(Pageable pageable) {
-        log.debug("REST request to get a page of UserExtras");
-        Page<UserExtra> page = userExtraService.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/user-extras");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    public List<UserExtra> getAllUserExtras() {
+        log.debug("REST request to get all UserExtras");
+        return userExtraRepository.findAll();
     }
 
     /**
@@ -104,7 +92,7 @@ public class UserExtraResource {
     @GetMapping("/user-extras/{id}")
     public ResponseEntity<UserExtra> getUserExtra(@PathVariable Long id) {
         log.debug("REST request to get UserExtra : {}", id);
-        Optional<UserExtra> userExtra = userExtraService.findOne(id);
+        Optional<UserExtra> userExtra = userExtraRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(userExtra);
     }
 
@@ -117,7 +105,7 @@ public class UserExtraResource {
     @DeleteMapping("/user-extras/{id}")
     public ResponseEntity<Void> deleteUserExtra(@PathVariable Long id) {
         log.debug("REST request to delete UserExtra : {}", id);
-        userExtraService.delete(id);
+        userExtraRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

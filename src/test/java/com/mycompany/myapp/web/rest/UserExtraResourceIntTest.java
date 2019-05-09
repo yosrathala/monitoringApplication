@@ -3,9 +3,7 @@ package com.mycompany.myapp.web.rest;
 import com.mycompany.myapp.ProjetApp;
 
 import com.mycompany.myapp.domain.UserExtra;
-import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.repository.UserExtraRepository;
-import com.mycompany.myapp.service.UserExtraService;
 import com.mycompany.myapp.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -45,14 +43,11 @@ public class UserExtraResourceIntTest {
     private static final String DEFAULT_PHONE = "AAAAAAAAAA";
     private static final String UPDATED_PHONE = "BBBBBBBBBB";
 
-    private static final String DEFAULT_PHUSHID = "AAAAAAAAAA";
-    private static final String UPDATED_PHUSHID = "BBBBBBBBBB";
+    private static final String DEFAULT_PUSHID = "AAAAAAAAAA";
+    private static final String UPDATED_PUSHID = "BBBBBBBBBB";
 
     @Autowired
     private UserExtraRepository userExtraRepository;
-
-    @Autowired
-    private UserExtraService userExtraService;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -76,7 +71,7 @@ public class UserExtraResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final UserExtraResource userExtraResource = new UserExtraResource(userExtraService);
+        final UserExtraResource userExtraResource = new UserExtraResource(userExtraRepository);
         this.restUserExtraMockMvc = MockMvcBuilders.standaloneSetup(userExtraResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -94,12 +89,7 @@ public class UserExtraResourceIntTest {
     public static UserExtra createEntity(EntityManager em) {
         UserExtra userExtra = new UserExtra()
             .phone(DEFAULT_PHONE)
-            .phushid(DEFAULT_PHUSHID);
-        // Add required entity
-        User user = UserResourceIntTest.createEntity(em);
-        em.persist(user);
-        em.flush();
-        userExtra.setUser(user);
+            .pushid(DEFAULT_PUSHID);
         return userExtra;
     }
 
@@ -124,10 +114,7 @@ public class UserExtraResourceIntTest {
         assertThat(userExtraList).hasSize(databaseSizeBeforeCreate + 1);
         UserExtra testUserExtra = userExtraList.get(userExtraList.size() - 1);
         assertThat(testUserExtra.getPhone()).isEqualTo(DEFAULT_PHONE);
-        assertThat(testUserExtra.getPhushid()).isEqualTo(DEFAULT_PHUSHID);
-
-        // Validate the id for MapsId, the ids must be same
-        assertThat(testUserExtra.getId()).isEqualTo(testUserExtra.getUser().getId());
+        assertThat(testUserExtra.getPushid()).isEqualTo(DEFAULT_PUSHID);
     }
 
     @Test
@@ -161,7 +148,7 @@ public class UserExtraResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(userExtra.getId().intValue())))
             .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE.toString())))
-            .andExpect(jsonPath("$.[*].phushid").value(hasItem(DEFAULT_PHUSHID.toString())));
+            .andExpect(jsonPath("$.[*].pushid").value(hasItem(DEFAULT_PUSHID.toString())));
     }
     
     @Test
@@ -176,7 +163,7 @@ public class UserExtraResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(userExtra.getId().intValue()))
             .andExpect(jsonPath("$.phone").value(DEFAULT_PHONE.toString()))
-            .andExpect(jsonPath("$.phushid").value(DEFAULT_PHUSHID.toString()));
+            .andExpect(jsonPath("$.pushid").value(DEFAULT_PUSHID.toString()));
     }
 
     @Test
@@ -191,7 +178,7 @@ public class UserExtraResourceIntTest {
     @Transactional
     public void updateUserExtra() throws Exception {
         // Initialize the database
-        userExtraService.save(userExtra);
+        userExtraRepository.saveAndFlush(userExtra);
 
         int databaseSizeBeforeUpdate = userExtraRepository.findAll().size();
 
@@ -201,7 +188,7 @@ public class UserExtraResourceIntTest {
         em.detach(updatedUserExtra);
         updatedUserExtra
             .phone(UPDATED_PHONE)
-            .phushid(UPDATED_PHUSHID);
+            .pushid(UPDATED_PUSHID);
 
         restUserExtraMockMvc.perform(put("/api/user-extras")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -213,7 +200,7 @@ public class UserExtraResourceIntTest {
         assertThat(userExtraList).hasSize(databaseSizeBeforeUpdate);
         UserExtra testUserExtra = userExtraList.get(userExtraList.size() - 1);
         assertThat(testUserExtra.getPhone()).isEqualTo(UPDATED_PHONE);
-        assertThat(testUserExtra.getPhushid()).isEqualTo(UPDATED_PHUSHID);
+        assertThat(testUserExtra.getPushid()).isEqualTo(UPDATED_PUSHID);
     }
 
     @Test
@@ -238,7 +225,7 @@ public class UserExtraResourceIntTest {
     @Transactional
     public void deleteUserExtra() throws Exception {
         // Initialize the database
-        userExtraService.save(userExtra);
+        userExtraRepository.saveAndFlush(userExtra);
 
         int databaseSizeBeforeDelete = userExtraRepository.findAll().size();
 

@@ -95,7 +95,7 @@ public class UserService {
             });
     }
 
-    public User registerUser(UserDTO userDTO, String password, String phone , String phushid) {
+    public User registerUser(UserDTO userDTO, String password, String phone , String pushid) {
 
 
         User newUser = new User();
@@ -129,7 +129,7 @@ public class UserService {
         UserExtra newUserExtra = new UserExtra();
         newUserExtra.setUser(newUser);
         newUserExtra.setPhone(phone);
-        newUserExtra.setPhushid(phushid);
+        newUserExtra.setPushid(pushid);
         userExtraRepository.save(newUserExtra);
         log.debug("Created Information for UserExtra: {}", newUserExtra);
 

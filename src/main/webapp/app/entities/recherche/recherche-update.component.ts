@@ -6,10 +6,10 @@ import { filter, map } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
 import { IRecherche } from 'app/shared/model/recherche.model';
 import { RechercheService } from './recherche.service';
-import { ISource } from 'app/shared/model/source.model';
-import { SourceService } from 'app/entities/source';
 import { IMotcle } from 'app/shared/model/motcle.model';
 import { MotcleService } from 'app/entities/motcle';
+import { ISource } from 'app/shared/model/source.model';
+import { SourceService } from 'app/entities/source';
 
 @Component({
     selector: 'jhi-recherche-update',
@@ -18,20 +18,16 @@ import { MotcleService } from 'app/entities/motcle';
 export class RechercheUpdateComponent implements OnInit {
     recherche: IRecherche;
     isSaving: boolean;
-    ch:string;
-    chh:string;
-    sources: ISource[];
-    listsources: ISource[];
-    motcles: IMotcle[];
-    selected: any;
-    hidden: any;
 
+    motcles: IMotcle[];
+
+    sources: ISource[];
 
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected rechercheService: RechercheService,
-        protected sourceService: SourceService,
         protected motcleService: MotcleService,
+        protected sourceService: SourceService,
         protected activatedRoute: ActivatedRoute
     ) {}
 
@@ -40,15 +36,6 @@ export class RechercheUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ recherche }) => {
             this.recherche = recherche;
         });
-
-
-        this.sourceService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<ISource[]>) => mayBeOk.ok),
-                map((response: HttpResponse<ISource[]>) => response.body)
-            )
-            .subscribe((res: ISource[]) => (this.sources = res), (res: HttpErrorResponse) => this.onError(res.message));
         this.motcleService
             .query()
             .pipe(
@@ -56,13 +43,15 @@ export class RechercheUpdateComponent implements OnInit {
                 map((response: HttpResponse<IMotcle[]>) => response.body)
             )
             .subscribe((res: IMotcle[]) => (this.motcles = res), (res: HttpErrorResponse) => this.onError(res.message));
+        this.sourceService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<ISource[]>) => mayBeOk.ok),
+                map((response: HttpResponse<ISource[]>) => response.body)
+            )
+            .subscribe((res: ISource[]) => (this.sources = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
-
-
-    recup(event) {
-        this.listsources = event;
-    }
     previousState() {
         window.history.back();
     }
@@ -70,16 +59,9 @@ export class RechercheUpdateComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.recherche.id !== undefined) {
-
             this.subscribeToSaveResponse(this.rechercheService.update(this.recherche));
-
-
         } else {
-
-            for (let i = 0; i < this.listsources.length; i++) {
-                this.recherche.source = this.listsources[i];
-                this.subscribeToSaveResponse(this.rechercheService.create(this.recherche));
-            }
+            this.subscribeToSaveResponse(this.rechercheService.create(this.recherche));
         }
     }
 
@@ -100,11 +82,22 @@ export class RechercheUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
+    trackMotcleById(index: number, item: IMotcle) {
+        return item.id;
+    }
+
     trackSourceById(index: number, item: ISource) {
         return item.id;
     }
 
-    trackMotcleById(index: number, item: IMotcle) {
-        return item.id;
+    getSelected(selectedVals: Array<any>, option: any) {
+        if (selectedVals) {
+            for (let i = 0; i < selectedVals.length; i++) {
+                if (option.id === selectedVals[i].id) {
+                    return selectedVals[i];
+                }
+            }
+        }
+        return option;
     }
 }

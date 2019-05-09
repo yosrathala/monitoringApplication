@@ -37,16 +37,23 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="source_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-
             <column name="motcle_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+        
+        <createTable tableName="recherche_source">
+            <column name="source_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recherche_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="recherche_id, source_id" tableName="recherche_source"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

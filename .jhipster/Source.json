@@ -46,18 +46,20 @@
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-many",
+            "relationshipType": "many-to-many",
             "otherEntityName": "recherche",
             "otherEntityRelationshipName": "source",
-            "relationshipName": "recherche"
+            "relationshipName": "recherche",
+            "otherEntityField": "id",
+            "ownerSide": false
         }
     ],
     "changelogDate": "20190425134921",
     "entityTableName": "source",
     "dto": "no",
     "pagination": "pagination",
-    "service": "no",
-    "jpaMetamodelFiltering": false,
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
     "fluentMethods": true,
     "clientRootFolder": "",
     "applications": "*"

@@ -2,24 +2,22 @@
     "projetApp": {
         "motcle": {
             "home": {
-                "title": "كلمات رئيسية",
-                "createLabel": "إنشاء كلمات رئيسية جديد",
-                "createOrEditLabel": "Create or edit a كلمات رئيسية"
+                "title": "Motcles",
+                "createLabel": "Create a new Motcle",
+                "createOrEditLabel": "Create or edit a Motcle"
             },
-
-            "created": "يتم إنشاء كلمات رئيسية جديد مع معرف {{ param }}",
-            "updated": "يتم تحديث كلمات رئيسية مع معرف{{ param }}",
-            "deleted": "تم حذف كلمات رئيسية مع معرف{{ param }}",
+            "created": "A new Motcle is created with identifier {{ param }}",
+            "updated": "A Motcle is updated with identifier {{ param }}",
+            "deleted": "A Motcle is deleted with identifier {{ param }}",
             "delete": {
-                "question": "هل أنت متأكد أنك تريد حذف كلمات رئيسية {{ login }}?"
+                "question": "Are you sure you want to delete Motcle {{ id }}?"
             },
             "detail": {
-                "title": "كلمات رئيسية"
+                "title": "Motcle"
             },
-
-            "nom": "الاسم ",
-            "motinclue": "كلمة المدرجة",
-            "motexclue": "كلمة مستبعدة",
+            "nom": "Nom",
+            "motinclue": "Motinclue",
+            "motexclue": "Motexclue",
             "recherche": "Recherche"
         }
     }

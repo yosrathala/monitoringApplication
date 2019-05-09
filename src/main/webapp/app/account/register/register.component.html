@@ -96,23 +96,23 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="phushid"jhiTranslate="projetApp.userExtra.phushid" >pushid number</label>
-                    <input type="tel" class="form-control" id="phushid" name="phushid" #phushid="ngModel" placeholder="{{'global.form.phushid.placeholder' | translate}}"
-                           [(ngModel)]="registerAccount.phushid">
-                    <div *ngIf="phushid.dirty && phushid.invalid">
-                        <small class="form-text text-danger" *ngIf="phushid.errors.required"
+                    <label class="form-control-label" for="pushid"jhiTranslate="projetApp.userExtra.pushid" >pushid number</label>
+                    <input type="tel" class="form-control" id="pushid" name="pushid" #pushid="ngModel" placeholder="{{'global.form.pushid.placeholder' | translate}}"
+                           [(ngModel)]="registerAccount.pushid">
+                    <div *ngIf="pushid.dirty && pushid.invalid">
+                        <small class="form-text text-danger" *ngIf="pushid.errors.required"
                                jhiTranslate="global.messages.validate.phushid.required">
                             Your pushid is required.
                         </small>
-                        <small class="form-text text-danger" *ngIf="phushid.errors.invalid"
+                        <small class="form-text text-danger" *ngIf="pushid.errors.invalid"
                                jhiTranslate="global.messages.validate.phushid.invalid">
                             Your pushid is invalid.
                         </small>
-                        <small class="form-text text-danger" *ngIf="phushid.errors.minlength"
+                        <small class="form-text text-danger" *ngIf="pushid.errors.minlength"
                                jhiTranslate="global.messages.validate.phushid.minlength">
                             Your pushid is required to be at least 7 characters.
                         </small>
-                        <small class="form-text text-danger" *ngIf="phushid.errors.maxlength"
+                        <small class="form-text text-danger" *ngIf="pushid.errors.maxlength"
                                jhiTranslate="global.messages.validate.phushid.maxlength">
                             Your pushid cannot be longer than 7 characters.
                         </small>

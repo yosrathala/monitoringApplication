@@ -32,12 +32,6 @@
     ],
     "relationships": [
         {
-            "relationshipName": "source",
-            "otherEntityName": "source",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id"
-        },
-        {
             "relationshipName": "motcle",
             "otherEntityName": "motcle",
             "relationshipType": "many-to-one",
@@ -48,6 +42,14 @@
             "otherEntityName": "resultatRecherche",
             "otherEntityRelationshipName": "recherche",
             "relationshipName": "resultatRecherche"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "source",
+            "otherEntityRelationshipName": "recherche",
+            "relationshipName": "source",
+            "otherEntityField": "id",
+            "ownerSide": true
         }
     ],
     "changelogDate": "20190425134924",

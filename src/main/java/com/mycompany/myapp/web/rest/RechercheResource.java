@@ -82,13 +82,19 @@ public class RechercheResource {
      * GET  /recherches : get all the recherches.
      *
      * @param pageable the pagination information
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many)
      * @return the ResponseEntity with status 200 (OK) and the list of recherches in body
      */
     @GetMapping("/recherches")
-    public ResponseEntity<List<Recherche>> getAllRecherches(Pageable pageable) {
+    public ResponseEntity<List<Recherche>> getAllRecherches(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get a page of Recherches");
-        Page<Recherche> page = rechercheRepository.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/recherches");
+        Page<Recherche> page;
+        if (eagerload) {
+            page = rechercheRepository.findAllWithEagerRelationships(pageable);
+        } else {
+            page = rechercheRepository.findAll(pageable);
+        }
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, String.format("/api/recherches?eagerload=%b", eagerload));
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
@@ -101,7 +107,7 @@ public class RechercheResource {
     @GetMapping("/recherches/{id}")
     public ResponseEntity<Recherche> getRecherche(@PathVariable Long id) {
         log.debug("REST request to get Recherche : {}", id);
-        Optional<Recherche> recherche = rechercheRepository.findById(id);
+        Optional<Recherche> recherche = rechercheRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(recherche);
     }
 

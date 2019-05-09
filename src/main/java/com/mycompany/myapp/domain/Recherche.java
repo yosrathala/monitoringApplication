@@ -47,35 +47,19 @@ public class Recherche implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties("recherches")
-    private Source source;
-
-    @ManyToOne
-    @JsonIgnoreProperties("recherches")
     private Motcle motcle;
 
     @OneToMany(mappedBy = "recherche")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ResultatRecherche> resultatRecherches = new HashSet<>();
-
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "recherche_source",
+               joinColumns = @JoinColumn(name = "recherche_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "source_id", referencedColumnName = "id"))
+    private Set<Source> sources = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
-
-    public Recherche(Long id, @NotNull Integer periodicite, @NotNull Boolean emailnotif, @NotNull Boolean pushnotif,
-                     @NotNull Boolean smsnotif, Source source) {
-        super();
-        this.id = id;
-        this.periodicite = periodicite;
-        this.emailnotif = emailnotif;
-        this.pushnotif = pushnotif;
-        this.smsnotif = smsnotif;
-        this.source = source;
-
-    }
-
-    public Recherche() {
-
-    }
-
     public Long getId() {
         return id;
     }
@@ -136,19 +120,6 @@ public class Recherche implements Serializable {
         this.smsnotif = smsnotif;
     }
 
-    public Source getSource() {
-        return source;
-    }
-
-    public Recherche source(Source source) {
-        this.source = source;
-        return this;
-    }
-
-    public void setSource(Source source) {
-        this.source = source;
-    }
-
     public Motcle getMotcle() {
         return motcle;
     }
@@ -185,6 +156,31 @@ public class Recherche implements Serializable {
 
     public void setResultatRecherches(Set<ResultatRecherche> resultatRecherches) {
         this.resultatRecherches = resultatRecherches;
+    }
+
+    public Set<Source> getSources() {
+        return sources;
+    }
+
+    public Recherche sources(Set<Source> sources) {
+        this.sources = sources;
+        return this;
+    }
+
+    public Recherche addSource(Source source) {
+        this.sources.add(source);
+        source.getRecherches().add(this);
+        return this;
+    }
+
+    public Recherche removeSource(Source source) {
+        this.sources.remove(source);
+        source.getRecherches().remove(this);
+        return this;
+    }
+
+    public void setSources(Set<Source> sources) {
+        this.sources = sources;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

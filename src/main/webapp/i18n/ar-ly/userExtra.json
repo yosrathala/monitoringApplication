@@ -15,12 +15,8 @@
             "detail": {
                 "title": "User Extra"
             },
-            "messages": {
-                "minlength": "هاتف الخاصة بك مطلوب ليكون على 7 أرقام.",
-                "pattern": "اسم المستخدم يمكن أن يحتوي فقط أحرف اوأرقام."
-            },
-            "phone": "هاتف",
-            "phushid": "Phushid",
+            "phone": "Phone",
+            "pushid": "Pushid",
             "user": "User"
         }
     }

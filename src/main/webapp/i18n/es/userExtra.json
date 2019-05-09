@@ -16,7 +16,7 @@
                 "title": "User Extra"
             },
             "phone": "Phone",
-            "phushid": "Phushid",
+            "pushid": "Pushid",
             "user": "User"
         }
     }

@@ -17,5 +17,6 @@
     <include file="config/liquibase/changelog/20190425134924_added_entity_constraints_Recherche.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190425134925_added_entity_constraints_ResultatItem.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190501204258_added_entity_constraints_UserExtra.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190425134922_added_entity_constraints_Motcle.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

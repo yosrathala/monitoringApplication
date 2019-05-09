@@ -1,6 +1,6 @@
-import { ISource } from 'app/shared/model/source.model';
 import { IMotcle } from 'app/shared/model/motcle.model';
 import { IResultatRecherche } from 'app/shared/model/resultat-recherche.model';
+import { ISource } from 'app/shared/model/source.model';
 
 export interface IRecherche {
     id?: number;
@@ -8,9 +8,9 @@ export interface IRecherche {
     emailnotif?: boolean;
     pushnotif?: boolean;
     smsnotif?: boolean;
-    source?: ISource;
     motcle?: IMotcle;
     resultatRecherches?: IResultatRecherche[];
+    sources?: ISource[];
 }
 
 export class Recherche implements IRecherche {
@@ -20,9 +20,9 @@ export class Recherche implements IRecherche {
         public emailnotif?: boolean,
         public pushnotif?: boolean,
         public smsnotif?: boolean,
-        public source?: ISource,
         public motcle?: IMotcle,
-        public resultatRecherches?: IResultatRecherche[]
+        public resultatRecherches?: IResultatRecherche[],
+        public sources?: ISource[]
     ) {
         this.emailnotif = this.emailnotif || false;
         this.pushnotif = this.pushnotif || false;

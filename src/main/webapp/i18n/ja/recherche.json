@@ -19,9 +19,9 @@
             "emailnotif": "Emailnotif",
             "pushnotif": "Pushnotif",
             "smsnotif": "Smsnotif",
-            "source": "Source",
             "motcle": "Motcle",
-            "resultatRecherche": "Resultat Recherche"
+            "resultatRecherche": "Resultat Recherche",
+            "source": "Source"
         }
     }
 }

@@ -52,26 +52,12 @@ public class Source implements Serializable {
     @Column(name = "data_handler", nullable = false)
     private String dataHandler;
 
-    @OneToMany(mappedBy = "source")
+    @ManyToMany(mappedBy = "sources")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JsonIgnore
     private Set<Recherche> recherches = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
-
-    public Source(Long id, @NotNull String nom, @NotNull String login, @NotNull String motPasse, @NotNull String url,
-                  @NotNull String key) {
-        super();
-        this.id = id;
-        this.nom = nom;
-        this.login = login;
-        this.motPasse = motPasse;
-        this.url = url;
-        this.key = key;
-    }
-
-    public Source() {
-
-    }
-
     public Long getId() {
         return id;
     }
@@ -169,13 +155,13 @@ public class Source implements Serializable {
 
     public Source addRecherche(Recherche recherche) {
         this.recherches.add(recherche);
-        recherche.setSource(this);
+        recherche.getSources().add(this);
         return this;
     }
 
     public Source removeRecherche(Recherche recherche) {
         this.recherches.remove(recherche);
-        recherche.setSource(null);
+        recherche.getSources().remove(this);
         return this;
     }
 

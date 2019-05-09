@@ -2,21 +2,20 @@
     "projetApp": {
         "source": {
             "home": {
-                "title": "مصدر",
-                "createLabel": "إنشاء مصدر جديد ",
-                "createOrEditLabel": "نشاء أو تعديل مصدر"
+                "title": "Sources",
+                "createLabel": "Create a new Source",
+                "createOrEditLabel": "Create or edit a Source"
             },
-            "created": "يتم إنشاء مصدر جديد مع معرف {{ param }}",
-            "updated": "يتم تحديث مصدر مع معرف{{ param }}",
-            "deleted": "تم حذف مصدر مع معرف{{ param }}",
+            "created": "A new Source is created with identifier {{ param }}",
+            "updated": "A Source is updated with identifier {{ param }}",
+            "deleted": "A Source is deleted with identifier {{ param }}",
             "delete": {
-                "question": "هل أنت متأكد أنك تريد حذف مصدر {{ login }}?"
+                "question": "Are you sure you want to delete Source {{ id }}?"
             },
-
             "detail": {
-                "title": "مصدر"
+                "title": "Source"
             },
-            "nom": "الاسم",
+            "nom": "Nom",
             "login": "Login",
             "motPasse": "Mot Passe",
             "url": "Url",

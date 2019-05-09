@@ -29,8 +29,7 @@ export class MotcleComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
-    filter: string;
-    orderProp: string;
+
     constructor(
         protected motcleService: MotcleService,
         protected parseLinks: JhiParseLinks,
@@ -40,9 +39,6 @@ export class MotcleComponent implements OnInit, OnDestroy {
         protected router: Router,
         protected eventManager: JhiEventManager
     ) {
-        this.filter = '';
-        this.orderProp = 'nom';
-        this.reverse = false;
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data.pagingParams.page;

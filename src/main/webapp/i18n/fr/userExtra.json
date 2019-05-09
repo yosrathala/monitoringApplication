@@ -2,7 +2,7 @@
     "projetApp": {
         "userExtra": {
             "home": {
-                "title": "UserE",
+                "title": "UserExtras",
                 "createLabel": "Créer un nouveau User Extra",
                 "createOrEditLabel": "Créer ou éditer un User Extra"
             },
@@ -13,10 +13,10 @@
                 "question": "Etes-vous certain de vouloir supprimer le User Extra {{ id }} ?"
             },
             "detail": {
-                "title": "User E"
+                "title": "User Extra"
             },
-            "phone": "Téléphone",
-            "phushid": "Phushid",
+            "phone": "Phone",
+            "pushid": "Pushid",
             "user": "User"
         }
     }

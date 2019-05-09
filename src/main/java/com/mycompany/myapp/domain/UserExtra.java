@@ -20,17 +20,18 @@ public class UserExtra implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
     @Column(name = "phone")
     private String phone;
 
-    @Column(name = "phushid")
-    private String phushid;
+    @Column(name = "pushid")
+    private String pushid;
 
     @OneToOne
-    @MapsId
-    @JoinColumn(name = "id")
+    @JoinColumn(unique = true)
     private User user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -55,17 +56,17 @@ public class UserExtra implements Serializable {
         this.phone = phone;
     }
 
-    public String getPhushid() {
-        return phushid;
+    public String getPushid() {
+        return pushid;
     }
 
-    public UserExtra phushid(String phushid) {
-        this.phushid = phushid;
+    public UserExtra pushid(String pushid) {
+        this.pushid = pushid;
         return this;
     }
 
-    public void setPhushid(String phushid) {
-        this.phushid = phushid;
+    public void setPushid(String pushid) {
+        this.pushid = pushid;
     }
 
     public User getUser() {
@@ -107,7 +108,7 @@ public class UserExtra implements Serializable {
         return "UserExtra{" +
             "id=" + getId() +
             ", phone='" + getPhone() + "'" +
-            ", phushid='" + getPhushid() + "'" +
+            ", pushid='" + getPushid() + "'" +
             "}";
     }
 }
