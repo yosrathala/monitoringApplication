@@ -7,13 +7,6 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entités",
-                "source": "Source",
-                "motcle": "Motcle",
-                "resultatRecherche": "Resultat Recherche",
-                "recherche": "Recherche",
-                "resultatItem": "Resultat Item",
-                "conf": "Conf",
-                "userExtra": "User Extra",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -50,11 +43,7 @@
             "confirmpassword": "Confirmation du nouveau mot de passe",
             "confirmpassword.placeholder": "Confirmation du nouveau mot de passe",
             "email": "Email",
-            "email.placeholder": "Votre email",
-            "phone": "télephone",
-            "phone.placeholder": "votre numero télephone",
-            "pushid": "pushid",
-            "pushid.placeholder": "votre numero pushid"
+            "email.placeholder": "Votre email"
         },
         "messages": {
             "info": {
@@ -88,18 +77,6 @@
                     "minlength": "Votre email doit comporter au moins 5 caractères.",
                     "maxlength": "Votre email ne doit pas comporter plus de 50 caractères.",
                     "invalid": "Votre email n'est pas valide."
-                },
-                "phone": {
-                    "required": "Votre télephone est requis.",
-                    "minlength": "Votre télephone doit comporter au moins 7 caractères.",
-                    "maxlength": "Votre télephone ne doit pas comporter plus de 7 caractères.",
-                    "invalid": "Votre télephone n'est pas valide."
-                },
-                "phushid": {
-                    "required": "Votre pushid est requis.",
-                    "minlength": "Votre pushid  doit comporter au moins 7 caractères.",
-                    "maxlength": "Votre pushid  ne doit pas comporter plus de 7 caractères.",
-                    "invalid": "Votre pushid  n'est pas valide."
                 }
             }
         },

@@ -3,9 +3,7 @@ package com.mycompany.myapp.service;
 import com.mycompany.myapp.config.Constants;
 import com.mycompany.myapp.domain.Authority;
 import com.mycompany.myapp.domain.User;
-import com.mycompany.myapp.domain.UserExtra;
 import com.mycompany.myapp.repository.AuthorityRepository;
-import com.mycompany.myapp.repository.UserExtraRepository;
 import com.mycompany.myapp.repository.UserRepository;
 import com.mycompany.myapp.security.AuthoritiesConstants;
 import com.mycompany.myapp.security.SecurityUtils;
@@ -43,16 +41,10 @@ public class UserService {
 
     private final AuthorityRepository authorityRepository;
 
-    private UserExtraRepository userExtraRepository;
-
-
-
-
     private final CacheManager cacheManager;
 
-    public UserService(UserExtraRepository userExtraRepository, UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager) {
         this.userRepository = userRepository;
-        this.userExtraRepository=userExtraRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
@@ -95,47 +87,7 @@ public class UserService {
             });
     }
 
-    public User registerUser(UserDTO userDTO, String password, String phone , String pushid) {
-
-
-        User newUser = new User();
-
-
-
-
-       // Authority authority = authorityRepository.findOne(AuthoritiesConstants.USER);
-       // Set<Authority> authorities = new HashSet<>();
-        String encryptedPassword = passwordEncoder.encode(password);
-        newUser.setLogin(userDTO.getLogin().toLowerCase());
-        // new user gets initially a generated password
-        newUser.setPassword(encryptedPassword);
-        newUser.setFirstName(userDTO.getFirstName());
-        newUser.setLastName(userDTO.getLastName());
-        newUser.setEmail(userDTO.getEmail());
-        newUser.setImageUrl(userDTO.getImageUrl());
-        newUser.setLangKey(userDTO.getLangKey());
-        // new user is not active
-        newUser.setActivated(false);
-        // new user gets registration key
-        newUser.setActivationKey(RandomUtil.generateActivationKey());
-       // authorities.add(authority);
-       // newUser.setAuthorities(authorities);
-        userRepository.save(newUser);
-        cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).evict(newUser.getLogin());
-        cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE).evict(newUser.getEmail());
-        log.debug("Created Information for User: {}", newUser);
-
-        // Create and save the UserExtra entity
-        UserExtra newUserExtra = new UserExtra();
-        newUserExtra.setUser(newUser);
-        newUserExtra.setPhone(phone);
-        newUserExtra.setPushid(pushid);
-        userExtraRepository.save(newUserExtra);
-        log.debug("Created Information for UserExtra: {}", newUserExtra);
-
-        return newUser;
-    }
-   /* public User registerUser(UserDTO userDTO, String password) {
+    public User registerUser(UserDTO userDTO, String password) {
         userRepository.findOneByLogin(userDTO.getLogin().toLowerCase()).ifPresent(existingUser -> {
             boolean removed = removeNonActivatedUser(existingUser);
             if (!removed) {
@@ -169,7 +121,7 @@ public class UserService {
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
-    }*/
+    }
 
     private boolean removeNonActivatedUser(User existingUser){
         if (existingUser.getActivated()) {

@@ -73,52 +73,6 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="phone" jhiTranslate="projetApp.userExtra.phone">Phone number</label>
-                    <input type="tel" class="form-control" id="phone" name="phone" #phone="ngModel" placeholder="{{ 'global.form.phone.placeholder' | translate}}"
-                           [(ngModel)]="registerAccount.phone"  minlength=5 maxlength=254 phone required>
-                    <div *ngIf="phone.dirty && phone.invalid">
-                        <small class="form-text text-danger" *ngIf="phone.errors.required"
-                               jhiTranslate="global.messages.validate.phone.required">
-                            Your phone is required.
-                        </small>
-                        <small class="form-text text-danger" *ngIf="phone.errors.invalid"
-                               jhiTranslate="global.messages.validate.phone.invalid">
-                            Your phone is invalid.
-                        </small>
-                        <small class="form-text text-danger" *ngIf="phone.errors.minlength"
-                               jhiTranslate="global.messages.validate.phone.minlength">
-                            Your phone is required to be at least 7 characters.
-                        </small>
-                        <small class="form-text text-danger" *ngIf="phone.errors.maxlength"
-                               jhiTranslate="global.messages.validate.phone.maxlength">
-                            Your phone cannot be longer than 7 characters.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="pushid"jhiTranslate="projetApp.userExtra.pushid" >pushid number</label>
-                    <input type="tel" class="form-control" id="pushid" name="pushid" #pushid="ngModel" placeholder="{{'global.form.pushid.placeholder' | translate}}"
-                           [(ngModel)]="registerAccount.pushid">
-                    <div *ngIf="pushid.dirty && pushid.invalid">
-                        <small class="form-text text-danger" *ngIf="pushid.errors.required"
-                               jhiTranslate="global.messages.validate.phushid.required">
-                            Your pushid is required.
-                        </small>
-                        <small class="form-text text-danger" *ngIf="pushid.errors.invalid"
-                               jhiTranslate="global.messages.validate.phushid.invalid">
-                            Your pushid is invalid.
-                        </small>
-                        <small class="form-text text-danger" *ngIf="pushid.errors.minlength"
-                               jhiTranslate="global.messages.validate.phushid.minlength">
-                            Your pushid is required to be at least 7 characters.
-                        </small>
-                        <small class="form-text text-danger" *ngIf="pushid.errors.maxlength"
-                               jhiTranslate="global.messages.validate.phushid.maxlength">
-                            Your pushid cannot be longer than 7 characters.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label class="form-control-label" for="password" jhiTranslate="global.form.newpassword">New password</label>
                     <input type="password" class="form-control" id="password" name="password" #password="ngModel" placeholder="{{'global.form.newpassword.placeholder' | translate}}"
                             [(ngModel)]="registerAccount.password" minlength=4 maxlength=50 required>

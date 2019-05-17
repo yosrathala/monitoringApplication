@@ -38,19 +38,6 @@ public class CacheConfiguration {
             cm.createCache(com.mycompany.myapp.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(com.mycompany.myapp.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(com.mycompany.myapp.domain.User.class.getName() + ".authorities", jcacheConfiguration);
-            cm.createCache(com.mycompany.myapp.domain.Source.class.getName(), jcacheConfiguration);
-            cm.createCache(com.mycompany.myapp.domain.Source.class.getName() + ".recherches", jcacheConfiguration);
-            cm.createCache(com.mycompany.myapp.domain.Motcle.class.getName(), jcacheConfiguration);
-            cm.createCache(com.mycompany.myapp.domain.Motcle.class.getName() + ".recherches", jcacheConfiguration);
-            cm.createCache(com.mycompany.myapp.domain.ResultatRecherche.class.getName(), jcacheConfiguration);
-            cm.createCache(com.mycompany.myapp.domain.ResultatRecherche.class.getName() + ".resultatItems", jcacheConfiguration);
-            cm.createCache(com.mycompany.myapp.domain.Recherche.class.getName(), jcacheConfiguration);
-            cm.createCache(com.mycompany.myapp.domain.Recherche.class.getName() + ".resultatRecherches", jcacheConfiguration);
-            cm.createCache(com.mycompany.myapp.domain.ResultatItem.class.getName(), jcacheConfiguration);
-            cm.createCache(com.mycompany.myapp.domain.Conf.class.getName(), jcacheConfiguration);
-            cm.createCache(com.mycompany.myapp.domain.UserExtra.class.getName(), jcacheConfiguration);
-            cm.createCache(com.mycompany.myapp.domain.Recherche.class.getName() + ".sources", jcacheConfiguration);
-            cm.createCache(com.mycompany.myapp.domain.Recherche.class.getName() + ".motcles", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

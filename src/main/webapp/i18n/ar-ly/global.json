@@ -4,18 +4,9 @@
         "browsehappy": "أنت تستخدم متصفح <strong>قديم</strong> . من فضلك <a href=\"http://browsehappy.com/?locale=en\">قم بتحديث متصفحك</a> لتحسين تجربتك.",
         "menu": {
             "home": "الصفحة الرئيسية",
-
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "الكيانات",
-                "source": "مصدر",
-                "motcle": "كلمات رئيسية",
-                "resultatRecherche": "نتائج البحث",
-                "recherche": "البحث",
-                "resultatItem": "نتائج",
-                "conf": "الإعدادات إعلام",
-                "userExtra": " المستخدم Extra",
-
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -52,11 +43,7 @@
             "confirmpassword": "تأكيد كلمة السر الجديدة",
             "confirmpassword.placeholder": "تأكيد كلمة السر الجديدة",
             "email": "البريد الإلكتروني",
-            "email.placeholder": "بريدك الالكتروني",
-            "phone": "هاتف",
-            "phone.placeholder": "رقم هاتفك",
-            "pushid": "pushid",
-            "pushid.placeholder": "رقم  pushid"
+            "email.placeholder": "بريدك الالكتروني"
         },
         "messages": {
             "info": {

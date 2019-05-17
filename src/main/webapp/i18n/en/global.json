@@ -7,13 +7,6 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",
-                "source": "Source",
-                "motcle": "Motcle",
-                "resultatRecherche": "Resultat Recherche",
-                "recherche": "Recherche",
-                "resultatItem": "Resultat Item",
-                "conf": "Conf",
-                "userExtra": "User Extra",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -50,11 +43,7 @@
             "confirmpassword": "New password confirmation",
             "confirmpassword.placeholder": "Confirm the new password",
             "email": "Email",
-            "email.placeholder": "Your email",
-            "phone": "phone",
-            "phone.placeholder": "your phone number",
-            "pushid": "pushid",
-            "pushid.placeholder": "your pushid number"
+            "email.placeholder": "Your email"
         },
         "messages": {
             "info": {
