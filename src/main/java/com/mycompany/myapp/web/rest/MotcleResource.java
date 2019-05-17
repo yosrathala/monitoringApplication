@@ -1,11 +1,9 @@
 package com.mycompany.myapp.web.rest;
 import com.mycompany.myapp.domain.Motcle;
-import com.mycompany.myapp.service.MotcleService;
+import com.mycompany.myapp.repository.MotcleRepository;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
 import com.mycompany.myapp.web.rest.util.PaginationUtil;
-import com.mycompany.myapp.service.dto.MotcleCriteria;
-import com.mycompany.myapp.service.MotcleQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,13 +32,10 @@ public class MotcleResource {
 
     private static final String ENTITY_NAME = "motcle";
 
-    private final MotcleService motcleService;
+    private final MotcleRepository motcleRepository;
 
-    private final MotcleQueryService motcleQueryService;
-
-    public MotcleResource(MotcleService motcleService, MotcleQueryService motcleQueryService) {
-        this.motcleService = motcleService;
-        this.motcleQueryService = motcleQueryService;
+    public MotcleResource(MotcleRepository motcleRepository) {
+        this.motcleRepository = motcleRepository;
     }
 
     /**
@@ -56,7 +51,7 @@ public class MotcleResource {
         if (motcle.getId() != null) {
             throw new BadRequestAlertException("A new motcle cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Motcle result = motcleService.save(motcle);
+        Motcle result = motcleRepository.save(motcle);
         return ResponseEntity.created(new URI("/api/motcles/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -77,7 +72,7 @@ public class MotcleResource {
         if (motcle.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Motcle result = motcleService.save(motcle);
+        Motcle result = motcleRepository.save(motcle);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, motcle.getId().toString()))
             .body(result);
@@ -87,27 +82,14 @@ public class MotcleResource {
      * GET  /motcles : get all the motcles.
      *
      * @param pageable the pagination information
-     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of motcles in body
      */
     @GetMapping("/motcles")
-    public ResponseEntity<List<Motcle>> getAllMotcles(MotcleCriteria criteria, Pageable pageable) {
-        log.debug("REST request to get Motcles by criteria: {}", criteria);
-        Page<Motcle> page = motcleQueryService.findByCriteria(criteria, pageable);
+    public ResponseEntity<List<Motcle>> getAllMotcles(Pageable pageable) {
+        log.debug("REST request to get a page of Motcles");
+        Page<Motcle> page = motcleRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/motcles");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
-
-    /**
-    * GET  /motcles/count : count all the motcles.
-    *
-    * @param criteria the criterias which the requested entities should match
-    * @return the ResponseEntity with status 200 (OK) and the count in body
-    */
-    @GetMapping("/motcles/count")
-    public ResponseEntity<Long> countMotcles(MotcleCriteria criteria) {
-        log.debug("REST request to count Motcles by criteria: {}", criteria);
-        return ResponseEntity.ok().body(motcleQueryService.countByCriteria(criteria));
     }
 
     /**
@@ -119,7 +101,7 @@ public class MotcleResource {
     @GetMapping("/motcles/{id}")
     public ResponseEntity<Motcle> getMotcle(@PathVariable Long id) {
         log.debug("REST request to get Motcle : {}", id);
-        Optional<Motcle> motcle = motcleService.findOne(id);
+        Optional<Motcle> motcle = motcleRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(motcle);
     }
 
@@ -132,7 +114,7 @@ public class MotcleResource {
     @DeleteMapping("/motcles/{id}")
     public ResponseEntity<Void> deleteMotcle(@PathVariable Long id) {
         log.debug("REST request to delete Motcle : {}", id);
-        motcleService.delete(id);
+        motcleRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }
