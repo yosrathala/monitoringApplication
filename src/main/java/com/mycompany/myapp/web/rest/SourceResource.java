@@ -1,11 +1,9 @@
 package com.mycompany.myapp.web.rest;
 import com.mycompany.myapp.domain.Source;
-import com.mycompany.myapp.service.SourceService;
+import com.mycompany.myapp.repository.SourceRepository;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
 import com.mycompany.myapp.web.rest.util.PaginationUtil;
-import com.mycompany.myapp.service.dto.SourceCriteria;
-import com.mycompany.myapp.service.SourceQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,13 +32,10 @@ public class SourceResource {
 
     private static final String ENTITY_NAME = "source";
 
-    private final SourceService sourceService;
+    private final SourceRepository sourceRepository;
 
-    private final SourceQueryService sourceQueryService;
-
-    public SourceResource(SourceService sourceService, SourceQueryService sourceQueryService) {
-        this.sourceService = sourceService;
-        this.sourceQueryService = sourceQueryService;
+    public SourceResource(SourceRepository sourceRepository) {
+        this.sourceRepository = sourceRepository;
     }
 
     /**
@@ -56,7 +51,7 @@ public class SourceResource {
         if (source.getId() != null) {
             throw new BadRequestAlertException("A new source cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Source result = sourceService.save(source);
+        Source result = sourceRepository.save(source);
         return ResponseEntity.created(new URI("/api/sources/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -77,7 +72,7 @@ public class SourceResource {
         if (source.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Source result = sourceService.save(source);
+        Source result = sourceRepository.save(source);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, source.getId().toString()))
             .body(result);
@@ -87,27 +82,14 @@ public class SourceResource {
      * GET  /sources : get all the sources.
      *
      * @param pageable the pagination information
-     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of sources in body
      */
     @GetMapping("/sources")
-    public ResponseEntity<List<Source>> getAllSources(SourceCriteria criteria, Pageable pageable) {
-        log.debug("REST request to get Sources by criteria: {}", criteria);
-        Page<Source> page = sourceQueryService.findByCriteria(criteria, pageable);
+    public ResponseEntity<List<Source>> getAllSources(Pageable pageable) {
+        log.debug("REST request to get a page of Sources");
+        Page<Source> page = sourceRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/sources");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
-
-    /**
-    * GET  /sources/count : count all the sources.
-    *
-    * @param criteria the criterias which the requested entities should match
-    * @return the ResponseEntity with status 200 (OK) and the count in body
-    */
-    @GetMapping("/sources/count")
-    public ResponseEntity<Long> countSources(SourceCriteria criteria) {
-        log.debug("REST request to count Sources by criteria: {}", criteria);
-        return ResponseEntity.ok().body(sourceQueryService.countByCriteria(criteria));
     }
 
     /**
@@ -119,7 +101,7 @@ public class SourceResource {
     @GetMapping("/sources/{id}")
     public ResponseEntity<Source> getSource(@PathVariable Long id) {
         log.debug("REST request to get Source : {}", id);
-        Optional<Source> source = sourceService.findOne(id);
+        Optional<Source> source = sourceRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(source);
     }
 
@@ -132,7 +114,7 @@ public class SourceResource {
     @DeleteMapping("/sources/{id}")
     public ResponseEntity<Void> deleteSource(@PathVariable Long id) {
         log.debug("REST request to delete Source : {}", id);
-        sourceService.delete(id);
+        sourceRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }
