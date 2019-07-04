@@ -57,6 +57,9 @@ public class RechercheResourceIntTest {
     private static final Boolean DEFAULT_SMSNOTIF = false;
     private static final Boolean UPDATED_SMSNOTIF = true;
 
+    private static final Boolean DEFAULT_ACTIVATED = false;
+    private static final Boolean UPDATED_ACTIVATED = true;
+
     @Autowired
     private RechercheRepository rechercheRepository;
 
@@ -105,7 +108,8 @@ public class RechercheResourceIntTest {
             .periodicite(DEFAULT_PERIODICITE)
             .emailnotif(DEFAULT_EMAILNOTIF)
             .pushnotif(DEFAULT_PUSHNOTIF)
-            .smsnotif(DEFAULT_SMSNOTIF);
+            .smsnotif(DEFAULT_SMSNOTIF)
+            .activated(DEFAULT_ACTIVATED);
         return recherche;
     }
 
@@ -133,6 +137,7 @@ public class RechercheResourceIntTest {
         assertThat(testRecherche.isEmailnotif()).isEqualTo(DEFAULT_EMAILNOTIF);
         assertThat(testRecherche.isPushnotif()).isEqualTo(DEFAULT_PUSHNOTIF);
         assertThat(testRecherche.isSmsnotif()).isEqualTo(DEFAULT_SMSNOTIF);
+        assertThat(testRecherche.isActivated()).isEqualTo(DEFAULT_ACTIVATED);
     }
 
     @Test
@@ -240,7 +245,8 @@ public class RechercheResourceIntTest {
             .andExpect(jsonPath("$.[*].periodicite").value(hasItem(DEFAULT_PERIODICITE)))
             .andExpect(jsonPath("$.[*].emailnotif").value(hasItem(DEFAULT_EMAILNOTIF.booleanValue())))
             .andExpect(jsonPath("$.[*].pushnotif").value(hasItem(DEFAULT_PUSHNOTIF.booleanValue())))
-            .andExpect(jsonPath("$.[*].smsnotif").value(hasItem(DEFAULT_SMSNOTIF.booleanValue())));
+            .andExpect(jsonPath("$.[*].smsnotif").value(hasItem(DEFAULT_SMSNOTIF.booleanValue())))
+            .andExpect(jsonPath("$.[*].activated").value(hasItem(DEFAULT_ACTIVATED.booleanValue())));
     }
     
     @SuppressWarnings({"unchecked"})
@@ -290,7 +296,8 @@ public class RechercheResourceIntTest {
             .andExpect(jsonPath("$.periodicite").value(DEFAULT_PERIODICITE))
             .andExpect(jsonPath("$.emailnotif").value(DEFAULT_EMAILNOTIF.booleanValue()))
             .andExpect(jsonPath("$.pushnotif").value(DEFAULT_PUSHNOTIF.booleanValue()))
-            .andExpect(jsonPath("$.smsnotif").value(DEFAULT_SMSNOTIF.booleanValue()));
+            .andExpect(jsonPath("$.smsnotif").value(DEFAULT_SMSNOTIF.booleanValue()))
+            .andExpect(jsonPath("$.activated").value(DEFAULT_ACTIVATED.booleanValue()));
     }
 
     @Test
@@ -317,7 +324,8 @@ public class RechercheResourceIntTest {
             .periodicite(UPDATED_PERIODICITE)
             .emailnotif(UPDATED_EMAILNOTIF)
             .pushnotif(UPDATED_PUSHNOTIF)
-            .smsnotif(UPDATED_SMSNOTIF);
+            .smsnotif(UPDATED_SMSNOTIF)
+            .activated(UPDATED_ACTIVATED);
 
         restRechercheMockMvc.perform(put("/api/recherches")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -332,6 +340,7 @@ public class RechercheResourceIntTest {
         assertThat(testRecherche.isEmailnotif()).isEqualTo(UPDATED_EMAILNOTIF);
         assertThat(testRecherche.isPushnotif()).isEqualTo(UPDATED_PUSHNOTIF);
         assertThat(testRecherche.isSmsnotif()).isEqualTo(UPDATED_SMSNOTIF);
+        assertThat(testRecherche.isActivated()).isEqualTo(UPDATED_ACTIVATED);
     }
 
     @Test

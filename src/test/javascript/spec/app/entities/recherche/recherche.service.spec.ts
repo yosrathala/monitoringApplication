@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(RechercheService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new Recherche(0, 0, false, false, false);
+            elemDefault = new Recherche(0, 0, false, false, false, false);
         });
 
         describe('Service methods', async () => {
@@ -58,7 +58,8 @@ describe('Service Tests', () => {
                         periodicite: 1,
                         emailnotif: true,
                         pushnotif: true,
-                        smsnotif: true
+                        smsnotif: true,
+                        activated: true
                     },
                     elemDefault
                 );
@@ -78,7 +79,8 @@ describe('Service Tests', () => {
                         periodicite: 1,
                         emailnotif: true,
                         pushnotif: true,
-                        smsnotif: true
+                        smsnotif: true,
+                        activated: true
                     },
                     elemDefault
                 );

@@ -1,5 +1,16 @@
 {
-    "name": "ResultatItem",
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "resultatRecherche",
+            "otherEntityName": "resultatRecherche",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id",
+            "otherEntityRelationshipNameUndefined": false,
+            "otherEntityRelationshipName": "resultatItem"
+        }
+    ],
     "fields": [
         {
             "fieldName": "contenu",
@@ -9,35 +20,31 @@
             ]
         },
         {
-            "fieldName": "statut",
+            "fieldName": "idr",
             "fieldType": "String",
             "fieldValidateRules": [
                 "required"
             ]
         },
         {
-            "fieldName": "taux",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        }
-    ],
-    "relationships": [
+            "fieldName": "statu",
+            "fieldType": "Boolean"
+        },
         {
-            "relationshipName": "resultatRecherche",
-            "otherEntityName": "resultatRecherche",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id"
+            "fieldName": "note",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "titre",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20190425134925",
-    "entityTableName": "resultat_item",
     "dto": "no",
-    "pagination": "pagination",
+    "searchEngine": false,
     "service": "no",
+    "entityTableName": "resultat_item",
+    "databaseType": "sql",
     "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+    "pagination": "pagination"
 }

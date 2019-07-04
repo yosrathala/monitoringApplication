@@ -1,6 +1,6 @@
 <div>
     <h2 id="page-heading">
-        <span jhiTranslate="projetApp.motcle.home.title">Motcles</span>
+        <span jhiTranslate="global.menu.entities.motcle">Motcles</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-motcle" [routerLink]="['/motcle/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="projetApp.motcle.home.createLabel">
@@ -10,6 +10,7 @@
     </h2>
     <jhi-alert></jhi-alert>
     <br/>
+    <span jhiTranslate="global.field.filter">Filter</span> <input type="text" [(ngModel)]="filter" class="form-control">
     <div class="table-responsive" *ngIf="motcles">
         <table class="table table-striped">
             <thead>
@@ -22,7 +23,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let motcle of motcles ;trackBy: trackId">
+            <tr *ngFor="let motcle of (motcles | pureFilter:filter:'nom' | orderBy:orderProp:reverse)">
                 <td><a [routerLink]="['/motcle', motcle.id, 'view' ]">{{motcle.id}}</a></td>
                 <td>{{motcle.nom}}</td>
                 <td>{{motcle.motinclue}}</td>

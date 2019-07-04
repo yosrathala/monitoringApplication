@@ -10,6 +10,7 @@ import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { SourceService } from './source.service';
+import { JhiConfigurationService } from 'app/admin';
 
 @Component({
     selector: 'jhi-source',
@@ -29,7 +30,10 @@ export class SourceComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
-    source: ISource;
+    configKeys: any[];
+    filter: string;
+    orderProp: string;
+
     constructor(
         protected sourceService: SourceService,
         protected parseLinks: JhiParseLinks,
@@ -46,6 +50,10 @@ export class SourceComponent implements OnInit, OnDestroy {
             this.reverse = data.pagingParams.ascending;
             this.predicate = data.pagingParams.predicate;
         });
+        this.configKeys = [];
+        this.filter = '';
+        this.orderProp = 'prefix';
+        this.reverse = false;
     }
 
     loadAll() {

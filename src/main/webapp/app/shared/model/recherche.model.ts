@@ -8,6 +8,7 @@ export interface IRecherche {
     emailnotif?: boolean;
     pushnotif?: boolean;
     smsnotif?: boolean;
+    activated?: boolean;
     motcle?: IMotcle;
     resultatRecherches?: IResultatRecherche[];
     sources?: ISource[];
@@ -20,6 +21,7 @@ export class Recherche implements IRecherche {
         public emailnotif?: boolean,
         public pushnotif?: boolean,
         public smsnotif?: boolean,
+        public activated?: boolean,
         public motcle?: IMotcle,
         public resultatRecherches?: IResultatRecherche[],
         public sources?: ISource[]
@@ -27,5 +29,6 @@ export class Recherche implements IRecherche {
         this.emailnotif = this.emailnotif || false;
         this.pushnotif = this.pushnotif || false;
         this.smsnotif = this.smsnotif || false;
+        this.activated = this.activated || false;
     }
 }

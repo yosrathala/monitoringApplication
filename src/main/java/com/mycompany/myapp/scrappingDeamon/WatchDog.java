@@ -34,7 +34,7 @@ public class WatchDog implements Runnable {
             Builder jobBuilder = new Builder();
             jobBuilder.setRecherche(recherches.get(i));
             jobBuilder.setNotification(notifications);
-            jobs.add(jobBuilder.build("JMS"));
+            //jobs.add(jobBuilder.build("JMS"));
 
         }
 

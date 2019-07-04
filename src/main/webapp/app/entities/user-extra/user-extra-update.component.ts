@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -22,6 +22,7 @@ export class UserExtraUpdateComponent implements OnInit {
         protected jhiAlertService: JhiAlertService,
         protected userExtraService: UserExtraService,
         protected userService: UserService,
+        private router: Router,
         protected activatedRoute: ActivatedRoute
     ) {}
 

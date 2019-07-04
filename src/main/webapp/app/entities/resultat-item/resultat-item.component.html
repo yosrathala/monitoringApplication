@@ -16,8 +16,10 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="contenu"><span jhiTranslate="projetApp.resultatItem.contenu">Contenu</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="statut"><span jhiTranslate="projetApp.resultatItem.statut">Statut</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="taux"><span jhiTranslate="projetApp.resultatItem.taux">Taux</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="idr"><span jhiTranslate="projetApp.resultatItem.idr">Idr</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="statu"><span jhiTranslate="projetApp.resultatItem.statu">Statu</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="note"><span jhiTranslate="projetApp.resultatItem.note">Note</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="titre"><span jhiTranslate="projetApp.resultatItem.titre">Titre</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="resultatRecherche.id"><span jhiTranslate="projetApp.resultatItem.resultatRecherche">Resultat Recherche</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
@@ -26,8 +28,10 @@
             <tr *ngFor="let resultatItem of resultatItems ;trackBy: trackId">
                 <td><a [routerLink]="['/resultat-item', resultatItem.id, 'view' ]">{{resultatItem.id}}</a></td>
                 <td>{{resultatItem.contenu}}</td>
-                <td>{{resultatItem.statut}}</td>
-                <td>{{resultatItem.taux}}</td>
+                <td>{{resultatItem.idr}}</td>
+                <td>{{resultatItem.statu}}</td>
+                <td>{{resultatItem.note}}</td>
+                <td>{{resultatItem.titre}}</td>
                 <td>
                     <div *ngIf="resultatItem.resultatRecherche">
                         <a [routerLink]="['../resultat-recherche', resultatItem.resultatRecherche?.id, 'view' ]" >{{resultatItem.resultatRecherche?.id}}</a>

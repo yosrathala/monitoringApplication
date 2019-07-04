@@ -31,12 +31,17 @@ public class ResultatItem implements Serializable {
     private String contenu;
 
     @NotNull
-    @Column(name = "statut", nullable = false)
-    private String statut;
+    @Column(name = "idr", nullable = false)
+    private String idr;
 
-    @NotNull
-    @Column(name = "taux", nullable = false)
-    private String taux;
+    @Column(name = "statu")
+    private Boolean statu;
+
+    @Column(name = "note")
+    private Boolean note;
+
+    @Column(name = "titre")
+    private String titre;
 
     @ManyToOne
     @JsonIgnoreProperties("resultatItems")
@@ -64,30 +69,56 @@ public class ResultatItem implements Serializable {
         this.contenu = contenu;
     }
 
-    public String getStatut() {
-        return statut;
+    public String getIdr() {
+        return idr;
     }
 
-    public ResultatItem statut(String statut) {
-        this.statut = statut;
+    public ResultatItem idr(String idr) {
+        this.idr = idr;
         return this;
     }
 
-    public void setStatut(String statut) {
-        this.statut = statut;
+    public void setIdr(String idr) {
+        this.idr = idr;
     }
 
-    public String getTaux() {
-        return taux;
+    public Boolean isStatu() {
+        return statu;
     }
 
-    public ResultatItem taux(String taux) {
-        this.taux = taux;
+    public ResultatItem statu(Boolean statu) {
+        this.statu = statu;
         return this;
     }
 
-    public void setTaux(String taux) {
-        this.taux = taux;
+    public void setStatu(Boolean statu) {
+        this.statu = statu;
+    }
+
+    public Boolean isNote() {
+        return note;
+    }
+
+    public ResultatItem note(Boolean note) {
+        this.note = note;
+        return this;
+    }
+
+    public void setNote(Boolean note) {
+        this.note = note;
+    }
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public ResultatItem titre(String titre) {
+        this.titre = titre;
+        return this;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
     }
 
     public ResultatRecherche getResultatRecherche() {
@@ -129,8 +160,10 @@ public class ResultatItem implements Serializable {
         return "ResultatItem{" +
             "id=" + getId() +
             ", contenu='" + getContenu() + "'" +
-            ", statut='" + getStatut() + "'" +
-            ", taux='" + getTaux() + "'" +
+            ", idr='" + getIdr() + "'" +
+            ", statu='" + isStatu() + "'" +
+            ", note='" + isNote() + "'" +
+            ", titre='" + getTitre() + "'" +
             "}";
     }
 }

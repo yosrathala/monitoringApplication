@@ -29,6 +29,9 @@ export class MotcleComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    configKeys: any[];
+    filter: string;
+    orderProp: string;
 
     constructor(
         protected motcleService: MotcleService,
@@ -46,6 +49,10 @@ export class MotcleComponent implements OnInit, OnDestroy {
             this.reverse = data.pagingParams.ascending;
             this.predicate = data.pagingParams.predicate;
         });
+        this.configKeys = [];
+        this.filter = '';
+        this.orderProp = 'prefix';
+        this.reverse = false;
     }
 
     loadAll() {

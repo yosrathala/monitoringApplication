@@ -25,12 +25,20 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="statut" type="varchar(255)">
+            <column name="idr" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
 
-            <column name="taux" type="varchar(255)">
-                <constraints nullable="false" />
+            <column name="statu" type="boolean">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="note" type="boolean">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="titre" type="varchar(255)">
+                <constraints nullable="true" />
             </column>
 
             <column name="resultat_recherche_id" type="bigint">

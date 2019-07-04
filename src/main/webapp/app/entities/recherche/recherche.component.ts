@@ -6,11 +6,10 @@ import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { IRecherche } from 'app/shared/model/recherche.model';
-import { AccountService, User } from 'app/core';
+import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { RechercheService } from './recherche.service';
-import { ISource } from 'app/shared/model/source.model';
 
 @Component({
     selector: 'jhi-recherche',
@@ -57,8 +56,8 @@ export class RechercheComponent implements OnInit, OnDestroy {
                 sort: this.sort()
             })
             .subscribe(
-                (res: HttpResponse<IRecherche[]>) => this.onSuccess(res.body, res.headers),
-                (res: HttpResponse<any>) => this.onError(res.body)
+                (res: HttpResponse<IRecherche[]>) => this.paginateRecherches(res.body, res.headers),
+                (res: HttpErrorResponse) => this.onError(res.message)
             );
     }
 
@@ -67,11 +66,6 @@ export class RechercheComponent implements OnInit, OnDestroy {
             this.previousPage = page;
             this.transition();
         }
-    }
-    private onSuccess(data, headers) {
-        this.links = this.parseLinks.parse(headers.get('link'));
-        this.totalItems = headers.get('X-Total-Count');
-        this.recherches = data;
     }
 
     transition() {
@@ -98,11 +92,11 @@ export class RechercheComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.loadAll();
         this.accountService.identity().then(account => {
             this.currentAccount = account;
-            this.loadAll();
-            this.registerChangeInRecherches();
         });
+        this.registerChangeInRecherches();
     }
 
     ngOnDestroy() {

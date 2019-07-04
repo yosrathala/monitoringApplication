@@ -6,7 +6,8 @@ import com.mycompany.myapp.domain.Recherche;
 import com.mycompany.myapp.domain.ResultatRecherche;
 
 
-public class Builder {Recherche recherche;
+public class Builder {
+    Recherche recherche;
     List<NotificationHandler> notifications;
 
     public Builder setRecherche(Recherche recherche) {
@@ -19,7 +20,7 @@ public class Builder {Recherche recherche;
         return this;
     }
 
-    public Job build(String type) {
+  /*  public Job build(String type) {
         SearchScrappingHandler scrapHandler = new SearchScrappingHandler(recherche);
         SearchRresultHandler searchResultHandler = new SearchRresultHandler(type) {
 
@@ -31,7 +32,8 @@ public class Builder {Recherche recherche;
         };
         return new Job(scrapHandler, notifications, searchResultHandler);
 
-    }
-
-
+    }*/
 }
+
+
+

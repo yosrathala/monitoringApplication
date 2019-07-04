@@ -43,11 +43,17 @@ public class ResultatItemResourceIntTest {
     private static final String DEFAULT_CONTENU = "AAAAAAAAAA";
     private static final String UPDATED_CONTENU = "BBBBBBBBBB";
 
-    private static final String DEFAULT_STATUT = "AAAAAAAAAA";
-    private static final String UPDATED_STATUT = "BBBBBBBBBB";
+    private static final String DEFAULT_IDR = "AAAAAAAAAA";
+    private static final String UPDATED_IDR = "BBBBBBBBBB";
 
-    private static final String DEFAULT_TAUX = "AAAAAAAAAA";
-    private static final String UPDATED_TAUX = "BBBBBBBBBB";
+    private static final Boolean DEFAULT_STATU = false;
+    private static final Boolean UPDATED_STATU = true;
+
+    private static final Boolean DEFAULT_NOTE = false;
+    private static final Boolean UPDATED_NOTE = true;
+
+    private static final String DEFAULT_TITRE = "AAAAAAAAAA";
+    private static final String UPDATED_TITRE = "BBBBBBBBBB";
 
     @Autowired
     private ResultatItemRepository resultatItemRepository;
@@ -92,8 +98,10 @@ public class ResultatItemResourceIntTest {
     public static ResultatItem createEntity(EntityManager em) {
         ResultatItem resultatItem = new ResultatItem()
             .contenu(DEFAULT_CONTENU)
-            .statut(DEFAULT_STATUT)
-            .taux(DEFAULT_TAUX);
+            .idr(DEFAULT_IDR)
+            .statu(DEFAULT_STATU)
+            .note(DEFAULT_NOTE)
+            .titre(DEFAULT_TITRE);
         return resultatItem;
     }
 
@@ -118,8 +126,10 @@ public class ResultatItemResourceIntTest {
         assertThat(resultatItemList).hasSize(databaseSizeBeforeCreate + 1);
         ResultatItem testResultatItem = resultatItemList.get(resultatItemList.size() - 1);
         assertThat(testResultatItem.getContenu()).isEqualTo(DEFAULT_CONTENU);
-        assertThat(testResultatItem.getStatut()).isEqualTo(DEFAULT_STATUT);
-        assertThat(testResultatItem.getTaux()).isEqualTo(DEFAULT_TAUX);
+        assertThat(testResultatItem.getIdr()).isEqualTo(DEFAULT_IDR);
+        assertThat(testResultatItem.isStatu()).isEqualTo(DEFAULT_STATU);
+        assertThat(testResultatItem.isNote()).isEqualTo(DEFAULT_NOTE);
+        assertThat(testResultatItem.getTitre()).isEqualTo(DEFAULT_TITRE);
     }
 
     @Test
@@ -161,28 +171,10 @@ public class ResultatItemResourceIntTest {
 
     @Test
     @Transactional
-    public void checkStatutIsRequired() throws Exception {
+    public void checkIdrIsRequired() throws Exception {
         int databaseSizeBeforeTest = resultatItemRepository.findAll().size();
         // set the field null
-        resultatItem.setStatut(null);
-
-        // Create the ResultatItem, which fails.
-
-        restResultatItemMockMvc.perform(post("/api/resultat-items")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(resultatItem)))
-            .andExpect(status().isBadRequest());
-
-        List<ResultatItem> resultatItemList = resultatItemRepository.findAll();
-        assertThat(resultatItemList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkTauxIsRequired() throws Exception {
-        int databaseSizeBeforeTest = resultatItemRepository.findAll().size();
-        // set the field null
-        resultatItem.setTaux(null);
+        resultatItem.setIdr(null);
 
         // Create the ResultatItem, which fails.
 
@@ -207,8 +199,10 @@ public class ResultatItemResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(resultatItem.getId().intValue())))
             .andExpect(jsonPath("$.[*].contenu").value(hasItem(DEFAULT_CONTENU.toString())))
-            .andExpect(jsonPath("$.[*].statut").value(hasItem(DEFAULT_STATUT.toString())))
-            .andExpect(jsonPath("$.[*].taux").value(hasItem(DEFAULT_TAUX.toString())));
+            .andExpect(jsonPath("$.[*].idr").value(hasItem(DEFAULT_IDR.toString())))
+            .andExpect(jsonPath("$.[*].statu").value(hasItem(DEFAULT_STATU.booleanValue())))
+            .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE.booleanValue())))
+            .andExpect(jsonPath("$.[*].titre").value(hasItem(DEFAULT_TITRE.toString())));
     }
     
     @Test
@@ -223,8 +217,10 @@ public class ResultatItemResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(resultatItem.getId().intValue()))
             .andExpect(jsonPath("$.contenu").value(DEFAULT_CONTENU.toString()))
-            .andExpect(jsonPath("$.statut").value(DEFAULT_STATUT.toString()))
-            .andExpect(jsonPath("$.taux").value(DEFAULT_TAUX.toString()));
+            .andExpect(jsonPath("$.idr").value(DEFAULT_IDR.toString()))
+            .andExpect(jsonPath("$.statu").value(DEFAULT_STATU.booleanValue()))
+            .andExpect(jsonPath("$.note").value(DEFAULT_NOTE.booleanValue()))
+            .andExpect(jsonPath("$.titre").value(DEFAULT_TITRE.toString()));
     }
 
     @Test
@@ -249,8 +245,10 @@ public class ResultatItemResourceIntTest {
         em.detach(updatedResultatItem);
         updatedResultatItem
             .contenu(UPDATED_CONTENU)
-            .statut(UPDATED_STATUT)
-            .taux(UPDATED_TAUX);
+            .idr(UPDATED_IDR)
+            .statu(UPDATED_STATU)
+            .note(UPDATED_NOTE)
+            .titre(UPDATED_TITRE);
 
         restResultatItemMockMvc.perform(put("/api/resultat-items")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -262,8 +260,10 @@ public class ResultatItemResourceIntTest {
         assertThat(resultatItemList).hasSize(databaseSizeBeforeUpdate);
         ResultatItem testResultatItem = resultatItemList.get(resultatItemList.size() - 1);
         assertThat(testResultatItem.getContenu()).isEqualTo(UPDATED_CONTENU);
-        assertThat(testResultatItem.getStatut()).isEqualTo(UPDATED_STATUT);
-        assertThat(testResultatItem.getTaux()).isEqualTo(UPDATED_TAUX);
+        assertThat(testResultatItem.getIdr()).isEqualTo(UPDATED_IDR);
+        assertThat(testResultatItem.isStatu()).isEqualTo(UPDATED_STATU);
+        assertThat(testResultatItem.isNote()).isEqualTo(UPDATED_NOTE);
+        assertThat(testResultatItem.getTitre()).isEqualTo(UPDATED_TITRE);
     }
 
     @Test

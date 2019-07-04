@@ -21,26 +21,30 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="projetApp.resultatItem.statut" for="field_statut">Statut</label>
-                    <input type="text" class="form-control" name="statut" id="field_statut"
-                        [(ngModel)]="resultatItem.statut" required/>
-                    <div [hidden]="!(editForm.controls.statut?.dirty && editForm.controls.statut?.invalid)">
+                    <label class="form-control-label" jhiTranslate="projetApp.resultatItem.idr" for="field_idr">Idr</label>
+                    <input type="text" class="form-control" name="idr" id="field_idr"
+                        [(ngModel)]="resultatItem.idr" required/>
+                    <div [hidden]="!(editForm.controls.idr?.dirty && editForm.controls.idr?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.statut?.errors?.required" jhiTranslate="entity.validation.required">
+                        [hidden]="!editForm.controls.idr?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="projetApp.resultatItem.taux" for="field_taux">Taux</label>
-                    <input type="text" class="form-control" name="taux" id="field_taux"
-                        [(ngModel)]="resultatItem.taux" required/>
-                    <div [hidden]="!(editForm.controls.taux?.dirty && editForm.controls.taux?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.taux?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
+                    <label class="form-control-label" jhiTranslate="projetApp.resultatItem.statu" for="field_statu">Statu</label>
+                    <input type="checkbox" class="form-control" name="statu" id="field_statu"
+                        [(ngModel)]="resultatItem.statu" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="projetApp.resultatItem.note" for="field_note">Note</label>
+                    <input type="checkbox" class="form-control" name="note" id="field_note"
+                        [(ngModel)]="resultatItem.note" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="projetApp.resultatItem.titre" for="field_titre">Titre</label>
+                    <input type="text" class="form-control" name="titre" id="field_titre"
+                        [(ngModel)]="resultatItem.titre" />
                 </div>
 
                 <div class="form-group">

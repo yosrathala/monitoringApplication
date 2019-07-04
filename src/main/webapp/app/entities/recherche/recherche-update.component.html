@@ -1,78 +1,110 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
             <h2 id="jhi-recherche-heading" jhiTranslate="projetApp.recherche.home.createOrEditLabel">Create or edit a Recherche</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!recherche.id">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="recherche.id" readonly />
+                           [(ngModel)]="recherche.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="projetApp.recherche.periodicite" for="field_periodicite">Periodicite</label>
+                    <h4 class="form-control-label" jhiTranslate="projetApp.recherche.periodicite" for="field_periodicite">Periodicite</h4>
                     <input type="number" class="form-control" name="periodicite" id="field_periodicite"
-                        [(ngModel)]="recherche.periodicite" required/>
+                           [(ngModel)]="recherche.periodicite" required/>
                     <div [hidden]="!(editForm.controls.periodicite?.dirty && editForm.controls.periodicite?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.periodicite?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.periodicite?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.periodicite?.errors?.number" jhiTranslate="entity.validation.number">
+                               [hidden]="!editForm.controls.periodicite?.errors?.number" jhiTranslate="entity.validation.number">
                             This field should be a number.
                         </small>
                     </div>
                 </div>
+
+                <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['/motcle/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon> <span>new Motcle</span>
+                </button>
+
+
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="projetApp.recherche.motcle" for="field_motcle">Motcle</label>
-                    <select class="form-control" id="field_motcle" name="motcle" [(ngModel)]="recherche.motcle" >
+                    <h4 class="form-control-label" jhiTranslate="projetApp.recherche.motcle" for="field_motcle">Motcle</h4>
+                    <select class="form-control"  id="field_motcle" name="motcle" [(ngModel)]="recherche.motcle"   >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="motcleOption.id === recherche.motcle?.id ? recherche.motcle : motcleOption" *ngFor="let motcleOption of motcles; trackBy: trackMotcleById">{{motcleOption.nom}}</option>
+                        <option [ngValue]="getSelected(recherche.motcle, motcleOption)" *ngFor="let motcleOption of motcles; trackBy: trackMotcleById"  >
+                            {{motcleOption.nom}}</option>
                     </select>
+
                 </div>
+                <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['/source/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon> <span>new Source</span>
+                </button>
                 <div class="form-group">
-                    <label jhiTranslate="projetApp.recherche.source" for="field_source">Source</label>
-                    <select class="form-control" id="field_source" multiple name="source" [(ngModel)]="recherche.sources">
+                    <h4 jhiTranslate="projetApp.recherche.source" for="field_source"> Source </h4>
+
+                    <select class="form-control" id="field_source" multiple name="source" [(ngModel)]="recherche.sources" >
                         <option [ngValue]="getSelected(recherche.sources, sourceOption)" *ngFor="let sourceOption of sources; trackBy: trackSourceById">{{sourceOption.nom}}</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="projetApp.recherche.emailnotif" for="field_emailnotif">Emailnotif</label>
-                    <input type="checkbox" class="form-control" name="emailnotif" id="field_emailnotif"
-                        [(ngModel)]="recherche.emailnotif" />
-                    <div [hidden]="!(editForm.controls.emailnotif?.dirty && editForm.controls.emailnotif?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.emailnotif?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="projetApp.recherche.pushnotif" for="field_pushnotif">Pushnotif</label>
-                    <input type="checkbox" class="form-control" name="pushnotif" id="field_pushnotif"
-                        [(ngModel)]="recherche.pushnotif" />
-                    <div [hidden]="!(editForm.controls.pushnotif?.dirty && editForm.controls.pushnotif?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.pushnotif?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="projetApp.recherche.smsnotif" for="field_smsnotif">Smsnotif</label>
-                    <input type="checkbox" class="form-control" name="smsnotif" id="field_smsnotif"
-                        [(ngModel)]="recherche.smsnotif" />
-                    <div [hidden]="!(editForm.controls.smsnotif?.dirty && editForm.controls.smsnotif?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.smsnotif?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
 
+                <h4>Notification</h4>
+                <table class="table table-striped">
+                    <thead>
 
+                    <tr>
+                        <th><div class="form-group">
+
+                            <label class="form-control-label" jhiTranslate="projetApp.recherche.emailnotif" for="field_emailnotif">Emailnotif</label>
+                            <input type="checkbox" class="form-control" name="emailnotif" id="field_emailnotif"
+                                   [(ngModel)]="recherche.emailnotif" />
+                            <div [hidden]="!(editForm.controls.emailnotif?.dirty && editForm.controls.emailnotif?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.emailnotif?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div></th>
+                        <th>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="projetApp.recherche.pushnotif" for="field_pushnotif">Pushnotif</label>
+                                <input type="checkbox" class="form-control" name="pushnotif" id="field_pushnotif"
+                                       [(ngModel)]="recherche.pushnotif" />
+                                <div [hidden]="!(editForm.controls.pushnotif?.dirty && editForm.controls.pushnotif?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.pushnotif?.errors?.required" jhiTranslate="entity.validation.required">
+                                        This field is required.
+                                    </small>
+                                </div>
+                            </div></th>
+                        <th>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="projetApp.recherche.smsnotif" for="field_smsnotif">Smsnotif</label>
+                                <input type="checkbox" class="form-control" name="smsnotif" id="field_smsnotif"
+                                       [(ngModel)]="recherche.smsnotif" />
+                                <div [hidden]="!(editForm.controls.smsnotif?.dirty && editForm.controls.smsnotif?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.smsnotif?.errors?.required" jhiTranslate="entity.validation.required">
+                                        This field is required.
+                                    </small>
+                                </div>
+                            </div>
+
+                        </th>
+
+                    </tr>
+                    </thead>
+                </table>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="projetApp.recherche.activated" for="field_activated">Activated</label>
+                    <input type="checkbox" class="form-control" name="activated" id="field_activated"
+                           [(ngModel)]="recherche.activated" />
+                </div>
             </div>
+
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
@@ -83,4 +115,10 @@
             </div>
         </form>
     </div>
+
+
+
 </div>
+
+
+

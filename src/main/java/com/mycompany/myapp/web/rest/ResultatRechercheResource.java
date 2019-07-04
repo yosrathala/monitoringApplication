@@ -26,7 +26,8 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api")
-public class ResultatRechercheResource {
+public class
+ResultatRechercheResource {
 
     private final Logger log = LoggerFactory.getLogger(ResultatRechercheResource.class);
 

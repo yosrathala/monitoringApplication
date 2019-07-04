@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.mycompany.myapp.domain.ResultatRecherche;
 
-public class Job implements Runnable {
-
+public class Job  {
+//implements Runnable
     SearchScrappingHandler searchHandler;
     List<NotificationHandler> notifications;
     SearchRresultHandler searchRresultHandler;
@@ -42,9 +42,9 @@ public class Job implements Runnable {
         this.searchRresultHandler = searchRresultHandler;
     }
 
-    // public abstract Job build();
+    /* // public abstract Job build();
     @Override
-    public void run() {
+   public void run() {
         // TODO Auto-generated method stub
         ResultatRecherche result = searchHandler.getResult();
         searchRresultHandler.save(result);
@@ -52,6 +52,6 @@ public class Job implements Runnable {
             // notificationHandler.send(result);
         }
 
-    }
+    }*/
 
 }

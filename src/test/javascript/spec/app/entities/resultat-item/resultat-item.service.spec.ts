@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(ResultatItemService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new ResultatItem(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
+            elemDefault = new ResultatItem(0, 'AAAAAAA', 'AAAAAAA', false, false, 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -56,8 +56,10 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         contenu: 'BBBBBB',
-                        statut: 'BBBBBB',
-                        taux: 'BBBBBB'
+                        idr: 'BBBBBB',
+                        statu: true,
+                        note: true,
+                        titre: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -75,8 +77,10 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         contenu: 'BBBBBB',
-                        statut: 'BBBBBB',
-                        taux: 'BBBBBB'
+                        idr: 'BBBBBB',
+                        statu: true,
+                        note: true,
+                        titre: 'BBBBBB'
                     },
                     elemDefault
                 );

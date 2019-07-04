@@ -1,0 +1,125 @@
+package com.mycompany.myapp.scrappingDeamon;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+
+
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlForm;
+import com.gargoylesoftware.htmlunit.html.HtmlInput;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.util.Cookie;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+public class ProgonlineFN {
+
+    private String title;
+    private int id;
+    private String description;
+    private String url;
+    private String date;
+    private String budget;
+    private String pertinence;
+    private int nombreOffre;
+    private String statistiqueClient;
+    private String typeClient;
+    private String concurrence;
+
+    public ProgonlineFN(String title, int id, String description, String url, String date, String budget, String pertinence,
+                   int nombreOffre, String statistiqueClient, String typeClient, String concurrence) {
+        super();
+        this.title = title;
+        this.id = id;
+        this.description = description;
+        this.url = url;
+        this.date = date;
+        this.budget = budget;
+        this.pertinence = pertinence;
+        this.nombreOffre = nombreOffre;
+        this.statistiqueClient = statistiqueClient;
+        this.typeClient = typeClient;
+        this.concurrence = concurrence;
+    }
+
+
+    public String getTitle() {
+        return title;
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public String getUrl() {
+        return url;
+    }
+    public void setUrl(String url) {
+        this.url = url;
+    }
+    public String getDate() {
+        return date;
+    }
+    public void setDate(String date) {
+        this.date = date;
+    }
+    public String getBudget() {
+        return budget;
+    }
+    public void setBudget(String budget) {
+        this.budget = budget;
+    }
+    public String getPertinence() {
+        return pertinence;
+    }
+    public void setPertinence(String pertinence) {
+        this.pertinence = pertinence;
+    }
+    public int getNombreOffre() {
+        return nombreOffre;
+    }
+    public void setNombreOffre(int nombreOffre) {
+        this.nombreOffre = nombreOffre;
+    }
+    public String getStatistiqueClient() {
+        return statistiqueClient;
+    }
+    public void setStatistiqueClient(String statistiqueClient) {
+        this.statistiqueClient = statistiqueClient;
+    }
+    public String getTypeClient() {
+        return typeClient;
+    }
+    public void setTypeClient(String typeClient) {
+        this.typeClient = typeClient;
+    }
+    public String getConcurrence() {
+        return concurrence;
+    }
+    public void setConcurrence(String concurrence) {
+        this.concurrence = concurrence;
+    }
+
+
+
+
+
+
+}

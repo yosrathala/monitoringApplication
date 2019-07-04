@@ -15,40 +15,40 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="periodicite"><span jhiTranslate="projetApp.recherche.periodicite">Periodicite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="motcle.id"><span jhiTranslate="projetApp.recherche.motcle">Motcle</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th><span jhiTranslate="projetApp.recherche.source">Source</span></th>
-            <th jhiSortBy="periodicite"><span jhiTranslate="projetApp.recherche.periodicite">Periodicite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="emailnotif"><span jhiTranslate="projetApp.recherche.emailnotif">Emailnotif</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="source.id"><span jhiTranslate="projetApp.recherche.source">Source</span><fa-icon [icon]="'sort'"></fa-icon></th>
+
+                <th jhiSortBy="emailnotif"><span jhiTranslate="projetApp.recherche.emailnotif">Emailnotif</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="pushnotif"><span jhiTranslate="projetApp.recherche.pushnotif">Pushnotif</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="smsnotif"><span jhiTranslate="projetApp.recherche.smsnotif">Smsnotif</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-
-                <th></th>
+            <th jhiSortBy="activated"><span jhiTranslate="projetApp.recherche.activated">Activated</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+           <th>
+            </th>
             </tr>
             </thead>
-            <tbody  *ngIf ="recherches">
+            <tbody>
             <tr *ngFor="let recherche of recherches ;trackBy: trackId">
                 <td><a [routerLink]="['/recherche', recherche.id, 'view' ]">{{recherche.id}}</a></td>
+                <td>{{recherche.periodicite}}</td>
                 <td>
-                    <div>
+                    <div *ngIf="recherche.motcle">
                         <a [routerLink]="['../motcle', recherche.motcle?.id, 'view' ]" >{{recherche.motcle?.nom}}</a>
                     </div>
-
-
                 </td>
                 <td>
 
-                    <ul class="list-unstyled">
-                        <li *ngFor="let Source of recherche.sources">
-
-                            <span class="badge badge-info">{{Source.nom}}</span>
-                        </li>
-                    </ul>
+                    <span *ngFor="let source of recherche.sources">
+                        <a [routerLink]="['/source', source?.id, 'view' ]">{{source.nom}}</a>
+                    </span>
 
                 </td>
-                <td>{{recherche.periodicite}}</td>
                 <td>{{recherche.emailnotif}}</td>
                 <td>{{recherche.pushnotif}}</td>
                 <td>{{recherche.smsnotif}}</td>
+                <td>
+                    <button class="btn btn-success btn-sm" >{{recherche.activated}}</button>
+                </td>
 
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

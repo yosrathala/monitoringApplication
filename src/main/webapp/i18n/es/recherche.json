@@ -19,6 +19,7 @@
             "emailnotif": "Emailnotif",
             "pushnotif": "Pushnotif",
             "smsnotif": "Smsnotif",
+            "activated": "Activated",
             "motcle": "Motcle",
             "resultatRecherche": "Resultat Recherche",
             "source": "Source"

@@ -1,11 +1,28 @@
 package com.mycompany.myapp;
 
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.util.Cookie;
 import com.mycompany.myapp.config.ApplicationProperties;
 import com.mycompany.myapp.config.DefaultProfileUtil;
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
+import com.gargoylesoftware.htmlunit.html.HtmlForm;
+import com.gargoylesoftware.htmlunit.html.HtmlInput;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.util.Cookie;
 
+import com.mycompany.myapp.scrappingDeamon.Extractor;
+import com.mycompany.myapp.scrappingDeamon.ProgolinScrapingHandler;
+import com.mycompany.myapp.scrappingDeamon.SearchScrappingHandler;
 import io.github.jhipster.config.JHipsterConstants;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -13,14 +30,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collection;
 
 @SpringBootApplication
+@EnableScheduling
 @EnableConfigurationProperties({LiquibaseProperties.class, ApplicationProperties.class})
 public class ProjetApp {
 
@@ -62,6 +83,12 @@ public class ProjetApp {
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();
         logApplicationStartup(env);
+        ProgolinScrapingHandler pr = new ProgolinScrapingHandler();
+      // pr.login();
+       System.out.println("Connmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+
+
+
     }
 
     private static void logApplicationStartup(Environment env) {
@@ -95,4 +122,5 @@ public class ProjetApp {
             contextPath,
             env.getActiveProfiles());
     }
+
 }

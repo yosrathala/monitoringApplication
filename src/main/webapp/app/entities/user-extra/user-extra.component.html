@@ -14,10 +14,17 @@
         <table class="table table-striped">
             <thead>
             <tr>
-            <th><span jhiTranslate="global.field.id">ID</span></th>
-            <th><span jhiTranslate="projetApp.userExtra.phone">Phone</span></th>
-            <th><span jhiTranslate="projetApp.userExtra.pushid">Pushid</span></th>
-            <th><span jhiTranslate="projetApp.userExtra.user">User</span></th>
+            <th><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th><span jhiTranslate="projetApp.userExtra.phone">Phone</span><fa-icon [icon]="'sort'"></fa-icon></th>
+            <th><span jhiTranslate="projetApp.userExtra.pushid">Pushid</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th><span jhiTranslate="projetApp.userExtra.user.email">Email</span><fa-icon [icon]="'sort'"></fa-icon></th>
+            <th><span jhiTranslate="projetApp.userExtra.user.lastName">Nom</span><fa-icon [icon]="'sort'"></fa-icon></th>
+            <th><span jhiTranslate="projetApp.userExtra.user.activated">Activeted</span><fa-icon [icon]="'sort'"></fa-icon></th>
+            <th><span jhiTranslate="projetApp.userExtra.user.profiles">Role</span><fa-icon [icon]="'sort'"></fa-icon></th>
+            <th><span jhiTranslate="projetApp.userExtra.user.createdDate">Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th><span jhiTranslate="projetApp.userExtra.user.lastModifiedDate">Last Modified Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+
+
             <th></th>
             </tr>
             </thead>
@@ -27,8 +34,23 @@
                 <td>{{userExtra.phone}}</td>
                 <td>{{userExtra.pushid}}</td>
                 <td>
-                    {{userExtra.user?.id}}
+                    {{userExtra.user?.email}}
+                </td> <td>
+                    {{userExtra.user?.firstName}}
+                </td>       <td>
+                <button class="btn btn-danger btn-sm" (click)="setActive(user, true)" *ngIf="!userExtra.user?.activated"
+                        jhiTranslate="userManagement.deactivated">Deactivated</button>
+                <button class="btn btn-success btn-sm" (click)="setActive(user, false)" *ngIf="userExtra.user?.activated"
+                        [disabled]="currentAccount.login === user.login" jhiTranslate="userManagement.activated">Activated</button>
+            </td>
+                <td>  <div *ngFor="let authority of userExtra.user?.authorities">
+                    <span class="badge badge-info">{{ authority }}</span>
+                </div>
                 </td>
+                <td>{{userExtra.user?.createdDate | date:'dd/MM/yy HH:mm'}}</td>
+
+                <td>{{userExtra.user?.lastModifiedDate | date:'dd/MM/yy HH:mm'}}</td>
+
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

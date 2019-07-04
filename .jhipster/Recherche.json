@@ -1,5 +1,32 @@
 {
-    "name": "Recherche",
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "motcle",
+            "otherEntityName": "motcle",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id",
+            "otherEntityRelationshipNameUndefined": true,
+            "otherEntityRelationshipName": "recherche"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "resultatRecherche",
+            "otherEntityRelationshipName": "recherche",
+            "relationshipName": "resultatRecherche",
+            "otherEntityRelationshipNameUndefined": false
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "source",
+            "otherEntityRelationshipName": "recherche",
+            "relationshipName": "source",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipNameUndefined": false
+        }
+    ],
     "fields": [
         {
             "fieldName": "periodicite",
@@ -28,37 +55,18 @@
             "fieldValidateRules": [
                 "required"
             ]
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipName": "motcle",
-            "otherEntityName": "motcle",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id"
         },
         {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "resultatRecherche",
-            "otherEntityRelationshipName": "recherche",
-            "relationshipName": "resultatRecherche"
-        },
-        {
-            "relationshipType": "many-to-many",
-            "otherEntityName": "source",
-            "otherEntityRelationshipName": "recherche",
-            "relationshipName": "source",
-            "otherEntityField": "id",
-            "ownerSide": true
+            "fieldName": "activated",
+            "fieldType": "Boolean"
         }
     ],
     "changelogDate": "20190425134924",
-    "entityTableName": "recherche",
     "dto": "no",
-    "pagination": "pagination",
+    "searchEngine": false,
     "service": "no",
+    "entityTableName": "recherche",
+    "databaseType": "sql",
     "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+    "pagination": "pagination"
 }

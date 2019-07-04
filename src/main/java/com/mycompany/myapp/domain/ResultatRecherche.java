@@ -30,7 +30,7 @@ public class ResultatRecherche implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @NotNull
+
     @Column(name = "jhi_date", nullable = false)
     private ZonedDateTime date;
 

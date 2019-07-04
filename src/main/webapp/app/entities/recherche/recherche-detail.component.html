@@ -21,6 +21,10 @@
                 <dd>
                     <span>{{recherche.smsnotif}}</span>
                 </dd>
+                <dt><span jhiTranslate="projetApp.recherche.activated">Activated</span></dt>
+                <dd>
+                    <span>{{recherche.activated}}</span>
+                </dd>
                 <dt><span jhiTranslate="projetApp.recherche.motcle">Motcle</span></dt>
                 <dd>
                     <div *ngIf="recherche.motcle">
@@ -29,11 +33,9 @@
                 </dd>
                 <dt><span jhiTranslate="projetApp.recherche.source">Source</span></dt>
                 <dd>
-                    <ul class="list-unstyled">
-                        <li *ngFor="let source of recherche.sources">
-                            <span class="badge badge-info">{{source.nom}}</span>
-                        </li>
-                    </ul>
+                    <span *ngFor="let source of recherche.sources; let last = last">
+                        <a [routerLink]="['/source', source?.id, 'view' ]">{{source.nom}}</a>{{last ? '' : ', '}}
+                    </span>
                 </dd>
             </dl>
 

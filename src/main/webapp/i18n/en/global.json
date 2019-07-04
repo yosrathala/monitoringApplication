@@ -7,6 +7,13 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",
+                "userExtra": "User Extra",
+                "source": "Source",
+                "motcle": "Motcle",
+                "resultatRecherche": "Resultat Recherche",
+                "recherche": "Recherche",
+                "resultatItem": "Resultat Item",
+                "conf": "Parametre Notification",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

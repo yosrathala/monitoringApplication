@@ -45,6 +45,9 @@ public class Recherche implements Serializable {
     @Column(name = "smsnotif", nullable = false)
     private Boolean smsnotif;
 
+    @Column(name = "activated")
+    private Boolean activated;
+
     @ManyToOne
     @JsonIgnoreProperties("recherches")
     private Motcle motcle;
@@ -118,6 +121,19 @@ public class Recherche implements Serializable {
 
     public void setSmsnotif(Boolean smsnotif) {
         this.smsnotif = smsnotif;
+    }
+
+    public Boolean isActivated() {
+        return activated;
+    }
+
+    public Recherche activated(Boolean activated) {
+        this.activated = activated;
+        return this;
+    }
+
+    public void setActivated(Boolean activated) {
+        this.activated = activated;
     }
 
     public Motcle getMotcle() {
@@ -212,6 +228,7 @@ public class Recherche implements Serializable {
             ", emailnotif='" + isEmailnotif() + "'" +
             ", pushnotif='" + isPushnotif() + "'" +
             ", smsnotif='" + isSmsnotif() + "'" +
+            ", activated='" + isActivated() + "'" +
             "}";
     }
 }

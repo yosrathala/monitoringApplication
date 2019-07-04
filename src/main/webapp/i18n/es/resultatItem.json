@@ -16,8 +16,10 @@
                 "title": "Resultat Item"
             },
             "contenu": "Contenu",
-            "statut": "Statut",
-            "taux": "Taux",
+            "idr": "Idr",
+            "statu": "Statu",
+            "note": "Note",
+            "titre": "Titre",
             "resultatRecherche": "Resultat Recherche"
         }
     }

@@ -15,9 +15,22 @@
             "detail": {
                 "title": "User Extra"
             },
-            "phone": "Phone",
+            "phone": "telepone",
             "pushid": "Pushid",
-            "user": "User"
+            "user": {
+                "login": "Login",
+                "firstName": "Prénom",
+                "lastName": "Nom",
+                "email": "Email",
+                "activated": "Activé",
+                "deactivated": "Désactivé",
+                "profiles": "Droits",
+                "langKey": "Langue",
+                "createdBy": "Créé par",
+                "createdDate": "Créé le",
+                "lastModifiedBy": "Modifié par",
+                "lastModifiedDate": "Modifié le"
+            }
         }
     }
 }
