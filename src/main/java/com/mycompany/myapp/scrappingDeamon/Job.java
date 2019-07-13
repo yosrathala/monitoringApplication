@@ -1,11 +1,12 @@
 package com.mycompany.myapp.scrappingDeamon;
 
+
 import java.util.List;
 
 import com.mycompany.myapp.domain.ResultatRecherche;
 
 public class Job  {
-//implements Runnable
+    //implements Runnable
     SearchScrappingHandler searchHandler;
     List<NotificationHandler> notifications;
     SearchRresultHandler searchRresultHandler;

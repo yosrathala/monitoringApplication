@@ -8,8 +8,8 @@ import com.mycompany.myapp.domain.ResultatRecherche;
 import com.mycompany.myapp.repository.ResultatRechercheRepository;
 @Transactional
 public class JdbcSave extends SearchRresultHandler{
-    public JdbcSave(String type) {
-        super(type);
+    public JdbcSave() {
+        super();
         // TODO Auto-generated constructor stub
     }
 

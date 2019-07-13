@@ -34,8 +34,7 @@ public class WatchDog implements Runnable {
             Builder jobBuilder = new Builder();
             jobBuilder.setRecherche(recherches.get(i));
             jobBuilder.setNotification(notifications);
-            //jobs.add(jobBuilder.build("JMS"));
-
+            jobs.add(jobBuilder.build("jdbc"));
         }
 
     }
@@ -60,6 +59,13 @@ public class WatchDog implements Runnable {
         }
         return watchDog;
 
+    }
+    public static void main(String args[]) {
+        // ToDO create Recherche object and add it to recherches
+        List<Recherche> recherches = null;
+        List<NotificationHandler> notifications = null;
+        WatchDog.getInstance().init(recherches, notifications);
+        WatchDog.getInstance().run();
     }
 
 }

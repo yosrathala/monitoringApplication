@@ -29,6 +29,7 @@ export class RechercheComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    recherche: any;
 
     constructor(
         protected rechercheService: RechercheService,

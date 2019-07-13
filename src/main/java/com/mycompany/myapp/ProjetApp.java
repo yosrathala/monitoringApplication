@@ -1,28 +1,12 @@
 package com.mycompany.myapp;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.util.Cookie;
+
 import com.mycompany.myapp.config.ApplicationProperties;
 import com.mycompany.myapp.config.DefaultProfileUtil;
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.util.Cookie;
-
-import com.mycompany.myapp.scrappingDeamon.Extractor;
-import com.mycompany.myapp.scrappingDeamon.ProgolinScrapingHandler;
-import com.mycompany.myapp.scrappingDeamon.SearchScrappingHandler;
+import com.mycompany.myapp.domain.*;
+import com.mycompany.myapp.scrappingDeamon.*;
 import io.github.jhipster.config.JHipsterConstants;
-
 import org.apache.commons.lang3.StringUtils;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -31,14 +15,13 @@ import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.EnableScheduling;
-
 import javax.annotation.PostConstruct;
-import java.io.IOException;
 import java.net.InetAddress;
-import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @SpringBootApplication
 @EnableScheduling
@@ -83,12 +66,71 @@ public class ProjetApp {
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();
         logApplicationStartup(env);
-        ProgolinScrapingHandler pr = new ProgolinScrapingHandler();
-      // pr.login();
-       System.out.println("Connmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+        Recherche r =new Recherche();
+        Motcle motcle=new Motcle();
+        motcle.setMotinclue("projet");
+        motcle.setMotexclue("youtube");
+
+        Source source=new Source();
+        Set<Source> sourceSet=new HashSet<>();
+        //ProgonlineScrappingHandler pr=new ProgonlineScrappingHandler();
+       // pr.prog();
+
+        //****************Test Flux RSS Scrapping****************
+
+       /* source.setNom("france24");
+        source.setUrl("https://www.france24.com/fr/rss");
+        sourceSet.add(source);
+        r.setMotcle(motcle);
+        r.setSources(sourceSet);
+        RssScrappingHandler rss=new RssScrappingHandler(r);
+        ResultatRecherche resultatRecherche=rss.getResult();*/
 
 
+        //****************Test LinkedIn Scrapping****************
 
+       /* source.setLogin("benamar.mustafa@gmail.com");
+        source.setMotPasse("Stoufa_707");
+        source.setNom("linkedin");
+        source.setUrl("https://www.linkedin.com");
+        sourceSet.add(source);
+        r.setMotcle(motcle);
+        r.setSources(sourceSet);
+        LinkedScappingHandler lk=new LinkedScappingHandler(r);
+        ResultatRecherche resultatRecherche=lk.getResult();*/
+
+        //****************Test Facebook Scrapping****************
+
+       /* source.setLogin("mariemfrikha82@gmail.com");
+        source.setMotPasse("livehappy147");
+        source.setNom("facebook");
+        source.setUrl("https://www.facebook.com");
+        sourceSet.add(source);
+        r.setMotcle(motcle);
+        r.setSources(sourceSet);
+        FacebookScrappingHandler fb=new FacebookScrappingHandler(r);
+        ResultatRecherche resultatRecherche=fb.getResult();*/
+
+
+        //****************Test Progolin Scrapping****************
+
+       source.setLogin("yosraa");
+        source.setMotPasse("yosra1234yosra");
+        source.setNom("progonline");
+        source.setUrl("https://www.progonline.com/");
+        sourceSet.add(source);
+        r.setMotcle(motcle);
+        r.setSources(sourceSet);
+        ProgonlineScrappingHandler pr=new ProgonlineScrappingHandler(r);
+        ResultatRecherche resultatRecherche=pr.getResult();
+        System.out.println(resultatRecherche.getResultatItems().size());
+
+        for(ResultatItem res : resultatRecherche.getResultatItems())
+        {
+            System.out.println("Id "+res.getIdr());
+            System.out.println("Title "+res.getTitre());
+            System.out.println("Description "+res.getContenu());
+        }
     }
 
     private static void logApplicationStartup(Environment env) {

@@ -36,19 +36,25 @@
                         <a [routerLink]="['../motcle', recherche.motcle?.id, 'view' ]" >{{recherche.motcle?.nom}}</a>
                     </div>
                 </td>
-                <td>
 
-                    <span *ngFor="let source of recherche.sources">
-                        <a [routerLink]="['/source', source?.id, 'view' ]">{{source.nom}}</a>
-                    </span>
 
-                </td>
-                <td>{{recherche.emailnotif}}</td>
-                <td>{{recherche.pushnotif}}</td>
-                <td>{{recherche.smsnotif}}</td>
+
+
+
                 <td>
-                    <button class="btn btn-success btn-sm" >{{recherche.activated}}</button>
+                    <div *ngFor="let  s of recherche.sources;trackBy: trackId">
+                        <span class="badge badge-info">{{ s.nom }}</span>
+                    </div>
                 </td>
+
+
+            <td>{{recherche.emailnotif}}</td>
+            <td>{{recherche.pushnotif}}</td>
+            <td>{{recherche.smsnotif}}</td>
+            <td>
+
+                <button class="btn btn-success btn-sm" >{{recherche.activated}}</button>
+            </td>
 
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
@@ -74,6 +80,7 @@
                         </button>
                     </div>
                 </td>
+
             </tr>
             </tbody>
         </table>
@@ -86,4 +93,5 @@
             <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
     </div>
+
 </div>

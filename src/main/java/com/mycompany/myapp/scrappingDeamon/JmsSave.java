@@ -4,8 +4,9 @@ import com.mycompany.myapp.domain.ResultatRecherche;
 
 public class JmsSave extends SearchRresultHandler{
 
-    public JmsSave(String type) {
-        super(type);
+
+    public JmsSave() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
@@ -14,7 +15,7 @@ public class JmsSave extends SearchRresultHandler{
         // TODO Auto-generated method stub
         return null;
     }
+    }
 
 
 
-}

@@ -23,6 +23,7 @@ public class ProgonlineFN {
 
     private String title;
     private int id;
+    private String mot;
     private String description;
     private String url;
     private String date;
@@ -33,11 +34,12 @@ public class ProgonlineFN {
     private String typeClient;
     private String concurrence;
 
-    public ProgonlineFN(String title, int id, String description, String url, String date, String budget, String pertinence,
+    public ProgonlineFN(String title,String mot, int id, String description, String url, String date, String budget, String pertinence,
                    int nombreOffre, String statistiqueClient, String typeClient, String concurrence) {
         super();
         this.title = title;
         this.id = id;
+        this.mot=mot;
         this.description = description;
         this.url = url;
         this.date = date;
@@ -49,6 +51,13 @@ public class ProgonlineFN {
         this.concurrence = concurrence;
     }
 
+    public String getMot() {
+        return mot;
+    }
+
+    public void setMot(String mot) {
+        this.mot = mot;
+    }
 
     public String getTitle() {
         return title;

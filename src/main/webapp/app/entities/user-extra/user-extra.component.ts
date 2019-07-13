@@ -5,7 +5,7 @@ import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { IUserExtra } from 'app/shared/model/user-extra.model';
-import { AccountService } from 'app/core';
+import { AccountService, UserService } from 'app/core';
 import { UserExtraService } from './user-extra.service';
 
 @Component({
@@ -13,15 +13,17 @@ import { UserExtraService } from './user-extra.service';
     templateUrl: './user-extra.component.html'
 })
 export class UserExtraComponent implements OnInit, OnDestroy {
-    userExtras: IUserExtra[];
+    userExtras: IUserExtra[] = [];
     currentAccount: any;
     eventSubscriber: Subscription;
-
+    error: any;
+    success: any;
     constructor(
         protected userExtraService: UserExtraService,
         protected jhiAlertService: JhiAlertService,
         protected eventManager: JhiEventManager,
-        protected accountService: AccountService
+        protected accountService: AccountService,
+        protected userService: UserService
     ) {}
 
     loadAll() {
@@ -34,6 +36,7 @@ export class UserExtraComponent implements OnInit, OnDestroy {
             .subscribe(
                 (res: IUserExtra[]) => {
                     this.userExtras = res;
+                    console.log('fffffffffff' + this.userExtras.values());
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
@@ -45,6 +48,20 @@ export class UserExtraComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
         });
         this.registerChangeInUserExtras();
+    }
+    setActive(user, isActivated) {
+        user.activated = isActivated;
+
+        this.userService.update(user).subscribe(response => {
+            if (response.status === 200) {
+                this.error = null;
+                this.success = 'OK';
+                this.loadAll();
+            } else {
+                this.success = null;
+                this.error = 'ERROR';
+            }
+        });
     }
 
     ngOnDestroy() {
