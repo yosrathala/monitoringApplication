@@ -90,7 +90,7 @@ public class ProjetApp {
         //****************Test LinkedIn Scrapping****************
 
        /* source.setLogin("benamar.mustafa@gmail.com");
-        source.setMotPasse("Stoufa_707");
+        source.setMotPasse("*******");
         source.setNom("linkedin");
         source.setUrl("https://www.linkedin.com");
         sourceSet.add(source);
@@ -102,7 +102,7 @@ public class ProjetApp {
         //****************Test Facebook Scrapping****************
 
        /* source.setLogin("mariemfrikha82@gmail.com");
-        source.setMotPasse("livehappy147");
+        source.setMotPasse("*****");
         source.setNom("facebook");
         source.setUrl("https://www.facebook.com");
         sourceSet.add(source);
