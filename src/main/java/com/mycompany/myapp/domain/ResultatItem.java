@@ -43,6 +43,12 @@ public class ResultatItem implements Serializable {
     @Column(name = "titre")
     private String titre;
 
+    @Column(name = "jhi_date")
+    private String date;
+
+    @Column(name = "url")
+    private String url;
+
     @ManyToOne
     @JsonIgnoreProperties("resultatItems")
     private ResultatRecherche resultatRecherche;
@@ -121,6 +127,32 @@ public class ResultatItem implements Serializable {
         this.titre = titre;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public ResultatItem date(String date) {
+        this.date = date;
+        return this;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public ResultatItem url(String url) {
+        this.url = url;
+        return this;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public ResultatRecherche getResultatRecherche() {
         return resultatRecherche;
     }
@@ -164,6 +196,8 @@ public class ResultatItem implements Serializable {
             ", statu='" + isStatu() + "'" +
             ", note='" + isNote() + "'" +
             ", titre='" + getTitre() + "'" +
+            ", date='" + getDate() + "'" +
+            ", url='" + getUrl() + "'" +
             "}";
     }
 }

@@ -46,6 +46,16 @@
                     <input type="text" class="form-control" name="titre" id="field_titre"
                         [(ngModel)]="resultatItem.titre" />
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="projetApp.resultatItem.date" for="field_date">Date</label>
+                    <input type="text" class="form-control" name="date" id="field_date"
+                        [(ngModel)]="resultatItem.date" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="projetApp.resultatItem.url" for="field_url">Url</label>
+                    <input type="text" class="form-control" name="url" id="field_url"
+                        [(ngModel)]="resultatItem.url" />
+                </div>
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="projetApp.resultatItem.resultatRecherche" for="field_resultatRecherche">Resultat Recherche</label>

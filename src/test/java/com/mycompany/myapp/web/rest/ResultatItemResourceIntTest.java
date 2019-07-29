@@ -55,6 +55,12 @@ public class ResultatItemResourceIntTest {
     private static final String DEFAULT_TITRE = "AAAAAAAAAA";
     private static final String UPDATED_TITRE = "BBBBBBBBBB";
 
+    private static final String DEFAULT_DATE = "AAAAAAAAAA";
+    private static final String UPDATED_DATE = "BBBBBBBBBB";
+
+    private static final String DEFAULT_URL = "AAAAAAAAAA";
+    private static final String UPDATED_URL = "BBBBBBBBBB";
+
     @Autowired
     private ResultatItemRepository resultatItemRepository;
 
@@ -101,7 +107,9 @@ public class ResultatItemResourceIntTest {
             .idr(DEFAULT_IDR)
             .statu(DEFAULT_STATU)
             .note(DEFAULT_NOTE)
-            .titre(DEFAULT_TITRE);
+            .titre(DEFAULT_TITRE)
+            .date(DEFAULT_DATE)
+            .url(DEFAULT_URL);
         return resultatItem;
     }
 
@@ -130,6 +138,8 @@ public class ResultatItemResourceIntTest {
         assertThat(testResultatItem.isStatu()).isEqualTo(DEFAULT_STATU);
         assertThat(testResultatItem.isNote()).isEqualTo(DEFAULT_NOTE);
         assertThat(testResultatItem.getTitre()).isEqualTo(DEFAULT_TITRE);
+        assertThat(testResultatItem.getDate()).isEqualTo(DEFAULT_DATE);
+        assertThat(testResultatItem.getUrl()).isEqualTo(DEFAULT_URL);
     }
 
     @Test
@@ -202,7 +212,9 @@ public class ResultatItemResourceIntTest {
             .andExpect(jsonPath("$.[*].idr").value(hasItem(DEFAULT_IDR.toString())))
             .andExpect(jsonPath("$.[*].statu").value(hasItem(DEFAULT_STATU.booleanValue())))
             .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE.booleanValue())))
-            .andExpect(jsonPath("$.[*].titre").value(hasItem(DEFAULT_TITRE.toString())));
+            .andExpect(jsonPath("$.[*].titre").value(hasItem(DEFAULT_TITRE.toString())))
+            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
+            .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL.toString())));
     }
     
     @Test
@@ -220,7 +232,9 @@ public class ResultatItemResourceIntTest {
             .andExpect(jsonPath("$.idr").value(DEFAULT_IDR.toString()))
             .andExpect(jsonPath("$.statu").value(DEFAULT_STATU.booleanValue()))
             .andExpect(jsonPath("$.note").value(DEFAULT_NOTE.booleanValue()))
-            .andExpect(jsonPath("$.titre").value(DEFAULT_TITRE.toString()));
+            .andExpect(jsonPath("$.titre").value(DEFAULT_TITRE.toString()))
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
+            .andExpect(jsonPath("$.url").value(DEFAULT_URL.toString()));
     }
 
     @Test
@@ -248,7 +262,9 @@ public class ResultatItemResourceIntTest {
             .idr(UPDATED_IDR)
             .statu(UPDATED_STATU)
             .note(UPDATED_NOTE)
-            .titre(UPDATED_TITRE);
+            .titre(UPDATED_TITRE)
+            .date(UPDATED_DATE)
+            .url(UPDATED_URL);
 
         restResultatItemMockMvc.perform(put("/api/resultat-items")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -264,6 +280,8 @@ public class ResultatItemResourceIntTest {
         assertThat(testResultatItem.isStatu()).isEqualTo(UPDATED_STATU);
         assertThat(testResultatItem.isNote()).isEqualTo(UPDATED_NOTE);
         assertThat(testResultatItem.getTitre()).isEqualTo(UPDATED_TITRE);
+        assertThat(testResultatItem.getDate()).isEqualTo(UPDATED_DATE);
+        assertThat(testResultatItem.getUrl()).isEqualTo(UPDATED_URL);
     }
 
     @Test

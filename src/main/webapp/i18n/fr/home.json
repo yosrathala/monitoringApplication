@@ -1,6 +1,6 @@
 {
     "home": {
-        "title": "Bienvenue, Java Hipster !",
+        "title": "Bienvenue, Web Monitoring !",
         "subtitle": "Ceci est votre page d'accueil",
         "logged": {
             "message": "Bienvenue \"{{username}}\"."

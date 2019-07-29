@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(ResultatItemService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new ResultatItem(0, 'AAAAAAA', 'AAAAAAA', false, false, 'AAAAAAA');
+            elemDefault = new ResultatItem(0, 'AAAAAAA', 'AAAAAAA', false, false, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -59,7 +59,9 @@ describe('Service Tests', () => {
                         idr: 'BBBBBB',
                         statu: true,
                         note: true,
-                        titre: 'BBBBBB'
+                        titre: 'BBBBBB',
+                        date: 'BBBBBB',
+                        url: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -80,7 +82,9 @@ describe('Service Tests', () => {
                         idr: 'BBBBBB',
                         statu: true,
                         note: true,
-                        titre: 'BBBBBB'
+                        titre: 'BBBBBB',
+                        date: 'BBBBBB',
+                        url: 'BBBBBB'
                     },
                     elemDefault
                 );

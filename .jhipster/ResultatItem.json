@@ -37,6 +37,15 @@
         {
             "fieldName": "titre",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "String",
+            "fieldValidateRules": []
+        },
+        {
+            "fieldName": "url",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20190425134925",

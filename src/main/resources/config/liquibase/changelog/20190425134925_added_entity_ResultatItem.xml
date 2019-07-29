@@ -41,6 +41,14 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="jhi_date" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="url" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
             <column name="resultat_recherche_id" type="bigint">
                 <constraints nullable="true" />
             </column>

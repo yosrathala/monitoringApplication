@@ -20,7 +20,9 @@
             "statu": "Statu",
             "note": "Note",
             "titre": "Titre",
-            "resultatRecherche": "Resultat Recherche"
+            "date": "Date",
+            "url": "Url",
+            "resultatRecherche": "Date de lancement Recherche"
         }
     }
 }

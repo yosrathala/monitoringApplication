@@ -6,12 +6,15 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Root;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * A Motcle.
@@ -22,7 +25,8 @@ import java.util.Objects;
 public class Motcle implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")

@@ -7,6 +7,8 @@ export interface IResultatItem {
     statu?: boolean;
     note?: boolean;
     titre?: string;
+    date?: string;
+    url?: string;
     resultatRecherche?: IResultatRecherche;
 }
 
@@ -18,6 +20,8 @@ export class ResultatItem implements IResultatItem {
         public statu?: boolean,
         public note?: boolean,
         public titre?: string,
+        public date?: string,
+        public url?: string,
         public resultatRecherche?: IResultatRecherche
     ) {
         this.statu = this.statu || false;

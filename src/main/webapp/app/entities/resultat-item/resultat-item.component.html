@@ -20,6 +20,8 @@
             <th jhiSortBy="statu"><span jhiTranslate="projetApp.resultatItem.statu">Statu</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="note"><span jhiTranslate="projetApp.resultatItem.note">Note</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="titre"><span jhiTranslate="projetApp.resultatItem.titre">Titre</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="date"><span jhiTranslate="projetApp.resultatItem.date">Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="url"><span jhiTranslate="projetApp.resultatItem.url">Url</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="resultatRecherche.id"><span jhiTranslate="projetApp.resultatItem.resultatRecherche">Resultat Recherche</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
@@ -32,6 +34,8 @@
                 <td>{{resultatItem.statu}}</td>
                 <td>{{resultatItem.note}}</td>
                 <td>{{resultatItem.titre}}</td>
+                <td>{{resultatItem.date}}</td>
+                <td>{{resultatItem.url}}</td>
                 <td>
                     <div *ngIf="resultatItem.resultatRecherche">
                         <a [routerLink]="['../resultat-recherche', resultatItem.resultatRecherche?.id, 'view' ]" >{{resultatItem.resultatRecherche?.id}}</a>

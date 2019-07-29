@@ -43,6 +43,10 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'resultat-item',
                 loadChildren: './resultat-item/resultat-item.module#ProjetResultatItemModule'
+            },
+            {
+                path: 'resultat-item',
+                loadChildren: './resultat-item/resultat-item.module#ProjetResultatItemModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])
