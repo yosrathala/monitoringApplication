@@ -49,6 +49,7 @@ public class LinkedScappingHandler extends SearchScrappingHandler {
         String idR="";
         String title="";
         String datePub="";
+        String url="";
 
         try {
 
@@ -108,6 +109,11 @@ public class LinkedScappingHandler extends SearchScrappingHandler {
                                 int idLength = cont5.split(":").length;
                                 idR = cont5.split(":")[idLength-1];
 
+                                JSONObject updateMetadata = (JSONObject) w.get("updateMetadata");
+                                JSONArray actions = (JSONArray) updateMetadata.get("actions");
+                                JSONObject col = (JSONObject) actions.get(0);
+                                url=(String) col.get("url");
+
                                 i = content.size();
                             }
                         }
@@ -119,6 +125,8 @@ public class LinkedScappingHandler extends SearchScrappingHandler {
             resultatItem.setIdr(idR);
             resultatItem.setTitre(title);
             resultatItem.setContenu(description);
+            resultatItem.setUrl(url);
+            resultatItem.setDate(datePub);
         } catch (NullPointerException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

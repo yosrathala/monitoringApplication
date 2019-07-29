@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 public class ProgonlineScrappingHandler  extends SearchScrappingHandler{
+
     static final String chromeDriverPath = "C:/Users/webdriver/chromedriver.exe" ;
     static final int MAX_PAGE = 20;
     public ResultatRecherche resultatRecherche=new ResultatRecherche();
@@ -33,7 +34,9 @@ public class ProgonlineScrappingHandler  extends SearchScrappingHandler{
 
    @Override
     public ResultatRecherche getResult() {
-        Set<Source> sources=getSearch().getSources();
+       System.out.println (System.getProperty ("os .prénom"));
+       System.out.println (System.getProperty ("os.version"));
+       Set<Source> sources=getSearch().getSources();
         Motcle motcle=getSearch().getMotcle();
         String username="";
         String password="";
@@ -46,6 +49,7 @@ public class ProgonlineScrappingHandler  extends SearchScrappingHandler{
                 password=src.getMotPasse();
                 baseUrl=src.getUrl();
             }
+            System.out.println("zzzz"+username+"yyyyy"+password+"rrr"+baseUrl);
         }
         String loginUrl = String.format("%s%s", baseUrl, "/visitor_mypage.php?quoi=deconnexion");
 
@@ -118,13 +122,21 @@ public class ProgonlineScrappingHandler  extends SearchScrappingHandler{
                         resultatItem.setTitre(title);
                         resultatItem.setContenu(description);
                         resultatItem.setIdr(Integer.toString(id));
+                        resultatItem.setDate(date);
+                        resultatItem.setUrl(url);
                         resultatItems.add(resultatItem);
-                        //System.out.println("aaaaaaaaaaaaaaaaaaaaaaa"+id+"*****************************");
+                        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                        System.out.println("Id "+resultatItem.getIdr());
+                        System.out.println("Date "+resultatItem.getDate());
 
+                        System.out.println("Title "+resultatItem.getTitre());
+                        System.out.println("Description "+resultatItem.getContenu());
+                        System.out.println("URL "+resultatItem.getUrl());
+                        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                         projectList.add(p);
                         ObjectMapper mapper = new ObjectMapper();
                         String jsonString = mapper.writeValueAsString(p) ;
-                        //System.out.println(jsonString);
+                        System.out.println(jsonString);
 
                     }
 

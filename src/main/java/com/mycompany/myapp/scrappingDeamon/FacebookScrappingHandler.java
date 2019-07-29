@@ -61,6 +61,7 @@ public class FacebookScrappingHandler extends SearchScrappingHandler{
                 String datePub="";
                 String title="";
                 String idR="";
+                String url="https://www.facebook.com";
                 if(links1.size()>0)
                 {
                     Element links2 = links1.get(0);
@@ -76,6 +77,7 @@ public class FacebookScrappingHandler extends SearchScrappingHandler{
 
                     int lengthId=doc1.getElementsByTag("a").attr("href").split("/").length;
                     idR=doc1.getElementsByTag("a").attr("href").split("/")[lengthId-1];
+                    url+=doc1.getElementsByTag("a").attr("href");
 
                     doc1.select("span").remove();
 
@@ -87,6 +89,8 @@ public class FacebookScrappingHandler extends SearchScrappingHandler{
                 resultatItem.setIdr(idR);
                 resultatItem.setTitre(title);
                 resultatItem.setContenu(description);
+                resultatItem.setDate(datePub);
+                resultatItem.setUrl(url);
             }
         } catch (Exception e) {
             e.printStackTrace();

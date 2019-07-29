@@ -40,6 +40,7 @@ public class RssScrappingHandler extends SearchScrappingHandler {
         String inputsrc="";
         String line="";
         String xml="";
+        String url="";
 
         for(Source src : sources) {
             try {
@@ -72,6 +73,17 @@ public class RssScrappingHandler extends SearchScrappingHandler {
                     if(temp.contains(motcle.getMotinclue())&&!temp.contains(motcle.getMotexclue()))
                     {
                         titre = temp;
+                        if (line.contains("<link>"))
+                        {
+                            int firstl = line.indexOf("<link>");
+                            String templ = line.substring(firstl);
+                            templ = templ.replace("<link>", "");
+                            int lastl = templ.indexOf("</link>");
+                            templ = templ.substring(0, lastl);
+                            templ = templ.replaceAll("&lt;p&gt;", "");
+                            templ = templ.replaceAll("&lt;/p&gt;", "");
+                            url=templ;
+                        }
                         if (line.contains("<description>"))
                         {
                             int firstD = line.indexOf("<description>");
@@ -82,17 +94,6 @@ public class RssScrappingHandler extends SearchScrappingHandler {
                             tempD = tempD.replaceAll("&lt;p&gt;", "");
                             tempD = tempD.replaceAll("&lt;/p&gt;", "");
                             description=tempD;
-                        }
-                        if (line.contains("<author>"))
-                        {
-                            first = line.indexOf("<author>");
-                            temp = line.substring(first);
-                            temp = temp.replace("<author>", "");
-                            last = temp.indexOf("</author>");
-                            temp = temp.substring(0, last);
-                            temp = temp.replaceAll("&lt;p&gt;", "");
-                            temp = temp.replaceAll("&lt;/p&gt;", "");
-                            acteur=temp;
                         }
                         if (line.contains("<pubDate>"))
                         {
@@ -107,18 +108,21 @@ public class RssScrappingHandler extends SearchScrappingHandler {
                         }
                         if (line.contains("<guid isPermaLink=\"false\">"))
                         {
-                            first = line.indexOf("<guid isPermaLink=\"false\">");
-                            temp = line.substring(first);
-                            temp = temp.replace("<guid isPermaLink=\"false\">", "");
-                            last = temp.indexOf("</guid>");
-                            temp = temp.substring(0, last);
-                            temp = temp.replaceAll("&lt;p&gt;", "");
-                            temp = temp.replaceAll("&lt;/p&gt;", "");
-                            idR=temp;
+                            int firsti = line.indexOf("<guid isPermaLink=\"false\">");
+                            String tempi = line.substring(firsti);
+                            tempi = tempi.replace("<guid isPermaLink=\"false\">", "");
+                            int lasti = tempi.indexOf("</guid>");
+                            tempi = tempi.substring(0, lasti);
+                            tempi = tempi.replaceAll("&lt;p&gt;", "");
+                            tempi = tempi.replaceAll("&lt;/p&gt;", "");
+                            idR=tempi;
                         }
                         resultatItem.setIdr(idR);
                         resultatItem.setContenu(description);
+                        resultatItem.setDate(datePub);
                         resultatItem.setTitre(titre);
+                        resultatItem.setUrl(url);
+
                     }
                 }
                 in.close();
