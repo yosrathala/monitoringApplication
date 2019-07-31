@@ -3,6 +3,8 @@ import com.mycompany.myapp.domain.*;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.time.ZonedDateTime;
+
 import org.jsoup.Connection;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
@@ -69,9 +71,14 @@ public class LinkedScappingHandler extends SearchScrappingHandler {
 
             Document doc = response.parse();
             Elements links = doc.select("code");
-            Element element = links.get(10);
-            Node node = element.childNodes().get(0);
-            data = node.toString();
+			for (int i = 0; i < links.size(); i++) {
+				if (links.get(i).toString().contains("commentary")) {
+					Element element = links.get(i);
+					Node node = element.childNodes().get(0);
+					data = node.toString();
+					i = links.size();
+				}
+			}
 
             if (data != null) {
                 JSONParser jsonParser = new JSONParser();
@@ -143,7 +150,8 @@ public class LinkedScappingHandler extends SearchScrappingHandler {
 
         resultatItems.add(resultatItem);
         resultatRecherche.setResultatItems(resultatItems);
-
+		resultatRecherche.setDate(ZonedDateTime.now());
+		resultatRecherche.setRecherche(this.getSearch());
         return resultatRecherche;
     }
 
