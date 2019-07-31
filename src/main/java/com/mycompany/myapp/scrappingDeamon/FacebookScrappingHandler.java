@@ -1,30 +1,34 @@
 package com.mycompany.myapp.scrappingDeamon;
 
-import com.mycompany.myapp.domain.*;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.jsoup.Connection.Method;
-import org.jsoup.Jsoup;
 import org.jsoup.Connection.Response;
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.mycompany.myapp.domain.Motcle;
+import com.mycompany.myapp.domain.Recherche;
+import com.mycompany.myapp.domain.ResultatItem;
+import com.mycompany.myapp.domain.ResultatRecherche;
+import com.mycompany.myapp.domain.Source;
 
+@Service
 public class FacebookScrappingHandler extends SearchScrappingHandler{
 
-    public FacebookScrappingHandler(Recherche search) {
-        super(search);
-        // TODO Auto-generated constructor stub
-    }
+
     @Override
-    public ResultatRecherche getResult() {
+    public ResultatRecherche getResult(Recherche search) {
         ResultatRecherche resultatRecherche=new ResultatRecherche();
         Set<ResultatItem> resultatItems=new HashSet<>();
         ResultatItem resultatItem=new ResultatItem();
-        Set<Source> sources=getSearch().getSources();
-        Motcle motcle=getSearch().getMotcle();
+        Set<Source> sources= search.getSources();
+        Motcle motcle= search.getMotcle();
         String login="";
         String pass="";
         for(Source src : sources)

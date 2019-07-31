@@ -1,94 +1,46 @@
 package com.mycompany.myapp.scrappingDeamon;
 
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.mycompany.myapp.domain.Recherche;
-import com.mycompany.myapp.domain.ResultatItem;
 import com.mycompany.myapp.domain.ResultatRecherche;
-import com.mycompany.myapp.domain.Source;
-import com.mycompany.myapp.repository.RechercheRepository;
-import com.mycompany.myapp.repository.ResultatItemRepository;
-import com.mycompany.myapp.repository.ResultatRechercheRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.scheduling.TaskScheduler;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
-import org.springframework.scheduling.support.PeriodicTrigger;
-
 
 @ComponentScan(basePackages = "dep.package")
 @EnableScheduling
 public class Job implements Runnable {
-    //implements Runnable
-    SearchScrappingHandler searchHandler;
 
-    SearchRresultHandler searchRresultHandler;
+	private SearchScrappingHandler searchHandler;
 
-    ResultatRechercheRepository resultatRechercheRepository;
+	private SearchRresultHandler searchResultHandler;
 
-    List<NotificationHandler> notifications = null;
+	private List<NotificationHandler> notificationHandlers;
+    
+    private Recherche search;
+   
+    
+    public Integer getPeriodicity() {
+		return search.getPeriodicite();
+	}
 
-    public Job(RechercheRepository rechercheRepository, ResultatItemRepository resultatItemRepository) {
+	public Job(SearchScrappingHandler searchHandler, List<NotificationHandler> notifications,
+			SearchRresultHandler searchRresultHandler, Recherche search) {
+		this.searchHandler = searchHandler;
+		this.notificationHandlers = notifications;
+		this.searchResultHandler = searchRresultHandler;
+		this.search = search;
+	}
 
-        recherches = rechercheRepository.findAllWithEagerRelationships();
-    }
+	@Override
+	public void run() {
 
-    List<Recherche> recherches = new ArrayList<>();
+		ResultatRecherche result = searchHandler.getResult(this.search);
+		searchResultHandler.save(result);
+		for (NotificationHandler notificationHandler : notificationHandlers) {
+			notificationHandler.send(result);
+		}
+	}
 
-
-    public Job(SearchScrappingHandler searchHandler, List<NotificationHandler> notifications,
-               SearchRresultHandler searchRresultHandler) {
-        super();
-        this.searchHandler = searchHandler;
-        this.notifications = notifications;
-        this.searchRresultHandler = searchRresultHandler;
-    }
-
-    public Job(ResultatRechercheRepository rechercheRepository) {
-        this.resultatRechercheRepository = rechercheRepository;
-    }
-
-    public SearchScrappingHandler getSearchHandler() {
-        return searchHandler;
-    }
-
-    public void setSearchHandler(SearchScrappingHandler searchHandler) {
-        this.searchHandler = searchHandler;
-    }
-
-    public List<NotificationHandler> getNotifications() {
-        return notifications;
-    }
-
-    public void setNotifications(List<NotificationHandler> notifications) {
-        this.notifications = notifications;
-    }
-
-    public SearchRresultHandler getSearchRresultHandler() {
-        return searchRresultHandler;
-    }
-
-    public void setSearchRresultHandler(SearchRresultHandler searchRresultHandler) {
-        this.searchRresultHandler = searchRresultHandler;
-    }
-
-
-
-    @Override
-    public void run() {
-
-        ResultatRecherche resultatRecherche = searchHandler.getResult();
-        searchRresultHandler.save(resultatRecherche);
-        /*for (NotificationHandler notificationHandler : notifications) {
-            //notificationHandler.send(result);
-        }*/
-        }
-
-
-    }
-
+}

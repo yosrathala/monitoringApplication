@@ -1,24 +1,5 @@
 package com.mycompany.myapp.scrappingDeamon;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.logging.Level;
-
-
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.util.Cookie;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 public class ProgonlineFN {
 
     private String title;

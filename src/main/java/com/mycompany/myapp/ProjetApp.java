@@ -78,14 +78,10 @@ public class ProjetApp {
 		DefaultProfileUtil.addDefaultProfile(app);
 		Environment env = app.run(args).getEnvironment();
 		logApplicationStartup(env);
-		// ToDO create Recherche object and add it to recherches
-		List<Recherche> recherches = new ArrayList<>();
 
-		recherches = rechercheRepository.findAllWithEagerRelationships();
+		List<Recherche> recherches = rechercheRepository.findAllWithEagerRelationships();
 
-		List<NotificationHandler> notifications = null;
-
-		watchDog.init(recherches, notifications);
+		watchDog.init(recherches);
 		watchDog.run();
 
 	}

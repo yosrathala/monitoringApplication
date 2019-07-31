@@ -2,12 +2,12 @@ package com.mycompany.myapp.scrappingDeamon;
 
 import javax.transaction.Transactional;
 
-import com.mycompany.myapp.domain.ResultatItem;
-import com.mycompany.myapp.repository.ResultatItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mycompany.myapp.domain.ResultatItem;
 import com.mycompany.myapp.domain.ResultatRecherche;
+import com.mycompany.myapp.repository.ResultatItemRepository;
 import com.mycompany.myapp.repository.ResultatRechercheRepository;
 
 @Service

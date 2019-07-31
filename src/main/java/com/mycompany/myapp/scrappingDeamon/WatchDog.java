@@ -1,6 +1,5 @@
 package com.mycompany.myapp.scrappingDeamon;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -18,56 +17,39 @@ import com.mycompany.myapp.domain.Source;
 @Service
 public class WatchDog {
 
+	private List<Job> jobs = new ArrayList<>();
+	TaskScheduler taskScheduler;
+	List<Recherche> recherches;
 
+	@Autowired
+	private ApplicationContext context;
 
-    private JdbcSave jdbcSave ;
-    private List<Job> jobs;
-    TaskScheduler taskScheduler;
-    List<Recherche> recherches ;
-    List<NotificationHandler> notifications;
-    @Autowired
-    private ApplicationContext context;
+	public void init(List<Recherche> recherches) {
 
+		HandlerFactory.initContext(context);
 
-  public void init(List<Recherche> recherches, List<NotificationHandler> notifications) {
+		for (Recherche search : recherches) {
 
-        jobs = new ArrayList<>();
+			for (Source source : search.getSources()) {
+				Builder jobBuilder = new Builder();
+				jobBuilder.setSearchResultDestination("jdbc");
+				jobBuilder.setRecherche(search);
+				jobBuilder.setSource(source);
+				jobs.add(jobBuilder.build());
+			}
+		}
+	}
 
-        for (int i = 0; i < recherches.size(); i++) {
+	public void run() {
 
-            Builder jobBuilder = new Builder();
-            jdbcSave = context.getBean(JdbcSave.class);
-            jobBuilder.setSearchResultHandler(jdbcSave);
-            jobBuilder.setRecherche(recherches.get(i));
-            jobBuilder.setNotification(notifications);
-
-            for (Source src : recherches.get(i).getSources()) {
-                jobBuilder.setSource(src);
-                jobs.add(jobBuilder.build("jdbc"));
-            }
-        }
-
-    }
-
-   
-    public void run() {
-
-
-       taskScheduler = new ConcurrentTaskScheduler();
-
-       try {
-
-           for (int i = 0; i < jobs.size(); i++) {
-
-               PeriodicTrigger periodicTrigger = new PeriodicTrigger(jobs.get(i).getSearchHandler().getSearch().getPeriodicite(), TimeUnit.SECONDS);
-
-               taskScheduler.schedule(jobs.get(i), periodicTrigger);
-
-
-           }
-       } catch (Exception e) {
-           e.printStackTrace();
-       }
-   }
-    }
-
+		taskScheduler = new ConcurrentTaskScheduler();
+		try {
+			for (Job job : jobs) {
+				PeriodicTrigger periodicTrigger = new PeriodicTrigger(job.getPeriodicity(), TimeUnit.SECONDS);
+				taskScheduler.schedule(job, periodicTrigger);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

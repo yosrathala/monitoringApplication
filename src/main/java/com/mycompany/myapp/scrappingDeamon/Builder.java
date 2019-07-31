@@ -2,26 +2,20 @@ package com.mycompany.myapp.scrappingDeamon;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mycompany.myapp.domain.Recherche;
 import com.mycompany.myapp.domain.Source;
-import com.mycompany.myapp.repository.ResultatItemRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 public class Builder {
+	
     private Source source;
+    private Recherche recherche;
+    private String setSearchResultDestination;
 
-    SearchRresultHandler searchResultHandler;
-    public void setSearchResultHandler(SearchRresultHandler searchResultHandler) {
-		this.searchResultHandler = searchResultHandler;
-	}
-
-	Recherche recherche;
-    List<NotificationHandler> notifications;
-
-    public Builder setRecherche(Recherche recherche) {
+	public Builder setRecherche(Recherche recherche) {
         this.recherche = recherche;
         return this;
     }
@@ -30,30 +24,32 @@ public class Builder {
         this.source = source;
         return this;
     }
+    
+	public Builder setSearchResultDestination(String searchResultDestination) {
+		this.setSearchResultDestination = searchResultDestination;
+		return this;
+	}
 
-    public Builder setNotification(List<NotificationHandler> notifications) {
-        this.notifications = notifications;
-        return this;
+    public Job build() {
+        List<NotificationHandler> notificationsHandlers = new ArrayList<>();
+        
+        
+    	
+        SearchScrappingHandler scrapHandler = HandlerFactory.getSearchHandler(this.source.getNom());
+    	SearchRresultHandler searchResultHandler = HandlerFactory.getSearchResultHandler(this.setSearchResultDestination);
+    	
+    	if(recherche.isEmailnotif()) {
+    		notificationsHandlers.add(HandlerFactory.getNotificationHandler("email"));
+    	}
+    	if(recherche.isSmsnotif()) {
+    		notificationsHandlers.add(HandlerFactory.getNotificationHandler("sms"));
+    	}
+    	if(recherche.isPushnotif()) {
+    		notificationsHandlers.add(HandlerFactory.getNotificationHandler("push"));
+    	}
+    	
+        return new Job(scrapHandler, notificationsHandlers, searchResultHandler, recherche);
     }
 
-    public Job build(String type) {
-        SearchScrappingHandler scrapHandler =null;
-        if(source.getNom().equals("linkedin")) {
-            scrapHandler = new LinkedScappingHandler(recherche);
-        }
-        if(source.getUrl().contains("rss")) {
-            scrapHandler = new RssScrappingHandler(recherche);
-        }
-        if(source.getNom().equals("facebook")) {
-            scrapHandler = new FacebookScrappingHandler(recherche);
-        }
-        if(source.getNom().equals("progonline")) {
-            scrapHandler = new ProgonlineScrappingHandler(recherche);
-        }
 
-
-
-
-        return new Job(scrapHandler, notifications, searchResultHandler);
-    }
 }

@@ -1,35 +1,45 @@
 package com.mycompany.myapp.scrappingDeamon;
 
 
-import com.mycompany.myapp.domain.*;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.sax.SAXSource;
+import javax.xml.transform.sax.SAXTransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+
+import org.springframework.stereotype.Service;
+import org.xml.sax.InputSource;
+
+import com.mycompany.myapp.domain.Motcle;
 import com.mycompany.myapp.domain.Recherche;
+import com.mycompany.myapp.domain.ResultatItem;
 import com.mycompany.myapp.domain.ResultatRecherche;
 import com.mycompany.myapp.domain.Source;
 
-import java.io.*;
-import java.net.*;
-import java.util.HashSet;
-import java.util.Set;
-import javax.xml.transform.*;
-import javax.xml.transform.sax.*;
-import javax.xml.transform.stream.*;
-import org.xml.sax.*;
 
-
-
+@Service
 public class RssScrappingHandler extends SearchScrappingHandler {
 
-    public RssScrappingHandler(Recherche search) {
-        super(search);
-    }
 
     @Override
-    public ResultatRecherche getResult() {
+    public ResultatRecherche getResult(Recherche search) {
         ResultatRecherche resultatRecherche=new ResultatRecherche();
         Set<ResultatItem> resultatItems=new HashSet<>();
         ResultatItem resultatItem=new ResultatItem();
-        Set<Source> sources=getSearch().getSources();
-        Motcle motcle=getSearch().getMotcle();
+        Set<Source> sources= search.getSources();
+        Motcle motcle= search.getMotcle();
 
         String description="";
         String titre="";

@@ -1,7 +1,9 @@
 package com.mycompany.myapp.scrappingDeamon;
 
+import com.mycompany.myapp.domain.ResultatRecherche;
+
 public abstract class NotificationHandler {
 
-    abstract String typeNotification();
+	abstract void send(ResultatRecherche result);
 }
 

@@ -1,12 +1,17 @@
 package com.mycompany.myapp.scrappingDeamon;
 
+import org.springframework.stereotype.Service;
 
+import com.mycompany.myapp.domain.ResultatRecherche;
+
+@Service
 public class MailNotification extends NotificationHandler{
 
-    @Override
-    String typeNotification() {
-        String type = "Mail";
-        return type;
-    }
+
+	@Override
+	void send(ResultatRecherche result) {
+		System.out.println("Sending email ...");
+		
+	}
 
 }

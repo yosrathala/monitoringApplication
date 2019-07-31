@@ -2,22 +2,27 @@ package com.mycompany.myapp.scrappingDeamon;
 
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-import com.mycompany.myapp.domain.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
+import com.mycompany.myapp.domain.Motcle;
+import com.mycompany.myapp.domain.Recherche;
+import com.mycompany.myapp.domain.ResultatItem;
+import com.mycompany.myapp.domain.ResultatRecherche;
+import com.mycompany.myapp.domain.Source;
+
+@Service
 public class ProgonlineScrappingHandler  extends SearchScrappingHandler{
 
     static final String chromeDriverPath = "C:/Users/webdriver/chromedriver.exe" ;
@@ -27,17 +32,12 @@ public class ProgonlineScrappingHandler  extends SearchScrappingHandler{
     public Set<ResultatItem> resultatItems=new HashSet<ResultatItem>();
     public List<ProgonlineFN> projectList = new ArrayList<ProgonlineFN>();
 
-    public ProgonlineScrappingHandler(Recherche search) {
-        super(search);
-        // TODO Auto-generated constructor stub
-    }
-
    @Override
-    public ResultatRecherche getResult() {
+    public ResultatRecherche getResult(Recherche search) {
        System.out.println (System.getProperty ("os .prénom"));
        System.out.println (System.getProperty ("os.version"));
-       Set<Source> sources=getSearch().getSources();
-        Motcle motcle=getSearch().getMotcle();
+       Set<Source> sources= search.getSources();
+        Motcle motcle= search.getMotcle();
         String username="";
         String password="";
         String baseUrl="";

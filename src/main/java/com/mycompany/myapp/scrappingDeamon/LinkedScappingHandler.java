@@ -1,10 +1,14 @@
 package com.mycompany.myapp.scrappingDeamon;
-import com.mycompany.myapp.domain.*;
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.jsoup.Connection;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
@@ -12,28 +16,25 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.mycompany.myapp.domain.Motcle;
+import com.mycompany.myapp.domain.Recherche;
+import com.mycompany.myapp.domain.ResultatItem;
+import com.mycompany.myapp.domain.ResultatRecherche;
+import com.mycompany.myapp.domain.Source;
 
+@Service
 public class LinkedScappingHandler extends SearchScrappingHandler {
 
-    public LinkedScappingHandler(Recherche search) {
-        super(search);
-        // TODO Auto-generated constructor stub
-    }
 
     @Override
-    public ResultatRecherche getResult() {
+    public ResultatRecherche getResult(Recherche search) {
         ResultatRecherche resultatRecherche=new ResultatRecherche();
         Set<ResultatItem> resultatItems=new HashSet<>();
         ResultatItem resultatItem=new ResultatItem();
-        Set<Source>sources=getSearch().getSources();
-        Motcle motcle=getSearch().getMotcle();
+        Set<Source>sources= search.getSources();
+        Motcle motcle = search.getMotcle();
         String login="";
         String pass="";
         for(Source src : sources)
@@ -151,7 +152,7 @@ public class LinkedScappingHandler extends SearchScrappingHandler {
         resultatItems.add(resultatItem);
         resultatRecherche.setResultatItems(resultatItems);
 		resultatRecherche.setDate(ZonedDateTime.now());
-		resultatRecherche.setRecherche(this.getSearch());
+		resultatRecherche.setRecherche(search);
         return resultatRecherche;
     }
 
