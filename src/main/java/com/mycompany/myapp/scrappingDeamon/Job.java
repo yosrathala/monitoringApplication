@@ -20,7 +20,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
 import org.springframework.scheduling.support.PeriodicTrigger;
 
-import static com.sun.deploy.util.SessionState.save;
+
 @ComponentScan(basePackages = "dep.package")
 @EnableScheduling
 public class Job implements Runnable {
@@ -28,8 +28,6 @@ public class Job implements Runnable {
     SearchScrappingHandler searchHandler;
 
     SearchRresultHandler searchRresultHandler;
-    private JdbcSave jdbcSave;
-    private ResultatItemRepository resultatItemRepository;
 
     ResultatRechercheRepository resultatRechercheRepository;
 
@@ -37,7 +35,6 @@ public class Job implements Runnable {
 
     public Job(RechercheRepository rechercheRepository, ResultatItemRepository resultatItemRepository) {
 
-        this.resultatItemRepository = resultatItemRepository;
         recherches = rechercheRepository.findAllWithEagerRelationships();
     }
 
@@ -45,9 +42,8 @@ public class Job implements Runnable {
 
 
     public Job(SearchScrappingHandler searchHandler, List<NotificationHandler> notifications,
-               SearchRresultHandler searchRresultHandler, ResultatItemRepository resultatItemRepository) {
+               SearchRresultHandler searchRresultHandler) {
         super();
-        this.resultatItemRepository = resultatItemRepository;
         this.searchHandler = searchHandler;
         this.notifications = notifications;
         this.searchRresultHandler = searchRresultHandler;
@@ -85,31 +81,9 @@ public class Job implements Runnable {
 
     @Override
     public void run() {
-        // TODO Auto-generated method stub
-     WatchDog w=new WatchDog(resultatRechercheRepository);
 
-        ResultatRecherche result = searchHandler.getResult();
-        System.out.println("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"+ result.toString());
-        for (ResultatItem res : result.getResultatItems()) {
-
-            System.out.println("Id " + res.getIdr());
-            System.out.println("sddddddddd " + res.toString());
-            System.out.println("Date " + res.getDate());
-
-            System.out.println("Title " + res.getTitre());
-            System.out.println("Description " + res.getContenu());
-            System.out.println("URL " + res.getUrl());
-
-            // ResultatItem ResultatItem = new ResultatItem();
-          /*  res.setContenu(res.getContenu());
-            res.setTitre(res.getTitre());
-            res.setUrl(res.getUrl());*/
-
-
-
-
-            //resultatItemRepository.save(res);
-        }
+        ResultatRecherche resultatRecherche = searchHandler.getResult();
+        searchRresultHandler.save(resultatRecherche);
         /*for (NotificationHandler notificationHandler : notifications) {
             //notificationHandler.send(result);
         }*/

@@ -5,7 +5,7 @@ import com.mycompany.myapp.domain.ResultatRecherche;
 
 public abstract class SearchRresultHandler {
 
-    abstract ResultatRecherche save (ResultatRecherche resultatRecherche);
+    abstract void save (ResultatRecherche resultatRecherche);
 
 
     public SearchRresultHandler() {

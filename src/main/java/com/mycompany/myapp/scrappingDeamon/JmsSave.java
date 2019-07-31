@@ -11,9 +11,8 @@ public class JmsSave extends SearchRresultHandler{
     }
 
     @Override
-    public ResultatRecherche save(ResultatRecherche resultatRecherche) {
-        // TODO Auto-generated method stub
-        return null;
+    public void save(ResultatRecherche resultatRecherche) {
+       
     }
     }
 

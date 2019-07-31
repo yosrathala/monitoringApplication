@@ -13,8 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class Builder {
     private Source source;
 
-    ResultatItemRepository resultatItemRepository;
-    Recherche recherche;
+    SearchRresultHandler searchResultHandler;
+    public void setSearchResultHandler(SearchRresultHandler searchResultHandler) {
+		this.searchResultHandler = searchResultHandler;
+	}
+
+	Recherche recherche;
     List<NotificationHandler> notifications;
 
     public Builder setRecherche(Recherche recherche) {
@@ -48,15 +52,8 @@ public class Builder {
         }
 
 
-        SearchRresultHandler searchResultHandler = null;
 
-        if("jdbc".equals(type)) {
-            searchResultHandler = new JdbcSave();
-        }
-        if("jms".equals(type)) {
-            searchResultHandler = new JmsSave();
-        }
 
-        return new Job(scrapHandler, notifications, searchResultHandler, resultatItemRepository);
+        return new Job(scrapHandler, notifications, searchResultHandler);
     }
 }

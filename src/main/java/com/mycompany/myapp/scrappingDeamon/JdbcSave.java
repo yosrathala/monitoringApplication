@@ -5,9 +5,12 @@ import javax.transaction.Transactional;
 import com.mycompany.myapp.domain.ResultatItem;
 import com.mycompany.myapp.repository.ResultatItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.mycompany.myapp.domain.ResultatRecherche;
 import com.mycompany.myapp.repository.ResultatRechercheRepository;
+
+@Service
 @Transactional
 public class JdbcSave extends SearchRresultHandler{
     public JdbcSave() {
@@ -15,15 +18,40 @@ public class JdbcSave extends SearchRresultHandler{
         // TODO Auto-generated constructor stub
     }
 
-    @Autowired
+    public ResultatRechercheRepository getResultRechercheRepository() {
+		return resultRechercheRepository;
+	}
+
+	public void setResultRechercheRepository(ResultatRechercheRepository resultRechercheRepository) {
+		this.resultRechercheRepository = resultRechercheRepository;
+	}
+
+	public ResultatItemRepository getResultatItemRepository() {
+		return resultatItemRepository;
+	}
+
+	public void setResultatItemRepository(ResultatItemRepository resultatItemRepository) {
+		this.resultatItemRepository = resultatItemRepository;
+	}
+
+	@Autowired
     private ResultatRechercheRepository resultRechercheRepository;
     @Autowired
     private ResultatItemRepository resultatItemRepository;
 
     @Override
-    public ResultatRecherche save(ResultatRecherche resultatRecherche) {
+    public void save(ResultatRecherche resultatRecherche) {
         // TODO Auto-generated method stub
-        return resultRechercheRepository.save(resultatRecherche);
+        resultRechercheRepository.save(resultatRecherche);
+
+        for (ResultatItem res : resultatRecherche.getResultatItems()) {
+
+            res.setContenu(res.getContenu());
+            res.setTitre(res.getTitre());
+            res.setUrl(res.getUrl());
+            res.setResultatRecherche(resultatRecherche);
+            resultatItemRepository.save(res);
+        }
     }
 
     public ResultatItem saveitem(ResultatItem resultatItem) {

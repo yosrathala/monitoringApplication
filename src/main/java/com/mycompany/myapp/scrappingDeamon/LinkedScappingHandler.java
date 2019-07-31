@@ -69,7 +69,7 @@ public class LinkedScappingHandler extends SearchScrappingHandler {
 
             Document doc = response.parse();
             Elements links = doc.select("code");
-            Element element = links.get(16);
+            Element element = links.get(10);
             Node node = element.childNodes().get(0);
             data = node.toString();
 
