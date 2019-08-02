@@ -37,10 +37,14 @@ public class Job implements Runnable {
 	public void run() {
 
 		ResultatRecherche result = searchHandler.getResult(this.search);
-		searchResultHandler.save(result);
-		for (NotificationHandler notificationHandler : notificationHandlers) {
-			notificationHandler.send(result);
+		if(result.getResultatItems().size() > 0) {
+			searchResultHandler.save(result);
+			
+			for (NotificationHandler notificationHandler : notificationHandlers) {
+				notificationHandler.send(result);
+			}
 		}
+
 	}
 
 }

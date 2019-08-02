@@ -2,6 +2,7 @@ package com.mycompany.myapp.scrappingDeamon;
 
 
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -25,7 +26,7 @@ import com.mycompany.myapp.domain.Source;
 @Service
 public class ProgonlineScrappingHandler  extends SearchScrappingHandler{
 
-    static final String chromeDriverPath = "C:/Users/webdriver/chromedriver.exe" ;
+    static final String chromeDriverPath = "/home/intellitech/workspace/clients_projects/projetappmonitoring/chromedriver" ;
     static final int MAX_PAGE = 20;
     public ResultatRecherche resultatRecherche=new ResultatRecherche();
     public ResultatItem resultatItem=new ResultatItem();
@@ -34,7 +35,6 @@ public class ProgonlineScrappingHandler  extends SearchScrappingHandler{
 
    @Override
     public ResultatRecherche getResult(Recherche search) {
-       System.out.println (System.getProperty ("os .prénom"));
        System.out.println (System.getProperty ("os.version"));
        Set<Source> sources= search.getSources();
         Motcle motcle= search.getMotcle();
@@ -125,14 +125,12 @@ public class ProgonlineScrappingHandler  extends SearchScrappingHandler{
                         resultatItem.setDate(date);
                         resultatItem.setUrl(url);
                         resultatItems.add(resultatItem);
-                        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                         System.out.println("Id "+resultatItem.getIdr());
                         System.out.println("Date "+resultatItem.getDate());
 
                         System.out.println("Title "+resultatItem.getTitre());
                         System.out.println("Description "+resultatItem.getContenu());
                         System.out.println("URL "+resultatItem.getUrl());
-                        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                         projectList.add(p);
                         ObjectMapper mapper = new ObjectMapper();
                         String jsonString = mapper.writeValueAsString(p) ;
@@ -162,7 +160,8 @@ public class ProgonlineScrappingHandler  extends SearchScrappingHandler{
         e.printStackTrace();
         }
         resultatRecherche.setResultatItems(resultatItems);
-
+		resultatRecherche.setDate(ZonedDateTime.now());
+		resultatRecherche.setRecherche(search);
        return resultatRecherche;
    }
 

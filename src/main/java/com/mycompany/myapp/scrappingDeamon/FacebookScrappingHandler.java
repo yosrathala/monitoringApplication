@@ -1,5 +1,6 @@
 package com.mycompany.myapp.scrappingDeamon;
 
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -95,11 +96,14 @@ public class FacebookScrappingHandler extends SearchScrappingHandler{
                 resultatItem.setContenu(description);
                 resultatItem.setDate(datePub);
                 resultatItem.setUrl(url);
+        		resultatRecherche.setDate(ZonedDateTime.now());
+        		resultatRecherche.setRecherche(search);
+        		resultatItems.add(resultatItem);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        resultatItems.add(resultatItem);
+        
         resultatRecherche.setResultatItems(resultatItems);
 
         return resultatRecherche;
