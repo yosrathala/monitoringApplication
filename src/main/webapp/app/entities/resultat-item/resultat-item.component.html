@@ -38,7 +38,7 @@
                 <td>{{resultatItem.url}}</td>
                 <td>
                     <div *ngIf="resultatItem.resultatRecherche">
-                        <a [routerLink]="['../resultat-recherche', resultatItem.resultatRecherche?.id, 'view' ]" >{{resultatItem.resultatRecherche?.id}}</a>
+                        <a [routerLink]="['../resultat-recherche', resultatItem.resultatRecherche?.id, 'view' ]" >{{resultatItem.resultatRecherche?.date}}</a>
                     </div>
                 </td>
                 <td class="text-right">

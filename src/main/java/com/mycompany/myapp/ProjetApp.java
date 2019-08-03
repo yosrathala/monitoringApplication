@@ -11,16 +11,22 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+
 import javax.annotation.PostConstruct;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 @SpringBootApplication
 @EnableScheduling
@@ -34,6 +40,7 @@ public class ProjetApp {
 	private static RechercheRepository rechercheRepository;
 	
 	private static WatchDog watchDog;
+
 
 	public ProjetApp(Environment env, WatchDog watchDog, RechercheRepository rechercheRepository) {
 		this.env = env;
@@ -79,10 +86,7 @@ public class ProjetApp {
 		Environment env = app.run(args).getEnvironment();
 		logApplicationStartup(env);
 
-		List<Recherche> recherches = rechercheRepository.findAllWithEagerRelationships();
 
-		watchDog.init(recherches);
-		watchDog.run();
 
 	}
 

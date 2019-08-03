@@ -41,13 +41,13 @@ export class HomeComponent implements OnInit {
         protected router: Router,
         protected eventManager: JhiEventManager
     ) {
-        this.itemsPerPage = ITEMS_PER_PAGE;
+        /*this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data.pagingParams.page;
             this.previousPage = data.pagingParams.page;
             this.reverse = data.pagingParams.ascending;
             this.predicate = data.pagingParams.predicate;
-        });
+        });*/
     }
 
     ngOnInit() {
@@ -61,25 +61,31 @@ export class HomeComponent implements OnInit {
         });
         this.registerChangeInResultatItems();
     }
+    scrap() {
+        this.resultatItemService.scaping().subscribe();
+    }
+    stop() {
+        this.resultatItemService.stop().subscribe();
+    }
     loadAll() {
         this.resultatItemService
             .query({
                 page: this.page - 1,
                 size: this.itemsPerPage
-                // sort: this.sort()
+                //sort: this.sort()
             })
             .subscribe(
                 (res: HttpResponse<IResultatItem[]>) => this.paginateResultatItems(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
     }
-    sort() {
+    /*sort() {
         const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
         }
         return result;
-    }
+    }*/
 
     protected paginateResultatItems(data: IResultatItem[], headers: HttpHeaders) {
         this.links = this.parseLinks.parse(headers.get('link'));
