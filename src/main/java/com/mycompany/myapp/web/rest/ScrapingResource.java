@@ -37,22 +37,16 @@ public class ScrapingResource {
     }
     @GetMapping("scrapping")
     public void scraping(){
-        List<Recherche> recherches = rechercheRepository.findAllWithEagerRelationships();
-        watchDog.init(recherches);
-        watchDog.run();
+    	if(!watchDog.isRuning()) {
+    		List<Recherche> recherches = rechercheRepository.findAllWithEagerRelationships();
+            watchDog.init(recherches);
+            watchDog.run();
+    	}
+        
     }
     @GetMapping("stop")
-    public Executor taskExecutor() {
-        // use the Spring ThreadPoolTaskScheduler
-        ThreadPoolTaskScheduler scheduledExecutorService = new ThreadPoolTaskScheduler();
-        // always set the poolsize
-        scheduledExecutorService.setPoolSize(10);
-        // for logging add a threadNamePrefix
-        scheduledExecutorService.setThreadNamePrefix("myTaskScheduler-");
-        // do not wait for completion of the task
-        scheduledExecutorService.setWaitForTasksToCompleteOnShutdown(false);
-
-        return scheduledExecutorService;
+    public void taskExecutor() {
+    	watchDog.stopAll();
     }
 
 

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
@@ -33,9 +34,10 @@ public class RssScrappingHandler extends SearchScrappingHandler {
 
 	@Override
 	public ResultatRecherche getResult(Recherche search) {
+		System.out.println("=============================== Start Scrapping Rss =============================== ");
 		ResultatRecherche resultatRecherche = new ResultatRecherche();
 		Set<ResultatItem> resultatItems = new HashSet<>();
-		ResultatItem resultatItem = new ResultatItem();
+		
 		Set<Source> sources = search.getSources();
 		Motcle motcle = search.getMotcle();
 
@@ -51,10 +53,12 @@ public class RssScrappingHandler extends SearchScrappingHandler {
 		String url = "";
 
 		for (Source src : sources) {
-			if (src.equals("rss")) {
+			if (src.getNom().equals("rss")) {
 				try {
+					System.setProperty("http.agent", "Chrome");
 					URL rssURL = new URL(src.getUrl());
-					BufferedReader in = new BufferedReader(new InputStreamReader(rssURL.openStream()));
+					InputStream stream = rssURL.openStream();
+					BufferedReader in = new BufferedReader(new InputStreamReader(stream));
 
 					while ((line = in.readLine()) != null) {
 						xml += line;
@@ -77,7 +81,7 @@ public class RssScrappingHandler extends SearchScrappingHandler {
 							temp = temp.replaceAll("&lt;/p&gt;", "");
 						}
 
-						if (temp.contains(motcle.getMotinclue()) && !temp.contains(motcle.getMotexclue())) {
+						if (stringContainsItems(temp, motcle.getMotinclue().split(" "))) {
 							titre = temp;
 							if (line.contains("<link>")) {
 								int firstl = line.indexOf("<link>");
@@ -108,8 +112,19 @@ public class RssScrappingHandler extends SearchScrappingHandler {
 								temp = temp.replaceAll("&lt;p&gt;", "");
 								temp = temp.replaceAll("&lt;/p&gt;", "");
 								datePub = temp;
+								
+								if(! "".equals(titre) && ! "".equals(description)) {
+									ResultatItem resultatItem = new ResultatItem();
+									resultatItem.setPostId(datePub);
+									resultatItem.setContenu(description);
+									resultatItem.setDate(datePub);
+									resultatItem.setTitre(titre);
+									resultatItem.setUrl(url);
+									System.out.println("Found on Rss ---------> " + titre);
+									resultatItems.add(resultatItem);
+								}
 							}
-							if (line.contains("<guid isPermaLink=\"false\">")) {
+							/*if (line.contains("<guid isPermaLink=\"false\">")) {
 								int firsti = line.indexOf("<guid isPermaLink=\"false\">");
 								String tempi = line.substring(firsti);
 								tempi = tempi.replace("<guid isPermaLink=\"false\">", "");
@@ -118,18 +133,16 @@ public class RssScrappingHandler extends SearchScrappingHandler {
 								tempi = tempi.replaceAll("&lt;p&gt;", "");
 								tempi = tempi.replaceAll("&lt;/p&gt;", "");
 								idR = tempi;
-							}
-							resultatItem.setIdr(idR);
-							resultatItem.setContenu(description);
-							resultatItem.setDate(datePub);
-							resultatItem.setTitre(titre);
-							resultatItem.setUrl(url);
-							resultatItems.add(resultatItem);
+							}*/
+							
+							
+							
 
 						}
 					}
 					in.close();
 					reader.close();
+					
 				} catch (MalformedURLException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
@@ -137,7 +150,7 @@ public class RssScrappingHandler extends SearchScrappingHandler {
 				}
 			}
 		}
-		
+		System.out.println(" =============================== End Scrapping Rss =============================== ");
 		resultatRecherche.setResultatItems(resultatItems);
 		resultatRecherche.setDate(ZonedDateTime.now());
 		resultatRecherche.setRecherche(search);

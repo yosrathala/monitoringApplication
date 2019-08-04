@@ -30,9 +30,10 @@ public class LinkedScappingHandler extends SearchScrappingHandler {
 
     @Override
     public ResultatRecherche getResult(Recherche search) {
+    	System.out.println("=============================== Start Scrapping LinkedIn =============================== ");
         ResultatRecherche resultatRecherche=new ResultatRecherche();
         Set<ResultatItem> resultatItems=new HashSet<>();
-        ResultatItem resultatItem=new ResultatItem();
+        
         Set<Source>sources= search.getSources();
         Motcle motcle = search.getMotcle();
         String login="";
@@ -65,7 +66,8 @@ public class LinkedScappingHandler extends SearchScrappingHandler {
                 .data("loginCsrfParam", loginCsrfParam.attr("value")).data("session_key", login)
                 .data("session_password", pass).method(Connection.Method.POST).followRedirects(true).execute();
 
-            response = Jsoup.connect("https://www.linkedin.com/search/results/content/?allowUnsupportedBrowser=true&keywords="+motcle.getMotinclue()+"&origin=SORT_RESULTS&facetSortBy=date_posted").cookies(iniResponse.cookies())
+            String searchLink = "https://www.linkedin.com/search/results/content/?allowUnsupportedBrowser=true&keywords="+motcle.getMotinclue()+"&origin=SORT_RESULTS&facetSortBy=date_posted";
+			response = Jsoup.connect(searchLink).cookies(iniResponse.cookies())
                 .userAgent(
                     "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) AppleWebKit/535.21 (KHTML, like Gecko) Chrome/19.0.1042.0 Safari/535.21")
                 .maxBodySize(0).method(Connection.Method.GET).execute();
@@ -121,8 +123,19 @@ public class LinkedScappingHandler extends SearchScrappingHandler {
                                 JSONArray actions = (JSONArray) updateMetadata.get("actions");
                                 JSONObject col = (JSONObject) actions.get(0);
                                 url=(String) col.get("url");
+                                
+                                ResultatItem resultatItem=new ResultatItem();
+                                resultatItem.setPostId(idR);
+                                resultatItem.setTitre(title);
+                                resultatItem.setContenu(description);
+                                resultatItem.setUrl(url);
+                                resultatItem.setDate(datePub);
+                                if(! "".equals(title) && ! "".equals(description)) {
+                                	System.out.println("Found on LinkeIn ---------> " + title);
+                        			resultatItems.add(resultatItem);
+                        		}
 
-                                i = content.size();
+                               // i = content.size();
                             }
                         }
                     }
@@ -130,11 +143,7 @@ public class LinkedScappingHandler extends SearchScrappingHandler {
                 }
 
             }
-            resultatItem.setIdr(idR);
-            resultatItem.setTitre(title);
-            resultatItem.setContenu(description);
-            resultatItem.setUrl(url);
-            resultatItem.setDate(datePub);
+            
         } catch (NullPointerException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -148,11 +157,11 @@ public class LinkedScappingHandler extends SearchScrappingHandler {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-        resultatItems.add(resultatItem);
+        
         resultatRecherche.setResultatItems(resultatItems);
 		resultatRecherche.setDate(ZonedDateTime.now());
 		resultatRecherche.setRecherche(search);
+		System.out.println("=============================== End Scrapping Linkedin =============================== ");
         return resultatRecherche;
     }
 

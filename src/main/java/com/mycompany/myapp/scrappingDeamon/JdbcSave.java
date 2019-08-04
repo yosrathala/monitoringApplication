@@ -1,5 +1,9 @@
 package com.mycompany.myapp.scrappingDeamon;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +16,13 @@ import com.mycompany.myapp.repository.ResultatRechercheRepository;
 
 @Service
 @Transactional
-public class JdbcSave extends SearchRresultHandler{
-    public JdbcSave() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+public class JdbcSave extends SearchRresultHandler {
+	public JdbcSave() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    public ResultatRechercheRepository getResultRechercheRepository() {
+	public ResultatRechercheRepository getResultRechercheRepository() {
 		return resultRechercheRepository;
 	}
 
@@ -35,29 +39,34 @@ public class JdbcSave extends SearchRresultHandler{
 	}
 
 	@Autowired
-    private ResultatRechercheRepository resultRechercheRepository;
-    @Autowired
-    private ResultatItemRepository resultatItemRepository;
+	private ResultatRechercheRepository resultRechercheRepository;
+	@Autowired
+	private ResultatItemRepository resultatItemRepository;
 
-    @Override
-    public void save(ResultatRecherche resultatRecherche) {
-        // TODO Auto-generated method stub
-        resultRechercheRepository.save(resultatRecherche);
+	@Override
+	public void save(ResultatRecherche resultatRecherche) {
+		List<ResultatItem> newItems = new ArrayList<>();
+		for (ResultatItem res : resultatRecherche.getResultatItems()) {
+			Optional<ResultatItem> ri = resultatItemRepository.findByPostId(res.getPostId());
+			if (!ri.isPresent()) {
+				newItems.add(res);
+			}
+		}
 
-        for (ResultatItem res : resultatRecherche.getResultatItems()) {
+		if (newItems.size() > 0) {
+			resultRechercheRepository.save(resultatRecherche);
 
-            res.setContenu(res.getContenu());
-            res.setTitre(res.getTitre());
-            res.setUrl(res.getUrl());
-            res.setResultatRecherche(resultatRecherche);
-            resultatItemRepository.save(res);
-        }
-    }
+			for (ResultatItem res : newItems) {
+				res.setResultatRecherche(resultatRecherche);
+				resultatItemRepository.save(res);
+			}
+		}
 
-    public ResultatItem saveitem(ResultatItem resultatItem) {
-        // TODO Auto-generated method stub
-        return resultatItemRepository.save(resultatItem);
-    }
+	}
 
+	public ResultatItem saveitem(ResultatItem resultatItem) {
+		// TODO Auto-generated method stub
+		return resultatItemRepository.save(resultatItem);
+	}
 
 }

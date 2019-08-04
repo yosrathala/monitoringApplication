@@ -2,12 +2,14 @@ package com.mycompany.myapp.scrappingDeamon;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.PeriodicTrigger;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +20,9 @@ import com.mycompany.myapp.domain.Source;
 public class WatchDog {
 
 	private List<Job> jobs = new ArrayList<>();
-	TaskScheduler taskScheduler;
-	List<Recherche> recherches;
-
+	private TaskScheduler taskScheduler = new ConcurrentTaskScheduler();;
+	private List<Recherche> recherches;
+	private List<ScheduledFuture> futureList = new ArrayList();
 	@Autowired
 	private ApplicationContext context;
 
@@ -41,15 +43,33 @@ public class WatchDog {
 	}
 
 	public void run() {
+	
 
-		taskScheduler = new ConcurrentTaskScheduler();
-		try {
-			for (Job job : jobs) {
-				PeriodicTrigger periodicTrigger = new PeriodicTrigger(job.getPeriodicity(), TimeUnit.SECONDS);
-				taskScheduler.schedule(job, periodicTrigger);
+			try {
+
+				for (Job job : jobs) {
+					PeriodicTrigger periodicTrigger = new PeriodicTrigger(job.getPeriodicity(), TimeUnit.SECONDS);
+					ScheduledFuture<?> future = taskScheduler.schedule(job, periodicTrigger);
+					futureList.add(future);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		
+	}
+
+	public void stopAll() {
+		for (ScheduledFuture scheduledFuture : futureList) {
+			scheduledFuture.cancel(false);
+		}
+		futureList.clear();
+	}
+	
+	public boolean isRuning() {
+		if (futureList.size() == 0) {
+			return false;
+		}else {
+			return true;
 		}
 	}
 }

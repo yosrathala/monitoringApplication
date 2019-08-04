@@ -31,8 +31,8 @@ public class ResultatItem implements Serializable {
     private String contenu;
 
     @NotNull
-    @Column(name = "idr", nullable = false)
-    private String idr;
+    @Column(name = "post_id", nullable = false)
+    private String postId;
 
     @Column(name = "statu")
     private Boolean statu;
@@ -75,17 +75,13 @@ public class ResultatItem implements Serializable {
         this.contenu = contenu;
     }
 
-    public String getIdr() {
-        return idr;
+    public String getPostId() {
+        return postId;
     }
 
-    public ResultatItem idr(String idr) {
-        this.idr = idr;
-        return this;
-    }
 
-    public void setIdr(String idr) {
-        this.idr = idr;
+    public void setPostId(String idr) {
+        this.postId = idr;
     }
 
     public Boolean isStatu() {
@@ -192,7 +188,6 @@ public class ResultatItem implements Serializable {
         return "ResultatItem{" +
             "id=" + getId() +
             ", contenu='" + getContenu() + "'" +
-            ", idr='" + getIdr() + "'" +
             ", statu='" + isStatu() + "'" +
             ", note='" + isNote() + "'" +
             ", titre='" + getTitre() + "'" +

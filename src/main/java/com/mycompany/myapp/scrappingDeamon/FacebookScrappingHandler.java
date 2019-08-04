@@ -25,9 +25,10 @@ public class FacebookScrappingHandler extends SearchScrappingHandler{
 
     @Override
     public ResultatRecherche getResult(Recherche search) {
+    	System.out.println("=============================== Start Scrapping Facebook =============================== ");
         ResultatRecherche resultatRecherche=new ResultatRecherche();
         Set<ResultatItem> resultatItems=new HashSet<>();
-        ResultatItem resultatItem=new ResultatItem();
+        
         Set<Source> sources= search.getSources();
         Motcle motcle= search.getMotcle();
         String login="";
@@ -49,7 +50,8 @@ public class FacebookScrappingHandler extends SearchScrappingHandler{
                 .method(Method.POST).data("email", login).data("pass", pass)
                 .followRedirects(true).execute();
 
-            Document d = Jsoup.connect("https://www.facebook.com/search/top/?q="+motcle.getMotinclue()+"&epa=FILTERS&filters=eyJycF9jcmVhdGlvbl90aW1lIjoie1wibmFtZVwiOlwiY3JlYXRpb25fdGltZVwiLFwiYXJnc1wiOlwie1xcXCJzdGFydF9tb250aFxcXCI6XFxcIjIwMTktMDdcXFwiLFxcXCJlbmRfbW9udGhcXFwiOlxcXCIyMDE5LTA3XFxcIn1cIn0iLCJycF9hdXRob3IiOiJ7XCJuYW1lXCI6XCJtZXJnZWRfcHVibGljX3Bvc3RzXCIsXCJhcmdzXCI6XCJcIn0ifQ%3D%3D").userAgent(userAgent)
+            String searchink = "https://www.facebook.com/search/posts/?q="+motcle.getMotinclue()+"&epa=SERP_TAB";
+			Document d = Jsoup.connect(searchink ).userAgent(userAgent)
                 .cookies(req.cookies()).get();
             Elements links =d.select("code");
             for(int i=0;i<links.size();i++)
@@ -88,18 +90,25 @@ public class FacebookScrappingHandler extends SearchScrappingHandler{
 
                     description=doc1.getElementsByTag("div").text();
 
-                    if(!description.contains(motcle.getMotexclue()))
-                        i=links.size();
+                   // if(!description.contains(motcle.getMotexclue()))
+                       // i=links.size();
+                                   
+            		if(! "".equals(title) && ! "".equals(description)) {
+            			ResultatItem resultatItem=new ResultatItem();
+                        resultatItem.setPostId(idR);
+                        resultatItem.setTitre(title);
+                        resultatItem.setContenu(description);
+                        resultatItem.setDate(datePub);
+                        resultatItem.setUrl(url);
+                		resultatRecherche.setDate(ZonedDateTime.now());
+                		resultatRecherche.setRecherche(search);
+            			System.out.println("Found on Facebook ---------> " + title);
+    					resultatItems.add(resultatItem);
+    				}
                 }
-                resultatItem.setIdr(idR);
-                resultatItem.setTitre(title);
-                resultatItem.setContenu(description);
-                resultatItem.setDate(datePub);
-                resultatItem.setUrl(url);
-        		resultatRecherche.setDate(ZonedDateTime.now());
-        		resultatRecherche.setRecherche(search);
-        		resultatItems.add(resultatItem);
+                
             }
+            System.out.println("=============================== End Scrapping Facebook =============================== ");
         } catch (Exception e) {
             e.printStackTrace();
         }
