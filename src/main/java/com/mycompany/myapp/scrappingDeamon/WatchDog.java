@@ -48,7 +48,7 @@ public class WatchDog {
 			try {
 
 				for (Job job : jobs) {
-					PeriodicTrigger periodicTrigger = new PeriodicTrigger(job.getPeriodicity(), TimeUnit.SECONDS);
+					PeriodicTrigger periodicTrigger = new PeriodicTrigger(job.getPeriodicity(), TimeUnit.MINUTES);
 					ScheduledFuture<?> future = taskScheduler.schedule(job, periodicTrigger);
 					futureList.add(future);
 				}
