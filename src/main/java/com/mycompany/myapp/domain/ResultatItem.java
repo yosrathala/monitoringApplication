@@ -30,10 +30,6 @@ public class ResultatItem implements Serializable {
     @Column(name = "contenu", nullable = false)
     private String contenu;
 
-    @NotNull
-    @Column(name = "post_id", nullable = false)
-    private String postId;
-
     @Column(name = "statu")
     private Boolean statu;
 
@@ -48,6 +44,9 @@ public class ResultatItem implements Serializable {
 
     @Column(name = "url")
     private String url;
+
+    @Column(name = "post_id")
+    private String postId;
 
     @ManyToOne
     @JsonIgnoreProperties("resultatItems")
@@ -73,15 +72,6 @@ public class ResultatItem implements Serializable {
 
     public void setContenu(String contenu) {
         this.contenu = contenu;
-    }
-
-    public String getPostId() {
-        return postId;
-    }
-
-
-    public void setPostId(String idr) {
-        this.postId = idr;
     }
 
     public Boolean isStatu() {
@@ -149,6 +139,19 @@ public class ResultatItem implements Serializable {
         this.url = url;
     }
 
+    public String getPostId() {
+        return postId;
+    }
+
+    public ResultatItem postId(String postId) {
+        this.postId = postId;
+        return this;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
+
     public ResultatRecherche getResultatRecherche() {
         return resultatRecherche;
     }
@@ -193,6 +196,7 @@ public class ResultatItem implements Serializable {
             ", titre='" + getTitre() + "'" +
             ", date='" + getDate() + "'" +
             ", url='" + getUrl() + "'" +
+            ", postId='" + getPostId() + "'" +
             "}";
     }
 }

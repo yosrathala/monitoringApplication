@@ -16,13 +16,13 @@
                 "title": "Resultat Item"
             },
             "contenu": "Contenu",
-            "idr": "Idr",
             "statu": "Statu",
             "note": "Note",
             "titre": "Titre",
             "date": "Date",
             "url": "Url",
-            "resultatRecherche": "Date de lancement Recherche"
+            "postId": "Post Id",
+            "resultatRecherche": "Resultat Recherche"
         }
     }
 }

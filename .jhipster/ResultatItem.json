@@ -20,13 +20,6 @@
             ]
         },
         {
-            "fieldName": "idr",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
             "fieldName": "statu",
             "fieldType": "Boolean"
         },
@@ -45,6 +38,10 @@
         },
         {
             "fieldName": "url",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "postId",
             "fieldType": "String"
         }
     ],

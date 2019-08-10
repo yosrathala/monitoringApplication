@@ -43,9 +43,6 @@ public class ResultatItemResourceIntTest {
     private static final String DEFAULT_CONTENU = "AAAAAAAAAA";
     private static final String UPDATED_CONTENU = "BBBBBBBBBB";
 
-    private static final String DEFAULT_IDR = "AAAAAAAAAA";
-    private static final String UPDATED_IDR = "BBBBBBBBBB";
-
     private static final Boolean DEFAULT_STATU = false;
     private static final Boolean UPDATED_STATU = true;
 
@@ -60,6 +57,9 @@ public class ResultatItemResourceIntTest {
 
     private static final String DEFAULT_URL = "AAAAAAAAAA";
     private static final String UPDATED_URL = "BBBBBBBBBB";
+
+    private static final String DEFAULT_POST_ID = "AAAAAAAAAA";
+    private static final String UPDATED_POST_ID = "BBBBBBBBBB";
 
     @Autowired
     private ResultatItemRepository resultatItemRepository;
@@ -104,12 +104,12 @@ public class ResultatItemResourceIntTest {
     public static ResultatItem createEntity(EntityManager em) {
         ResultatItem resultatItem = new ResultatItem()
             .contenu(DEFAULT_CONTENU)
-            .idr(DEFAULT_IDR)
             .statu(DEFAULT_STATU)
             .note(DEFAULT_NOTE)
             .titre(DEFAULT_TITRE)
             .date(DEFAULT_DATE)
-            .url(DEFAULT_URL);
+            .url(DEFAULT_URL)
+            .postId(DEFAULT_POST_ID);
         return resultatItem;
     }
 
@@ -134,12 +134,12 @@ public class ResultatItemResourceIntTest {
         assertThat(resultatItemList).hasSize(databaseSizeBeforeCreate + 1);
         ResultatItem testResultatItem = resultatItemList.get(resultatItemList.size() - 1);
         assertThat(testResultatItem.getContenu()).isEqualTo(DEFAULT_CONTENU);
-        assertThat(testResultatItem.getIdr()).isEqualTo(DEFAULT_IDR);
         assertThat(testResultatItem.isStatu()).isEqualTo(DEFAULT_STATU);
         assertThat(testResultatItem.isNote()).isEqualTo(DEFAULT_NOTE);
         assertThat(testResultatItem.getTitre()).isEqualTo(DEFAULT_TITRE);
         assertThat(testResultatItem.getDate()).isEqualTo(DEFAULT_DATE);
         assertThat(testResultatItem.getUrl()).isEqualTo(DEFAULT_URL);
+        assertThat(testResultatItem.getPostId()).isEqualTo(DEFAULT_POST_ID);
     }
 
     @Test
@@ -181,24 +181,6 @@ public class ResultatItemResourceIntTest {
 
     @Test
     @Transactional
-    public void checkIdrIsRequired() throws Exception {
-        int databaseSizeBeforeTest = resultatItemRepository.findAll().size();
-        // set the field null
-        resultatItem.setIdr(null);
-
-        // Create the ResultatItem, which fails.
-
-        restResultatItemMockMvc.perform(post("/api/resultat-items")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(resultatItem)))
-            .andExpect(status().isBadRequest());
-
-        List<ResultatItem> resultatItemList = resultatItemRepository.findAll();
-        assertThat(resultatItemList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllResultatItems() throws Exception {
         // Initialize the database
         resultatItemRepository.saveAndFlush(resultatItem);
@@ -209,12 +191,12 @@ public class ResultatItemResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(resultatItem.getId().intValue())))
             .andExpect(jsonPath("$.[*].contenu").value(hasItem(DEFAULT_CONTENU.toString())))
-            .andExpect(jsonPath("$.[*].idr").value(hasItem(DEFAULT_IDR.toString())))
             .andExpect(jsonPath("$.[*].statu").value(hasItem(DEFAULT_STATU.booleanValue())))
             .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE.booleanValue())))
             .andExpect(jsonPath("$.[*].titre").value(hasItem(DEFAULT_TITRE.toString())))
             .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
-            .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL.toString())));
+            .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL.toString())))
+            .andExpect(jsonPath("$.[*].postId").value(hasItem(DEFAULT_POST_ID.toString())));
     }
     
     @Test
@@ -229,12 +211,12 @@ public class ResultatItemResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(resultatItem.getId().intValue()))
             .andExpect(jsonPath("$.contenu").value(DEFAULT_CONTENU.toString()))
-            .andExpect(jsonPath("$.idr").value(DEFAULT_IDR.toString()))
             .andExpect(jsonPath("$.statu").value(DEFAULT_STATU.booleanValue()))
             .andExpect(jsonPath("$.note").value(DEFAULT_NOTE.booleanValue()))
             .andExpect(jsonPath("$.titre").value(DEFAULT_TITRE.toString()))
             .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
-            .andExpect(jsonPath("$.url").value(DEFAULT_URL.toString()));
+            .andExpect(jsonPath("$.url").value(DEFAULT_URL.toString()))
+            .andExpect(jsonPath("$.postId").value(DEFAULT_POST_ID.toString()));
     }
 
     @Test
@@ -259,12 +241,12 @@ public class ResultatItemResourceIntTest {
         em.detach(updatedResultatItem);
         updatedResultatItem
             .contenu(UPDATED_CONTENU)
-            .idr(UPDATED_IDR)
             .statu(UPDATED_STATU)
             .note(UPDATED_NOTE)
             .titre(UPDATED_TITRE)
             .date(UPDATED_DATE)
-            .url(UPDATED_URL);
+            .url(UPDATED_URL)
+            .postId(UPDATED_POST_ID);
 
         restResultatItemMockMvc.perform(put("/api/resultat-items")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -276,12 +258,12 @@ public class ResultatItemResourceIntTest {
         assertThat(resultatItemList).hasSize(databaseSizeBeforeUpdate);
         ResultatItem testResultatItem = resultatItemList.get(resultatItemList.size() - 1);
         assertThat(testResultatItem.getContenu()).isEqualTo(UPDATED_CONTENU);
-        assertThat(testResultatItem.getIdr()).isEqualTo(UPDATED_IDR);
         assertThat(testResultatItem.isStatu()).isEqualTo(UPDATED_STATU);
         assertThat(testResultatItem.isNote()).isEqualTo(UPDATED_NOTE);
         assertThat(testResultatItem.getTitre()).isEqualTo(UPDATED_TITRE);
         assertThat(testResultatItem.getDate()).isEqualTo(UPDATED_DATE);
         assertThat(testResultatItem.getUrl()).isEqualTo(UPDATED_URL);
+        assertThat(testResultatItem.getPostId()).isEqualTo(UPDATED_POST_ID);
     }
 
     @Test

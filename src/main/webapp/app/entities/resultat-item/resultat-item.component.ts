@@ -6,10 +6,11 @@ import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { IResultatItem } from 'app/shared/model/resultat-item.model';
-import { AccountService } from 'app/core';
+import { Account, AccountService, LoginModalService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { ResultatItemService } from './resultat-item.service';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'jhi-resultat-item',
@@ -29,6 +30,9 @@ export class ResultatItemComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    etat: string = 'scraping en stop';
+    account: Account;
+    modalRef: NgbModalRef;
 
     constructor(
         protected resultatItemService: ResultatItemService,
@@ -36,6 +40,7 @@ export class ResultatItemComponent implements OnInit, OnDestroy {
         protected jhiAlertService: JhiAlertService,
         protected accountService: AccountService,
         protected activatedRoute: ActivatedRoute,
+        private loginModalService: LoginModalService,
         protected router: Router,
         protected eventManager: JhiEventManager
     ) {
@@ -73,7 +78,7 @@ export class ResultatItemComponent implements OnInit, OnDestroy {
             queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
-                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+                sort: this.predicate + ',' + (this.reverse ? 'desc' : 'asc')
             }
         });
         this.loadAll();
@@ -85,13 +90,28 @@ export class ResultatItemComponent implements OnInit, OnDestroy {
             '/resultat-item',
             {
                 page: this.page,
-                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+                sort: this.predicate + ',' + (this.reverse ? 'desc' : 'asc')
             }
         ]);
         this.loadAll();
     }
 
+    scrap() {
+        this.etat = 'scraping en cours...';
+        this.resultatItemService.scaping().subscribe();
+    }
+
+    stop() {
+        this.etat = 'scraping en stop';
+
+        this.resultatItemService.stop().subscribe();
+    }
+
     ngOnInit() {
+        this.accountService.identity().then((account: Account) => {
+            this.account = account;
+        });
+        this.registerAuthenticationSuccess();
         this.loadAll();
         this.accountService.identity().then(account => {
             this.currentAccount = account;
@@ -99,20 +119,12 @@ export class ResultatItemComponent implements OnInit, OnDestroy {
         this.registerChangeInResultatItems();
     }
 
-    ngOnDestroy() {
-        this.eventManager.destroy(this.eventSubscriber);
-    }
-
-    trackId(index: number, item: IResultatItem) {
-        return item.id;
-    }
-
     registerChangeInResultatItems() {
         this.eventSubscriber = this.eventManager.subscribe('resultatItemListModification', response => this.loadAll());
     }
 
     sort() {
-        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+        const result = [this.predicate + ',' + (this.reverse ? 'desc' : 'asc')];
         if (this.predicate !== 'id') {
             result.push('id');
         }
@@ -127,5 +139,29 @@ export class ResultatItemComponent implements OnInit, OnDestroy {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    ngOnDestroy() {
+        this.eventManager.destroy(this.eventSubscriber);
+    }
+
+    trackId(index: number, item: IResultatItem) {
+        return item.id;
+    }
+
+    registerAuthenticationSuccess() {
+        this.eventManager.subscribe('authenticationSuccess', message => {
+            this.accountService.identity().then(account => {
+                this.account = account;
+            });
+        });
+    }
+
+    isAuthenticated() {
+        return this.accountService.isAuthenticated();
+    }
+
+    login() {
+        this.modalRef = this.loginModalService.open();
     }
 }

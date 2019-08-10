@@ -11,7 +11,7 @@
                            [(ngModel)]="recherche.id" readonly />
                 </div>
                 <div class="form-group">
-                    <h4 class="form-control-label" jhiTranslate="projetApp.recherche.periodicite" for="field_periodicite">Periodicite</h4>
+                    <h4 class="form-control-label" jhiTranslate="projetApp.recherche.periodicite" for="field_periodicite">Periodicite(MINUTES)</h4>
                     <input type="number" class="form-control" name="periodicite" id="field_periodicite"
                            [(ngModel)]="recherche.periodicite" required/>
                     <div [hidden]="!(editForm.controls.periodicite?.dirty && editForm.controls.periodicite?.invalid)">
@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <h4 class="form-control-label" jhiTranslate="projetApp.recherche.motcle" for="field_motcle">Motcle</h4>
                     <select class="form-control"  id="field_motcle" name="motcle" [(ngModel)]="recherche.motcle"   >
-                        <option [ngValue]="null"></option>
+                        <option [ngValue]="null" disabled></option>
                         <option [ngValue]="getSelected(recherche.motcle, motcleOption)" *ngFor="let motcleOption of motcles; trackBy: trackMotcleById"  >
                             {{motcleOption.nom}}</option>
                     </select>

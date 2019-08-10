@@ -1,70 +1,49 @@
 <div>
-    <h2 id="page-heading">
-        <span jhiTranslate="projetApp.resultatItem.home.title">Resultat Items</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-resultat-item" [routerLink]="['/resultat-item/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span  jhiTranslate="projetApp.resultatItem.home.createLabel">
-            Create new Resultat Item
-            </span>
+    <h1 class="display-4" jhiTranslate="home.title">Welcome, Web Monitoring!</h1>
+
+    <p>
+
+        <button type="submit"
+                (click)="scrap()"
+                class="btn btn-primary">
+            <fa-icon icon="tachometer-alt" fixedWidth="true"></fa-icon>
+            <span class="d-none d-md-inline" jhiTranslate="">Démarrer</span>
         </button>
-    </h2>
-    <jhi-alert></jhi-alert>
-    <br/>
+        <button type="submit"
+                (click)="stop()"
+                class="btn btn-primary btn-danger">
+            <fa-icon icon="tachometer-alt" fixedWidth="true"></fa-icon>
+            <span class="d-none d-md-inline" jhiTranslate="">Arréter</span>
+        </button>
+    </p>
+<div >
+    <p>
+        {{etat}}
+    </p>
+</div>
+
+
     <div class="table-responsive" *ngIf="resultatItems">
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="contenu"><span jhiTranslate="projetApp.resultatItem.contenu">Contenu</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="idr"><span jhiTranslate="projetApp.resultatItem.idr">Idr</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="statu"><span jhiTranslate="projetApp.resultatItem.statu">Statu</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="note"><span jhiTranslate="projetApp.resultatItem.note">Note</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="titre"><span jhiTranslate="projetApp.resultatItem.titre">Titre</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="date"><span jhiTranslate="projetApp.resultatItem.date">Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="url"><span jhiTranslate="projetApp.resultatItem.url">Url</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="resultatRecherche.id"><span jhiTranslate="projetApp.resultatItem.resultatRecherche">Resultat Recherche</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="titre"><span jhiTranslate="projetApp.resultatItem.titre">Titre</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+
+                <th jhiSortBy="contenu"><span jhiTranslate="projetApp.resultatItem.contenu">Contenu</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="date"><span jhiTranslate="projetApp.resultatItem.date">Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let resultatItem of resultatItems ;trackBy: trackId">
                 <td><a [routerLink]="['/resultat-item', resultatItem.id, 'view' ]">{{resultatItem.id}}</a></td>
+                <td><a href="{{resultatItem.url}}"  target="_blank" >{{resultatItem.titre}}</a></td>
                 <td>{{resultatItem.contenu}}</td>
-                <td>{{resultatItem.idr}}</td>
-                <td>{{resultatItem.statu}}</td>
-                <td>{{resultatItem.note}}</td>
-                <td>{{resultatItem.titre}}</td>
+
                 <td>{{resultatItem.date}}</td>
-                <td>{{resultatItem.url}}</td>
-                <td>
-                    <div *ngIf="resultatItem.resultatRecherche">
-                        <a [routerLink]="['../resultat-recherche', resultatItem.resultatRecherche?.id, 'view' ]" >{{resultatItem.resultatRecherche?.date}}</a>
-                    </div>
-                </td>
-                <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
-                        <button type="submit"
-                                [routerLink]="['/resultat-item', resultatItem.id, 'view' ]"
-                                class="btn btn-info btn-sm">
-                            <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/resultat-item', resultatItem.id, 'edit']"
-                                class="btn btn-primary btn-sm">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/', 'resultat-item', { outlets: { popup: resultatItem.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
-                                class="btn btn-danger btn-sm">
-                            <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                        </button>
-                    </div>
-                </td>
+
+
             </tr>
             </tbody>
         </table>
@@ -77,4 +56,7 @@
             <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
     </div>
+
+
 </div>
+

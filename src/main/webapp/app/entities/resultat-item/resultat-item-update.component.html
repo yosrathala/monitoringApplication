@@ -21,17 +21,6 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="projetApp.resultatItem.idr" for="field_idr">Idr</label>
-                    <input type="text" class="form-control" name="idr" id="field_idr"
-                        [(ngModel)]="resultatItem.idr" required/>
-                    <div [hidden]="!(editForm.controls.idr?.dirty && editForm.controls.idr?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.idr?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="projetApp.resultatItem.statu" for="field_statu">Statu</label>
                     <input type="checkbox" class="form-control" name="statu" id="field_statu"
                         [(ngModel)]="resultatItem.statu" />
@@ -55,6 +44,11 @@
                     <label class="form-control-label" jhiTranslate="projetApp.resultatItem.url" for="field_url">Url</label>
                     <input type="text" class="form-control" name="url" id="field_url"
                         [(ngModel)]="resultatItem.url" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="projetApp.resultatItem.postId" for="field_postId">Post Id</label>
+                    <input type="text" class="form-control" name="postId" id="field_postId"
+                        [(ngModel)]="resultatItem.postId" />
                 </div>
 
                 <div class="form-group">
