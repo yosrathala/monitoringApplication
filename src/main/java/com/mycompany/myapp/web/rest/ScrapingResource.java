@@ -2,20 +2,22 @@ package com.mycompany.myapp.web.rest;
 
 
 import com.mycompany.myapp.domain.Recherche;
+import com.mycompany.myapp.domain.ResultatItem;
+import com.mycompany.myapp.domain.ResultatRecherche;
+import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.repository.RechercheRepository;
+import com.mycompany.myapp.repository.UserRepository;
 import com.mycompany.myapp.scrappingDeamon.WatchDog;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.Executor;
 
 @RestController
 @RequestMapping("/api")
@@ -24,7 +26,8 @@ public class ScrapingResource {
     @Autowired
     private static RechercheRepository rechercheRepository;
 
-    private  WatchDog watchDog;
+
+    private WatchDog watchDog;
 
     @Value("${scheduler.pool.size:10}")
     private Integer poolSize;
@@ -35,18 +38,23 @@ public class ScrapingResource {
         this.watchDog = watchDog;
 
     }
+
     @GetMapping("scrapping")
-    public void scraping(){
-    	if(!watchDog.isRuning()) {
-    		List<Recherche> recherches = rechercheRepository.findAllWithEagerRelationships();
+    public void scraping() {
+        if (!watchDog.isRuning()) {
+
+            List<Recherche> recherches = rechercheRepository.findAllWithEagerRelationships();
             watchDog.init(recherches);
             watchDog.run();
-    	}
-        
+
+
+        }
+
     }
+
     @GetMapping("stop")
     public void taskExecutor() {
-    	watchDog.stopAll();
+        watchDog.stopAll();
     }
 
 
