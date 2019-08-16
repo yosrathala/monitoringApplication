@@ -2,6 +2,7 @@ package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.config.Constants;
 import com.mycompany.myapp.domain.User;
+import com.mycompany.myapp.domain.UserExtra;
 import com.mycompany.myapp.repository.UserRepository;
 import com.mycompany.myapp.security.AuthoritiesConstants;
 import com.mycompany.myapp.service.MailService;
@@ -18,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -143,6 +145,14 @@ public class UserResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+    @GetMapping("/users/{id}")
+    public User getuser(@PathVariable Long id) {
+        return userRepository.findById(id).get();
+      }
+    @GetMapping("/users/get/{id}")
+    public UserExtra getuserex(@PathVariable Long id) {
+        return userRepository.get(id);
+      }
 
     /**
      * @return a string list of the all of the roles

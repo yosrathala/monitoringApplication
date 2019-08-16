@@ -18,6 +18,9 @@ export class UserExtraService {
     create(userExtra: IUserExtra): Observable<EntityResponseType> {
         return this.http.post<IUserExtra>(this.resourceUrl, userExtra, { observe: 'response' });
     }
+    post(userExtra, user) {
+        return this.http.post(this.resourceUrl + '/p/' + user, userExtra);
+    }
 
     update(userExtra: IUserExtra): Observable<EntityResponseType> {
         return this.http.put<IUserExtra>(this.resourceUrl, userExtra, { observe: 'response' });

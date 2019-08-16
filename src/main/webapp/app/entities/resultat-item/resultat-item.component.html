@@ -27,7 +27,6 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="titre"><span jhiTranslate="projetApp.resultatItem.titre">Titre</span> <fa-icon [icon]="'sort'"></fa-icon></th>
 
                 <th jhiSortBy="contenu"><span jhiTranslate="projetApp.resultatItem.contenu">Contenu</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -37,7 +36,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let resultatItem of resultatItems ;trackBy: trackId">
-                <td><a [routerLink]="['/resultat-item', resultatItem.id, 'view' ]">{{resultatItem.id}}</a></td>
+
                 <td><a href="{{resultatItem.url}}"  target="_blank" >{{resultatItem.titre}}</a></td>
                 <td>{{resultatItem.contenu}}</td>
 

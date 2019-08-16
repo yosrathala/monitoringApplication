@@ -15,7 +15,6 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="nom"><span jhiTranslate="projetApp.motcle.nom">Nom</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="motinclue"><span jhiTranslate="projetApp.motcle.motinclue">Motinclue</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="motexclue"><span jhiTranslate="projetApp.motcle.motexclue">Motexclue</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -24,7 +23,6 @@
             </thead>
             <tbody>
             <tr *ngFor="let motcle of (motcles | pureFilter:filter:'nom' | orderBy:orderProp:reverse)">
-                <td><a [routerLink]="['/motcle', motcle.id, 'view' ]">{{motcle.id}}</a></td>
                 <td>{{motcle.nom}}</td>
                 <td>{{motcle.motinclue}}</td>
                 <td>{{motcle.motexclue}}</td>

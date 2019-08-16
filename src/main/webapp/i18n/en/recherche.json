@@ -15,7 +15,7 @@
             "detail": {
                 "title": "Recherche"
             },
-            "periodicite": "Periodicite",
+            "periodicite": "Periodicite (MINUTES)",
             "emailnotif": "Emailnotif",
             "pushnotif": "Pushnotif",
             "smsnotif": "Smsnotif",

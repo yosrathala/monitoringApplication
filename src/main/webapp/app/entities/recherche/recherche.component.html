@@ -15,8 +15,7 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="periodicite"><span jhiTranslate="projetApp.recherche.periodicite">Periodicite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+              <th jhiSortBy="periodicite"><span jhiTranslate="projetApp.recherche.periodicite">Periodicite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="motcle.id"><span jhiTranslate="projetApp.recherche.motcle">Motcle</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="source.id"><span jhiTranslate="projetApp.recherche.source">Source</span><fa-icon [icon]="'sort'"></fa-icon></th>
 
@@ -30,7 +29,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let recherche of recherches ;trackBy: trackId">
-                <td><a [routerLink]="['/recherche', recherche.id, 'view' ]">{{recherche.id}}</a></td>
+
                 <td>{{recherche.periodicite}}</td>
                 <td>
                     <div *ngIf="recherche.motcle">
@@ -43,9 +42,11 @@
 
 
                 <td>
-                    <div *ngFor="let  s of recherche.sources;trackBy: trackId">
-                        <span class="badge badge-info">{{ s.nom }}</span>
-                    </div>
+                    <span *ngFor="let source of recherche.sources; let last = last">
+                        <a [routerLink]="['/source', source?.id, 'view' ]">{{source.nom}}</a>{{last ? '' : ', '}}
+                    </span>
+
+
                 </td>
 
 

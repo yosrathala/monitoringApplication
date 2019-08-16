@@ -15,7 +15,14 @@ export class UserService {
     create(user: IUser): Observable<HttpResponse<IUser>> {
         return this.http.post<IUser>(this.resourceUrl, user, { observe: 'response' });
     }
-
+    get(id) {
+        const url = this.resourceUrl + '/' + id;
+        return this.http.get(url);
+    }
+    getuser(id) {
+        const url = this.resourceUrl + '/get/' + id;
+        return this.http.get(url);
+    }
     update(user: IUser): Observable<HttpResponse<IUser>> {
         return this.http.put<IUser>(this.resourceUrl, user, { observe: 'response' });
     }

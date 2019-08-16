@@ -1,11 +1,14 @@
 package com.mycompany.myapp.web.rest;
+import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.domain.UserExtra;
 import com.mycompany.myapp.repository.UserExtraRepository;
+import com.mycompany.myapp.repository.UserRepository;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +30,8 @@ public class UserExtraResource {
     private static final String ENTITY_NAME = "userExtra";
 
     private final UserExtraRepository userExtraRepository;
+@Autowired
+    UserRepository userRepository;
 
     public UserExtraResource(UserExtraRepository userExtraRepository) {
         this.userExtraRepository = userExtraRepository;
@@ -49,6 +54,15 @@ public class UserExtraResource {
         return ResponseEntity.created(new URI("/api/user-extras/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
+    }
+    @PostMapping("/user-extras/p/{id}")
+    public UserExtra POSTUserExtra(@RequestBody UserExtra userExtra,@PathVariable Long id) throws URISyntaxException {
+System.out.println("id"+id);
+        User u =userRepository.findById(id).get();
+        System.out.println("user"+u.getLastName());
+
+        userExtra.setUser(u);
+        return userExtraRepository.save(userExtra);
     }
 
     /**

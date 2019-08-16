@@ -15,26 +15,20 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="nom"><span jhiTranslate="projetApp.source.nom">Nom</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+           <th jhiSortBy="nom"><span jhiTranslate="projetApp.source.nom">Nom</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="login"><span jhiTranslate="projetApp.source.login">Login</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="motPasse"><span jhiTranslate="projetApp.source.motPasse">Mot Passe</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="url"><span jhiTranslate="projetApp.source.url">Url</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="key"><span jhiTranslate="projetApp.source.key">Key</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="dataHandler"><span jhiTranslate="projetApp.source.dataHandler">Data Handler</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let source of (sources | pureFilter:filter:'nom' | orderBy:orderProp:reverse)">
-                <td><a [routerLink]="['/source', source.id, 'view' ]">{{source.id}}</a></td>
-                <td>{{source.nom}}</td>
+               <td>{{source.nom}}</td>
                 <td>{{source.login}}</td>
                 <td style="-webkit-text-security: disc;">{{source.motPasse}}</td>
                 <td>{{source.url}}</td>
-                <td>{{source.key}}</td>
-                <td>{{source.dataHandler}}</td>
-                <td class="text-right">
+              <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
                                 [routerLink]="['/source', source.id, 'view' ]"

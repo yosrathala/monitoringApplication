@@ -8,14 +8,19 @@ import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { AccountService, UserService, User } from 'app/core';
 import { UserMgmtDeleteDialogComponent } from 'app/admin';
+import { UserExtra } from 'app/shared/model/user-extra.model';
+import { UserExtraService } from 'app/entities/user-extra';
 
 @Component({
     selector: 'jhi-user-mgmt',
     templateUrl: './user-management.component.html'
 })
 export class UserMgmtComponent implements OnInit, OnDestroy {
+    userExtra: UserExtra = new UserExtra();
     currentAccount: any;
     users: User[];
+    user: User;
+    userm: User;
     error: any;
     success: any;
     routeData: any;
@@ -29,6 +34,7 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
 
     constructor(
         private userService: UserService,
+        private userExtraService: UserExtraService,
         private alertService: JhiAlertService,
         private accountService: AccountService,
         private parseLinks: JhiParseLinks,
@@ -52,6 +58,42 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
             this.loadAll();
             this.registerChangeInUsers();
         });
+    }
+
+    open(c, id) {
+        this.userService.getuser(id).subscribe(res => {
+            if (res != null) {
+                this.userExtra = res as UserExtra;
+                this.modalService.open(c, { centered: true });
+            } else {
+                this.userService.get(id).subscribe(e => {
+                    this.userm = new User();
+                    this.userm = e as User;
+                    this.modalService.open(c, { centered: true });
+                });
+            }
+        });
+    }
+
+    save() {
+        if (this.userm != null) {
+            this.userExtra.user = this.userm;
+
+            this.userExtraService.post(this.userExtra, this.userm.id).subscribe();
+        } else {
+            // this.userExtra.user=this.user;
+            this.userExtraService.update(this.userExtra).subscribe();
+        }
+
+        this.c();
+    }
+
+    c() {
+        this.userExtra.phone = null;
+        this.userExtra.pushid = null;
+        this.userm = null;
+        this.user = null;
+        this.modalService.dismissAll();
     }
 
     ngOnDestroy() {

@@ -1,11 +1,12 @@
 <div class="row">
-   <!-- <div class="col-md-3" >
+    <div class="col-md-3">
         <span class="hipster img-fluid rounded"></span>
-    </div>-->
-    <div class="col-md-12">
+    </div>
+    <div class="col-md-9">
         <h1 class="display-4" jhiTranslate="home.title">Welcome, Web Monitoring!</h1>
         <div [ngSwitch]="isAuthenticated()">
         <p class="lead" *ngSwitchCase="true" >
+
             <button type="submit"
                     (click)="scrap()"
                     class="btn btn-primary">
@@ -23,51 +24,6 @@
 
 
 
-            <div class="alert alert-success" *ngSwitchCase="true">
-                <span id="home-logged-message" *ngIf="account" jhiTranslate="home.logged.message"
-                      [translateValues]="{username: account.login}"> You are logged in as user "{{account.login}}". </span>
-            </div>
-            <div class="alert alert-danger" *ngSwitchCase="true">
-                <span class="badge badge-pill badge-danger">Messages</span><span> Les messages non lus (20) </span>
-            </div>
-            <div class="alert alert-dismissable" *ngSwitchCase="true">
-            <div class="table-responsive" *ngIf="resultatItems">
-                <table class="table table-striped">
-                    <thead>
-                    <tr >
-                        <th ><span jhiTranslate="projetApp.resultatItem.titre">Titre</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                        <th ><span jhiTranslate="projetApp.resultatItem.contenu">Contenu</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-
-
-
-                        <th ><span jhiTranslate="projetApp.resultatItem.date">Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                        <th><span jhiTranslate="projetApp.resultatItem.url">Url</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                        <th><span jhiTranslate="projetApp.resultatItem.resultatRecherche">Date de lancement Recherche</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let resultatItem of resultatItems ;trackBy: trackId">
-
-                        <td>{{resultatItem.titre}}</td>
-                        <td>{{resultatItem.contenu}}</td>
-
-
-
-                        <td>{{resultatItem.date}}</td>
-                        <td>{{resultatItem.url}}</td>
-                        <td>
-                            <div *ngIf="resultatItem.resultatRecherche">
-                                <a [routerLink]="['../resultat-recherche', resultatItem.resultatRecherche?.id, 'view' ]" >{{resultatItem.resultatRecherche?.date}}</a>
-                            </div>
-                        </td>
-
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            </div>
 
 
 
@@ -79,10 +35,10 @@
                 <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>&nbsp;
                 <a class="alert-link" routerLink="register" jhiTranslate="global.messages.info.register.link">Register a new account</a>
             </div>
-        </div>
+
 
     </div>
 
     </div>
-
+</div>
 
