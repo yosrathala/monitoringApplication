@@ -78,7 +78,7 @@ export class ResultatItemComponent implements OnInit, OnDestroy {
             queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
-                sort: this.predicate + ',' + (this.reverse ? 'desc' : 'asc')
+                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
         this.loadAll();
@@ -90,7 +90,7 @@ export class ResultatItemComponent implements OnInit, OnDestroy {
             '/resultat-item',
             {
                 page: this.page,
-                sort: this.predicate + ',' + (this.reverse ? 'desc' : 'asc')
+                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         ]);
         this.loadAll();
@@ -124,7 +124,7 @@ export class ResultatItemComponent implements OnInit, OnDestroy {
     }
 
     sort() {
-        const result = [this.predicate + ',' + (this.reverse ? 'desc' : 'asc')];
+        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
         }
