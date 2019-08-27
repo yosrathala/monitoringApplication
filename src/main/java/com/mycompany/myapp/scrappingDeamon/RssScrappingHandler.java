@@ -33,13 +33,10 @@ import com.mycompany.myapp.domain.Source;
 public class RssScrappingHandler extends SearchScrappingHandler {
 
 	@Override
-	public ResultatRecherche getResult(Recherche search) {
+	public ResultatRecherche getResult(JobConfig jobConfig) {
 		System.out.println("=============================== Start Scrapping Rss =============================== ");
 		ResultatRecherche resultatRecherche = new ResultatRecherche();
 		Set<ResultatItem> resultatItems = new HashSet<>();
-		
-		Set<Source> sources = search.getSources();
-		Motcle motcle = search.getMotcle();
 
 		String description = "";
 		String titre = "";
@@ -52,108 +49,99 @@ public class RssScrappingHandler extends SearchScrappingHandler {
 		String xml = "";
 		String url = "";
 
-		for (Source src : sources) {
-			if (src.getNom().equals("rss")) {
-				try {
-					System.setProperty("http.agent", "Chrome");
-					URL rssURL = new URL(src.getUrl());
-					InputStream stream = rssURL.openStream();
-					BufferedReader in = new BufferedReader(new InputStreamReader(stream));
+		try {
+			System.setProperty("http.agent", "Chrome");
+			URL rssURL = new URL(jobConfig.getSourceLink());
+			InputStream stream = rssURL.openStream();
+			BufferedReader in = new BufferedReader(new InputStreamReader(stream));
 
-					while ((line = in.readLine()) != null) {
-						xml += line;
+			while ((line = in.readLine()) != null) {
+				xml += line;
+			}
+
+			inputsrc = prettyPrintXml(xml);
+			Reader inputString = new StringReader(inputsrc);
+			BufferedReader reader = new BufferedReader(inputString);
+			int first = 0;
+			int last = 0;
+			String temp = "";
+			while ((line = reader.readLine()) != null) {
+				if (line.contains("<title>")) {
+					first = line.indexOf("<title>");
+					temp = line.substring(first);
+					temp = temp.replace("<title>", "");
+					last = temp.indexOf("</title>");
+					temp = temp.substring(0, last);
+					temp = temp.replaceAll("&lt;p&gt;", "");
+					temp = temp.replaceAll("&lt;/p&gt;", "");
+				}
+
+				if (stringContainsItems(temp, jobConfig.getMotcle().getMotinclue().split(" "))) {
+					titre = temp;
+					if (line.contains("<link>")) {
+						int firstl = line.indexOf("<link>");
+						String templ = line.substring(firstl);
+						templ = templ.replace("<link>", "");
+						int lastl = templ.indexOf("</link>");
+						templ = templ.substring(0, lastl);
+						templ = templ.replaceAll("&lt;p&gt;", "");
+						templ = templ.replaceAll("&lt;/p&gt;", "");
+						url = templ;
 					}
+					if (line.contains("<description>")) {
+						int firstD = line.indexOf("<description>");
+						String tempD = line.substring(firstD);
+						tempD = tempD.replace("<description>", "");
+						int lastD = tempD.indexOf("</description>");
+						tempD = tempD.substring(0, lastD);
+						tempD = tempD.replaceAll("&lt;p&gt;", "");
+						tempD = tempD.replaceAll("&lt;/p&gt;", "");
+						description = tempD;
+					}
+					if (line.contains("<pubDate>")) {
+						first = line.indexOf("<pubDate>");
+						temp = line.substring(first);
+						temp = temp.replace("<pubDate>", "");
+						last = temp.indexOf("</pubDate>");
+						temp = temp.substring(0, last);
+						temp = temp.replaceAll("&lt;p&gt;", "");
+						temp = temp.replaceAll("&lt;/p&gt;", "");
+						datePub = temp;
 
-					inputsrc = prettyPrintXml(xml);
-					Reader inputString = new StringReader(inputsrc);
-					BufferedReader reader = new BufferedReader(inputString);
-					int first = 0;
-					int last = 0;
-					String temp = "";
-					while ((line = reader.readLine()) != null) {
-						if (line.contains("<title>")) {
-							first = line.indexOf("<title>");
-							temp = line.substring(first);
-							temp = temp.replace("<title>", "");
-							last = temp.indexOf("</title>");
-							temp = temp.substring(0, last);
-							temp = temp.replaceAll("&lt;p&gt;", "");
-							temp = temp.replaceAll("&lt;/p&gt;", "");
-						}
-
-						if (stringContainsItems(temp, motcle.getMotinclue().split(" "))) {
-							titre = temp;
-							if (line.contains("<link>")) {
-								int firstl = line.indexOf("<link>");
-								String templ = line.substring(firstl);
-								templ = templ.replace("<link>", "");
-								int lastl = templ.indexOf("</link>");
-								templ = templ.substring(0, lastl);
-								templ = templ.replaceAll("&lt;p&gt;", "");
-								templ = templ.replaceAll("&lt;/p&gt;", "");
-								url = templ;
-							}
-							if (line.contains("<description>")) {
-								int firstD = line.indexOf("<description>");
-								String tempD = line.substring(firstD);
-								tempD = tempD.replace("<description>", "");
-								int lastD = tempD.indexOf("</description>");
-								tempD = tempD.substring(0, lastD);
-								tempD = tempD.replaceAll("&lt;p&gt;", "");
-								tempD = tempD.replaceAll("&lt;/p&gt;", "");
-								description = tempD;
-							}
-							if (line.contains("<pubDate>")) {
-								first = line.indexOf("<pubDate>");
-								temp = line.substring(first);
-								temp = temp.replace("<pubDate>", "");
-								last = temp.indexOf("</pubDate>");
-								temp = temp.substring(0, last);
-								temp = temp.replaceAll("&lt;p&gt;", "");
-								temp = temp.replaceAll("&lt;/p&gt;", "");
-								datePub = temp;
-								
-								if(! "".equals(titre) && ! "".equals(description)) {
-									ResultatItem resultatItem = new ResultatItem();
-									resultatItem.setPostId(datePub);
-									resultatItem.setContenu(description);
-									resultatItem.setDate(datePub);
-									resultatItem.setTitre(titre);
-									resultatItem.setUrl(url);
-									System.out.println("Found on Rss ---------> " + titre);
-									resultatItems.add(resultatItem);
-								}
-							}
-							/*if (line.contains("<guid isPermaLink=\"false\">")) {
-								int firsti = line.indexOf("<guid isPermaLink=\"false\">");
-								String tempi = line.substring(firsti);
-								tempi = tempi.replace("<guid isPermaLink=\"false\">", "");
-								int lasti = tempi.indexOf("</guid>");
-								tempi = tempi.substring(0, lasti);
-								tempi = tempi.replaceAll("&lt;p&gt;", "");
-								tempi = tempi.replaceAll("&lt;/p&gt;", "");
-								idR = tempi;
-							}*/
-							
-							
-							
-
+						if (!"".equals(titre) && !"".equals(description)) {
+							ResultatItem resultatItem = new ResultatItem();
+							resultatItem.setPostId(datePub);
+							resultatItem.setContenu(description);
+							resultatItem.setDate(datePub);
+							resultatItem.setTitre(titre);
+							resultatItem.setUrl(url);
+							System.out.println("Found on Rss ---------> " + titre);
+							resultatItems.add(resultatItem);
 						}
 					}
-					in.close();
-					reader.close();
-					
-				} catch (MalformedURLException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
+					/*
+					 * if (line.contains("<guid isPermaLink=\"false\">")) { int firsti =
+					 * line.indexOf("<guid isPermaLink=\"false\">"); String tempi =
+					 * line.substring(firsti); tempi = tempi.replace("<guid isPermaLink=\"false\">",
+					 * ""); int lasti = tempi.indexOf("</guid>"); tempi = tempi.substring(0, lasti);
+					 * tempi = tempi.replaceAll("&lt;p&gt;", ""); tempi =
+					 * tempi.replaceAll("&lt;/p&gt;", ""); idR = tempi; }
+					 */
+
 				}
 			}
+			in.close();
+			reader.close();
+
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+
 		System.out.println(" =============================== End Scrapping Rss =============================== ");
 		resultatRecherche.setResultatItems(resultatItems);
 		resultatRecherche.setDate(ZonedDateTime.now());
-		resultatRecherche.setRecherche(search);
 		return resultatRecherche;
 	}
 

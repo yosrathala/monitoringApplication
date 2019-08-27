@@ -32,7 +32,7 @@ public class HandlerFactory {
 		return scrapHandler;
 	}
 	
-	public static SearchRresultHandler getSearchResultHandler(String type) {
+	public static SearchResultHandler getSearchResultHandler(String type) {
 		if(type.equals("jdbc")) {
 			return context.getBean(JdbcSave.class);
 		}

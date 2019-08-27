@@ -47,6 +47,13 @@ public class ResultatRecherche implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties("resultatRecherches")
     private Recherche recherche;
+    
+    @ManyToOne
+    private Source source;
+    
+    
+    
+    
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -136,4 +143,12 @@ public class ResultatRecherche implements Serializable {
             ", date='" + getDate() + "'" +
             "}";
     }
+
+	public Source getSource() {
+		return source;
+	}
+
+	public void setSource(Source source) {
+		this.source = source;
+	}
 }

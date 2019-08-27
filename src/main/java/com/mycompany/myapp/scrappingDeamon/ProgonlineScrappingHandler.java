@@ -26,26 +26,16 @@ public class ProgonlineScrappingHandler extends SearchScrappingHandler {
 	static final int MAX_PAGE = 20;
 
 	@Override
-	public ResultatRecherche getResult(Recherche search) {
+	public ResultatRecherche getResult(JobConfig jobConfig) {
 
 		ResultatRecherche resultatRecherche = new ResultatRecherche();
 		Set<ResultatItem> resultatItems = new HashSet<ResultatItem>();
 		System.out
 				.println("=============================== Start Scrapping Progonline =============================== ");
-		Set<Source> sources = search.getSources();
-		Motcle motcle = search.getMotcle();
-		String username = "";
-		String password = "";
-		String baseUrl = "";
-		for (Source src : sources) {
-			if (src.getNom().contains("progonline")) {
-				username = src.getLogin();
-				password = src.getMotPasse();
-				baseUrl = src.getUrl();
-			}
-	
-		}
-		String loginUrl = String.format("%s%s", baseUrl, "/visitor_mypage.php?quoi=deconnexion");
+        Motcle motcle=  jobConfig.getMotcle();
+        String login = jobConfig.getSourceLogin();
+        String pass = jobConfig.getSourcePassword();
+		String loginUrl = String.format("%s%s", "https://www.progonline.com/", "visitor_mypage.php?quoi=deconnexion");
 
 		try {
 			System.setProperty("webdriver.chrome.driver", chromeDriverPath);
@@ -55,8 +45,8 @@ public class ProgonlineScrappingHandler extends SearchScrappingHandler {
 			WebDriver driver = new ChromeDriver(options);
 			driver.get(loginUrl);
 
-			driver.findElement(By.id("login-username")).sendKeys(username);
-			driver.findElement(By.id("login-password")).sendKeys(password);
+			driver.findElement(By.id("login-username")).sendKeys(login);
+			driver.findElement(By.id("login-password")).sendKeys(pass);
 			driver.findElement(By.xpath("//form//input[@type='submit']")).click();
 
 			if (driver.findElement(By.xpath("//a[@href='mypage.php?quoi=deconnect']")) == null) {
@@ -137,7 +127,6 @@ public class ProgonlineScrappingHandler extends SearchScrappingHandler {
 		}
 		resultatRecherche.setResultatItems(resultatItems);
 		resultatRecherche.setDate(ZonedDateTime.now());
-		resultatRecherche.setRecherche(search);
 		System.out.println("=============================== End Scrapping Progonline =============================== ");
 		return resultatRecherche;
 	}
