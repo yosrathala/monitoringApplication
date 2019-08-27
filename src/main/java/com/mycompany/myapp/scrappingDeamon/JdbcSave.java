@@ -1,6 +1,7 @@
 package com.mycompany.myapp.scrappingDeamon;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -55,10 +56,13 @@ public class JdbcSave extends SearchRresultHandler {
     @Override
     public void save(ResultatRecherche resultatRecherche) {
         List<ResultatItem> newItems = new ArrayList<>();
+        StringBuilder content = new StringBuilder();
         for (ResultatItem res : resultatRecherche.getResultatItems()) {
             Optional<ResultatItem> ri = resultatItemRepository.findByPostId(res.getPostId());
             if (!ri.isPresent()) {
                 newItems.add(res);
+                content.append("<br>");
+                content.append(res.getContenu());
             }
         }
 
@@ -67,24 +71,20 @@ public class JdbcSave extends SearchRresultHandler {
 
             for (ResultatItem res : newItems) {
                 res.setResultatRecherche(resultatRecherche);
-
-
-                if (resultatRecherche.getRecherche().isEmailnotif()) {
-                    SimpleMailMessage message = new SimpleMailMessage();
-                    List<User> lstuser = userRepository.findAll();
-                    for (int j = 0; j < lstuser.size(); j++) {
-
-
-                        message.setTo(lstuser.get(j).getEmail());
-                        message.setSubject("Résultat");
-                        message.setText("**Titre**"+res.getTitre()+"**Contenu**"+res.getContenu()+"**url**"+res.getUrl()+"****");
-                        this.emailSender.send(message);
-
-                    }
-                }
-
-
                 resultatItemRepository.save(res);
+            }
+        }
+        
+        if (resultatRecherche.getRecherche().isEmailnotif()) {
+            SimpleMailMessage message = new SimpleMailMessage();
+            List<User> lstuser = userRepository.findAll();
+            for (int j = 0; j < lstuser.size(); j++) {
+
+                message.setTo(lstuser.get(j).getEmail());
+                message.setSubject("Nouveau scrapping : " + new Date());
+                message.setText(content.toString());
+                this.emailSender.send(message);
+
             }
         }
 
