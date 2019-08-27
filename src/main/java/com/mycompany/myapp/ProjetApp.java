@@ -1,32 +1,29 @@
 package com.mycompany.myapp;
 
-import com.mycompany.myapp.config.ApplicationProperties;
-import com.mycompany.myapp.config.DefaultProfileUtil;
-import com.mycompany.myapp.domain.*;
-import com.mycompany.myapp.repository.RechercheRepository;
-import com.mycompany.myapp.repository.ResultatRechercheRepository;
-import com.mycompany.myapp.scrappingDeamon.*;
-import io.github.jhipster.config.JHipsterConstants;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Arrays;
+import java.util.Collection;
+
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
-import javax.annotation.PostConstruct;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.*;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
+import com.mycompany.myapp.config.ApplicationProperties;
+import com.mycompany.myapp.config.DefaultProfileUtil;
+import com.mycompany.myapp.repository.RechercheRepository;
+import com.mycompany.myapp.scrappingDeamon.WatchDog;
+
+import io.github.jhipster.config.JHipsterConstants;
 
 @SpringBootApplication
 @EnableScheduling

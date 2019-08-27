@@ -1,17 +1,13 @@
 package com.mycompany.myapp.service;
 
-import com.mycompany.myapp.config.Constants;
-import com.mycompany.myapp.domain.Authority;
-import com.mycompany.myapp.domain.User;
-import com.mycompany.myapp.domain.UserExtra;
-import com.mycompany.myapp.repository.AuthorityRepository;
-import com.mycompany.myapp.repository.UserExtraRepository;
-import com.mycompany.myapp.repository.UserRepository;
-import com.mycompany.myapp.security.AuthoritiesConstants;
-import com.mycompany.myapp.security.SecurityUtils;
-import com.mycompany.myapp.service.dto.UserDTO;
-import com.mycompany.myapp.service.util.RandomUtil;
-import com.mycompany.myapp.web.rest.errors.*;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,10 +19,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
-import java.util.stream.Collectors;
+import com.mycompany.myapp.config.Constants;
+import com.mycompany.myapp.domain.Authority;
+import com.mycompany.myapp.domain.User;
+import com.mycompany.myapp.domain.UserExtra;
+import com.mycompany.myapp.repository.AuthorityRepository;
+import com.mycompany.myapp.repository.UserExtraRepository;
+import com.mycompany.myapp.repository.UserRepository;
+import com.mycompany.myapp.security.SecurityUtils;
+import com.mycompany.myapp.service.dto.UserDTO;
+import com.mycompany.myapp.service.util.RandomUtil;
+import com.mycompany.myapp.web.rest.errors.InvalidPasswordException;
 
 /**
  * Service class for managing users.
@@ -103,8 +106,8 @@ public class UserService {
 
 
 
-        // Authority authority = authorityRepository.findOne(AuthoritiesConstants.USER);
-        // Set<Authority> authorities = new HashSet<>();
+         Authority authority = authorityRepository.findById("ROLE_USER").get();
+         Set<Authority> authorities = new HashSet<>();
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(userDTO.getLogin().toLowerCase());
         // new user gets initially a generated password
@@ -116,10 +119,11 @@ public class UserService {
         newUser.setLangKey(userDTO.getLangKey());
         // new user is not active
         newUser.setActivated(false);
+
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
-        // authorities.add(authority);
-        // newUser.setAuthorities(authorities);
+         authorities.add(authority);
+         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
         cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).evict(newUser.getLogin());
         cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE).evict(newUser.getEmail());

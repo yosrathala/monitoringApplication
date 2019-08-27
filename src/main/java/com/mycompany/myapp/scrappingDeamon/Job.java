@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.mycompany.myapp.domain.Recherche;
+import com.mycompany.myapp.domain.ResultatItem;
 import com.mycompany.myapp.domain.ResultatRecherche;
 
 @ComponentScan(basePackages = "dep.package")
@@ -37,11 +38,13 @@ public class Job implements Runnable {
 	public void run() {
 
 		ResultatRecherche result = searchHandler.getResult(this.search);
+	 
 		if(result.getResultatItems().size() > 0) {
-			searchResultHandler.save(result);
+			List<ResultatItem> newItems = searchResultHandler.save(result);
 			
 			for (NotificationHandler notificationHandler : notificationHandlers) {
-				notificationHandler.send(result);
+				notificationHandler.send(newItems);
+				
 			}
 		}
 

@@ -1,10 +1,6 @@
 package com.mycompany.myapp.web.rest;
 
-import com.mycompany.myapp.security.jwt.JWTFilter;
-import com.mycompany.myapp.security.jwt.TokenProvider;
-import com.mycompany.myapp.web.rest.vm.LoginVM;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.validation.Valid;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,9 +9,15 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mycompany.myapp.security.jwt.JWTFilter;
+import com.mycompany.myapp.security.jwt.TokenProvider;
+import com.mycompany.myapp.web.rest.vm.LoginVM;
 
 /**
  * Controller to authenticate users.

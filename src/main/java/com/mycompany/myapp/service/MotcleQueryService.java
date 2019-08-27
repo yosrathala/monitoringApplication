@@ -12,12 +12,14 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.github.jhipster.service.QueryService;
-
+// for static metamodels
 import com.mycompany.myapp.domain.Motcle;
-import com.mycompany.myapp.domain.*; // for static metamodels
+import com.mycompany.myapp.domain.Motcle_;
+import com.mycompany.myapp.domain.Recherche_;
 import com.mycompany.myapp.repository.MotcleRepository;
 import com.mycompany.myapp.service.dto.MotcleCriteria;
+
+import io.github.jhipster.service.QueryService;
 
 /**
  * Service for executing complex queries for Motcle entities in the database.

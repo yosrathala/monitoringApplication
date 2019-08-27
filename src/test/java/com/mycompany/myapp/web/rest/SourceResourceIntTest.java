@@ -1,14 +1,19 @@
 package com.mycompany.myapp.web.rest;
 
-import com.mycompany.myapp.ProjetApp;
+import static com.mycompany.myapp.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.mycompany.myapp.domain.Source;
-import com.mycompany.myapp.domain.Recherche;
-import com.mycompany.myapp.repository.SourceRepository;
-import com.mycompany.myapp.service.SourceService;
-import com.mycompany.myapp.web.rest.errors.ExceptionTranslator;
-import com.mycompany.myapp.service.dto.SourceCriteria;
-import com.mycompany.myapp.service.SourceQueryService;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,15 +30,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.util.List;
-
-
-import static com.mycompany.myapp.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.mycompany.myapp.ProjetApp;
+import com.mycompany.myapp.domain.Recherche;
+import com.mycompany.myapp.domain.Source;
+import com.mycompany.myapp.repository.SourceRepository;
+import com.mycompany.myapp.service.SourceQueryService;
+import com.mycompany.myapp.service.SourceService;
+import com.mycompany.myapp.web.rest.errors.ExceptionTranslator;
 
 /**
  * Test class for the SourceResource REST controller.

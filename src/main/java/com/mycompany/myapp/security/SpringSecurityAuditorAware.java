@@ -1,11 +1,11 @@
 package com.mycompany.myapp.security;
 
-import com.mycompany.myapp.config.Constants;
-
 import java.util.Optional;
 
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;
+
+import com.mycompany.myapp.config.Constants;
 
 /**
  * Implementation of AuditorAware based on Spring Security.

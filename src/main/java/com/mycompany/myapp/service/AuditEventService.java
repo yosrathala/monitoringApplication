@@ -1,15 +1,16 @@
 package com.mycompany.myapp.service;
 
-import com.mycompany.myapp.config.audit.AuditEventConverter;
-import com.mycompany.myapp.repository.PersistenceAuditEventRepository;
+import java.time.Instant;
+import java.util.Optional;
+
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
-import java.util.Optional;
+import com.mycompany.myapp.config.audit.AuditEventConverter;
+import com.mycompany.myapp.repository.PersistenceAuditEventRepository;
 
 /**
  * Service for managing audit events.

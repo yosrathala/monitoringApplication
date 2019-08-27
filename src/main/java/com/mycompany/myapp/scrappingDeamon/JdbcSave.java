@@ -1,18 +1,12 @@
 package com.mycompany.myapp.scrappingDeamon;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import com.mycompany.myapp.domain.User;
-import com.mycompany.myapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.mycompany.myapp.domain.ResultatItem;
@@ -28,10 +22,6 @@ public class JdbcSave extends SearchRresultHandler {
         // TODO Auto-generated constructor stub
     }
 
-    @Autowired
-    JavaMailSender emailSender;
-    @Autowired
-    UserRepository userRepository;
     public ResultatRechercheRepository getResultRechercheRepository() {
         return resultRechercheRepository;
     }
@@ -54,15 +44,14 @@ public class JdbcSave extends SearchRresultHandler {
     private ResultatItemRepository resultatItemRepository;
 
     @Override
-    public void save(ResultatRecherche resultatRecherche) {
+    public List<ResultatItem> save(ResultatRecherche resultatRecherche) {
         List<ResultatItem> newItems = new ArrayList<>();
-        StringBuilder content = new StringBuilder();
+    
         for (ResultatItem res : resultatRecherche.getResultatItems()) {
             Optional<ResultatItem> ri = resultatItemRepository.findByPostId(res.getPostId());
             if (!ri.isPresent()) {
                 newItems.add(res);
-                content.append("<br>");
-                content.append(res.getContenu());
+              
             }
         }
 
@@ -74,25 +63,9 @@ public class JdbcSave extends SearchRresultHandler {
                 resultatItemRepository.save(res);
             }
         }
-        
-        if (resultatRecherche.getRecherche().isEmailnotif()) {
-            SimpleMailMessage message = new SimpleMailMessage();
-            List<User> lstuser = userRepository.findAll();
-            for (int j = 0; j < lstuser.size(); j++) {
+       
+        return newItems;
 
-                message.setTo(lstuser.get(j).getEmail());
-                message.setSubject("Nouveau scrapping : " + new Date());
-                message.setText(content.toString());
-                this.emailSender.send(message);
-
-            }
-        }
-
-    }
-
-    public ResultatItem saveitem(ResultatItem resultatItem) {
-        // TODO Auto-generated method stub
-        return resultatItemRepository.save(resultatItem);
     }
 
 }

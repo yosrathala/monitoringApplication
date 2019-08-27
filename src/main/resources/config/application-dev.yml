@@ -36,9 +36,9 @@ spring:
             indent-output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://localhost:5432/projet
+        url: jdbc:postgresql://localhost:5432/scrapping
         username: postgres
-        password: user
+        password: intellitech
         hikari:
             poolName: Hikari
             auto-commit: false
@@ -58,8 +58,8 @@ spring:
     mail:
         host: smtp.gmail.com
         port: 587
-        username:  monitoringintellitech@gmail.com
-        password: monitoring123
+        username:  letscovoiturage@gmail.com
+        password: intellitech2016
         protocol: smtp
         tls: true
         properties.mail.smtp:

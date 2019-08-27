@@ -30,7 +30,7 @@ export class ResultatItemComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
-    etat: string = 'scraping en stop';
+    etat: string = 'Scraping en mode STOP';
     account: Account;
     modalRef: NgbModalRef;
 
@@ -97,7 +97,7 @@ export class ResultatItemComponent implements OnInit, OnDestroy {
     }
 
     scrap() {
-        this.etat = 'scraping en cours...';
+        this.etat = 'En cours de Scrapig...';
         this.resultatItemService.scaping().subscribe();
     }
 

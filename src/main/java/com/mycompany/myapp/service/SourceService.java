@@ -1,16 +1,16 @@
 package com.mycompany.myapp.service;
 
-import com.mycompany.myapp.domain.Source;
-import com.mycompany.myapp.repository.SourceRepository;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import com.mycompany.myapp.domain.Source;
+import com.mycompany.myapp.repository.SourceRepository;
 
 /**
  * Service Implementation for managing Source.

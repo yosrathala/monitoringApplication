@@ -37,7 +37,7 @@ export const sourceRoute: Routes = [
             pagingParams: JhiResolvePagingParams
         },
         data: {
-            authorities: ['ROLE_USER'],
+            //authorities: ['ROLE_USER'],
             defaultSort: 'id,asc',
             pageTitle: 'projetApp.source.home.title'
         },
@@ -50,7 +50,7 @@ export const sourceRoute: Routes = [
             source: SourceResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            // authorities: ['ROLE_USER'],
             pageTitle: 'projetApp.source.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -62,7 +62,7 @@ export const sourceRoute: Routes = [
             source: SourceResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            //authorities: ['ROLE_USER'],
             pageTitle: 'projetApp.source.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -74,7 +74,7 @@ export const sourceRoute: Routes = [
             source: SourceResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            // authorities: ['ROLE_USER'],
             pageTitle: 'projetApp.source.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -89,7 +89,7 @@ export const sourcePopupRoute: Routes = [
             source: SourceResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            // authorities: ['ROLE_USER'],
             pageTitle: 'projetApp.source.home.title'
         },
         canActivate: [UserRouteAccessService],

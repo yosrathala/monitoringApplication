@@ -37,7 +37,7 @@ export const motcleRoute: Routes = [
             pagingParams: JhiResolvePagingParams
         },
         data: {
-            authorities: ['ROLE_USER'],
+            //authorities: ['ROLE_USER'],
             defaultSort: 'id,asc',
             pageTitle: 'projetApp.motcle.home.title'
         },
@@ -50,7 +50,7 @@ export const motcleRoute: Routes = [
             motcle: MotcleResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            //authorities: ['ROLE_USER'],
             pageTitle: 'projetApp.motcle.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -62,7 +62,7 @@ export const motcleRoute: Routes = [
             motcle: MotcleResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            //authorities: ['ROLE_USER'],
             pageTitle: 'projetApp.motcle.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -74,7 +74,7 @@ export const motcleRoute: Routes = [
             motcle: MotcleResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            // authorities: ['ROLE_USER'],
             pageTitle: 'projetApp.motcle.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -89,7 +89,7 @@ export const motclePopupRoute: Routes = [
             motcle: MotcleResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            // authorities: ['ROLE_USER'],
             pageTitle: 'projetApp.motcle.home.title'
         },
         canActivate: [UserRouteAccessService],
