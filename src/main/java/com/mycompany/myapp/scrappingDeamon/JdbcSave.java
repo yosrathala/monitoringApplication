@@ -77,7 +77,7 @@ public class JdbcSave extends SearchRresultHandler {
 
                         message.setTo(lstuser.get(j).getEmail());
                         message.setSubject("Résultat");
-                        message.setText("**Titre**"+res.getTitre()+"**Contenu**"+res.getContenu()+"**url**"+res.getUrl()+"****");
+                        message.setText("**Titre**"+res.getTitre()+"\n**Contenu**"+res.getContenu()+"\n**url**"+res.getUrl());
                         this.emailSender.send(message);
 
                     }

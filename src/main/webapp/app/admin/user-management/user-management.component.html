@@ -69,8 +69,7 @@
                                 class="btn btn-primary btn-sm float-right jh-create-entity create-user-extra"
                                 (click)="open(comp,user.id)">
                             <fa-icon [icon]="'plus'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="projetApp.userExtra.home.createLabel">
-                              plus d'info
+                            <span class="d-none d-md-inline" jhiTranslate="projetApp.userExtra.home.createLabel">plus information d'utilisateur
                                 </span>
                         </button>
                         <button type="submit"
@@ -113,23 +112,21 @@
 
             <div class="modal-body">
                 <div class="card card-outline-inverse">
-                    <div>
-                        <h2 id="jhi-user-extra-heading" jhiTranslate="projetApp.userExtra.home.createOrEditLabel">Create
-                            or edit a User Extra</h2>
-                        <button type="button" class="close" aria-label="Close" (click)="c()">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                    <div>    <button type="button" class="close" aria-label="Close" (click)="c()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                        <h2 id="jhi-user-extra-heading" jhiTranslate="projetApp.userExtra.home.createOrEditLabel">Create or edit a User Extra</h2>
 
-                        <mat-form-field class="example-full-width">
-                            <mat-label>Phone</mat-label>
+                            <jhi-alert-error></jhi-alert-error>
+                        <div class="form-group">
+                            <label class="form-control-label" jhiTranslate="projetApp.userExtra.phone">Phone</label>
                             <input matInput [(ngModel)]="userExtra.phone" name="phone">
-                        </mat-form-field>
-                        <br>
-                        <mat-form-field class="example-full-width">
-                            <mat-label>pushid</mat-label>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" jhiTranslate="projetApp.userExtra.pushid">Pushid</label>
                             <input matInput [(ngModel)]="userExtra.pushid" name="push">
-                        </mat-form-field>
-                        <br>
+                        </div>
+
 
                     </div>
                 </div>

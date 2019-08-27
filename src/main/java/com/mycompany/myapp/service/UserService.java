@@ -103,8 +103,8 @@ public class UserService {
 
 
 
-        // Authority authority = authorityRepository.findOne(AuthoritiesConstants.USER);
-        // Set<Authority> authorities = new HashSet<>();
+         Authority authority = authorityRepository.findById("ROLE_USER").get();
+         Set<Authority> authorities = new HashSet<>();
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(userDTO.getLogin().toLowerCase());
         // new user gets initially a generated password
@@ -116,10 +116,11 @@ public class UserService {
         newUser.setLangKey(userDTO.getLangKey());
         // new user is not active
         newUser.setActivated(false);
+
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
-        // authorities.add(authority);
-        // newUser.setAuthorities(authorities);
+         authorities.add(authority);
+         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
         cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).evict(newUser.getLogin());
         cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE).evict(newUser.getEmail());

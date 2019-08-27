@@ -37,7 +37,7 @@ export const rechercheRoute: Routes = [
             pagingParams: JhiResolvePagingParams
         },
         data: {
-            authorities: ['ROLE_USER'],
+            //authorities: ['ROLE_USER'],
             defaultSort: 'id,asc',
             pageTitle: 'projetApp.recherche.home.title'
         },
@@ -50,7 +50,7 @@ export const rechercheRoute: Routes = [
             recherche: RechercheResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            //  authorities: ['ROLE_USER'],
             pageTitle: 'projetApp.recherche.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -62,7 +62,7 @@ export const rechercheRoute: Routes = [
             recherche: RechercheResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            // authorities: ['ROLE_USER'],
             pageTitle: 'projetApp.recherche.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -74,7 +74,7 @@ export const rechercheRoute: Routes = [
             recherche: RechercheResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            // authorities: ['ROLE_USER'],
             pageTitle: 'projetApp.recherche.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -89,7 +89,7 @@ export const recherchePopupRoute: Routes = [
             recherche: RechercheResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            //authorities: ['ROLE_USER'],
             pageTitle: 'projetApp.recherche.home.title'
         },
         canActivate: [UserRouteAccessService],

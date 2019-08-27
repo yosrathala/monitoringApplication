@@ -32,9 +32,6 @@ public class Builder {
 
     public Job build() {
         List<NotificationHandler> notificationsHandlers = new ArrayList<>();
-        
-        
-    	
         SearchScrappingHandler scrapHandler = HandlerFactory.getSearchHandler(this.source.getNom());
     	SearchRresultHandler searchResultHandler = HandlerFactory.getSearchResultHandler(this.setSearchResultDestination);
     	

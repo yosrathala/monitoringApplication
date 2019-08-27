@@ -37,7 +37,7 @@ export const resultatItemRoute: Routes = [
             pagingParams: JhiResolvePagingParams
         },
         data: {
-            authorities: ['ROLE_USER'],
+            //authorities: ['ROLE_USER'],
             defaultSort: 'id,desc',
             pageTitle: 'projetApp.resultatItem.home.title'
         },
@@ -50,7 +50,7 @@ export const resultatItemRoute: Routes = [
             resultatItem: ResultatItemResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            //authorities: ['ROLE_USER'],
             pageTitle: 'projetApp.resultatItem.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -62,7 +62,7 @@ export const resultatItemRoute: Routes = [
             resultatItem: ResultatItemResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            //authorities: ['ROLE_USER'],
             pageTitle: 'projetApp.resultatItem.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -74,7 +74,7 @@ export const resultatItemRoute: Routes = [
             resultatItem: ResultatItemResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            //authorities: ['ROLE_USER'],
             pageTitle: 'projetApp.resultatItem.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -89,7 +89,7 @@ export const resultatItemPopupRoute: Routes = [
             resultatItem: ResultatItemResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            //authorities: ['ROLE_USER'],
             pageTitle: 'projetApp.resultatItem.home.title'
         },
         canActivate: [UserRouteAccessService],

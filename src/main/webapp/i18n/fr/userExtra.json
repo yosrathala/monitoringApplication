@@ -3,7 +3,7 @@
         "userExtra": {
             "home": {
                 "title": "UserExtras",
-                "createLabel": "Créer un nouveau User Extra",
+                "createLabel": "plus information d'utilisateur",
                 "createOrEditLabel": "Créer ou éditer un User Extra"
             },
             "created": "Un nouveau User Extra a été créé avec l'identifiant {{ param }}",
