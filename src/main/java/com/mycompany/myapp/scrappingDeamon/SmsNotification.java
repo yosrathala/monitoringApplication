@@ -11,7 +11,7 @@ import com.mycompany.myapp.domain.ResultatRecherche;
 public class SmsNotification extends NotificationHandler{
 
 	@Override
-	void send(List<ResultatItem> newItems) {
+	void send(List<ResultatItem> newItems, JobConfig jobConfig) {
 		// TODO Auto-generated method stub
 		
 	}

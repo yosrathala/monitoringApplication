@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.ZonedDateTime;
@@ -52,7 +53,14 @@ public class RssScrappingHandler extends SearchScrappingHandler {
 		try {
 			System.setProperty("http.agent", "Chrome");
 			URL rssURL = new URL(jobConfig.getSourceLink());
-			InputStream stream = rssURL.openStream();
+			
+			    HttpURLConnection httpcon = (HttpURLConnection) rssURL.openConnection();
+			    httpcon.addRequestProperty("User-Agent", "Mozilla/4.0");
+
+			    InputStream stream = httpcon.getInputStream();
+			
+			
+			
 			BufferedReader in = new BufferedReader(new InputStreamReader(stream));
 
 			while ((line = in.readLine()) != null) {

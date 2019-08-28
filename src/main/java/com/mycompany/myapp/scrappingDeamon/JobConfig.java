@@ -25,6 +25,7 @@ public class JobConfig {
 			this.sourceName = source.getNom();
 			this.searchId = recherche.getId();
 			this.sourceId = source.getId();
+			this.sourceLink = source.getUrl();
 			this.sourceLogin = source.getLogin();
 			this.sourcePassword = source.getMotPasse();
 			this.periodicite = recherche.getPeriodicite();

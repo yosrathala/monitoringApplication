@@ -10,7 +10,7 @@ import com.mycompany.myapp.domain.ResultatItem;
 public class PuchNotification extends NotificationHandler{
 
 	@Override
-	void send(List<ResultatItem> newItems) {
+	void send(List<ResultatItem> newItems, JobConfig jobConfig) {
 		// TODO Auto-generated method stub
 		
 	}

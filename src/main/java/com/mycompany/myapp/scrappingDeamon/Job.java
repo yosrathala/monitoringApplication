@@ -42,7 +42,7 @@ public class Job implements Runnable {
 			List<ResultatItem> newItems = searchResultHandler.save(result, jobConfig);
 			if(newItems.size() > 0 ) {
 				for (NotificationHandler notificationHandler : notificationHandlers) {
-					notificationHandler.send(newItems);
+					notificationHandler.send(newItems, jobConfig);
 					
 				}
 			}
