@@ -65,9 +65,7 @@ public class UserExtraResource {
     }
     @PostMapping("/user-extras/p/{id}")
     public UserExtra POSTUserExtra(@RequestBody UserExtra userExtra,@PathVariable Long id) throws URISyntaxException {
-System.out.println("id"+id);
         User u =userRepository.findById(id).get();
-        System.out.println("user"+u.getLastName());
 
         userExtra.setUser(u);
         return userExtraRepository.save(userExtra);

@@ -40,11 +40,13 @@ public class Job implements Runnable {
 	 
 		if(result.getResultatItems().size() > 0) {
 			List<ResultatItem> newItems = searchResultHandler.save(result, jobConfig);
-			
-			for (NotificationHandler notificationHandler : notificationHandlers) {
-				notificationHandler.send(newItems);
-				
+			if(newItems.size() > 0 ) {
+				for (NotificationHandler notificationHandler : notificationHandlers) {
+					notificationHandler.send(newItems);
+					
+				}
 			}
+			
 		}
 
 	}
