@@ -1,11 +1,13 @@
 package com.mycompany.myapp.service;
 
-import com.mycompany.myapp.ProjetApp;
-import com.mycompany.myapp.config.Constants;
-import com.mycompany.myapp.domain.User;
-import com.mycompany.myapp.repository.UserRepository;
-import com.mycompany.myapp.service.dto.UserDTO;
-import com.mycompany.myapp.service.util.RandomUtil;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
+
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
@@ -21,14 +23,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.time.LocalDateTime;
-import java.util.Optional;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import com.mycompany.myapp.ProjetApp;
+import com.mycompany.myapp.config.Constants;
+import com.mycompany.myapp.domain.User;
+import com.mycompany.myapp.repository.UserRepository;
+import com.mycompany.myapp.service.dto.UserDTO;
+import com.mycompany.myapp.service.util.RandomUtil;
 
 /**
  * Test class for the UserResource REST controller.

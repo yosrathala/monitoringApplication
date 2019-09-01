@@ -1,36 +1,31 @@
 package com.mycompany.myapp.scrappingDeamon;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import com.mycompany.myapp.domain.User;
-import com.mycompany.myapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.mycompany.myapp.domain.Recherche;
 import com.mycompany.myapp.domain.ResultatItem;
 import com.mycompany.myapp.domain.ResultatRecherche;
+import com.mycompany.myapp.domain.Source;
+import com.mycompany.myapp.repository.RechercheRepository;
 import com.mycompany.myapp.repository.ResultatItemRepository;
 import com.mycompany.myapp.repository.ResultatRechercheRepository;
+import com.mycompany.myapp.repository.SourceRepository;
 
 @Service
 @Transactional
-public class JdbcSave extends SearchRresultHandler {
+public class JdbcSave extends SearchResultHandler {
     public JdbcSave() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    @Autowired
-    JavaMailSender emailSender;
-    @Autowired
-    UserRepository userRepository;
     public ResultatRechercheRepository getResultRechercheRepository() {
         return resultRechercheRepository;
     }
@@ -51,14 +46,26 @@ public class JdbcSave extends SearchRresultHandler {
     private ResultatRechercheRepository resultRechercheRepository;
     @Autowired
     private ResultatItemRepository resultatItemRepository;
+    
+    @Autowired
+    private RechercheRepository rechercheRepository;
+    
+    @Autowired
+    private SourceRepository sourceRepository;
 
     @Override
-    public void save(ResultatRecherche resultatRecherche) {
+    public List<ResultatItem> save(ResultatRecherche resultatRecherche, JobConfig jobConfig) {
+    	Optional<Recherche> search = rechercheRepository.findById(jobConfig.getSearchId());
+    	Optional<Source> source = sourceRepository.findById(jobConfig.getSourceId());
+    	
         List<ResultatItem> newItems = new ArrayList<>();
+        resultatRecherche.setRecherche(search.get());
+        resultatRecherche.setSource(source.get());
         for (ResultatItem res : resultatRecherche.getResultatItems()) {
             Optional<ResultatItem> ri = resultatItemRepository.findByPostId(res.getPostId());
             if (!ri.isPresent()) {
                 newItems.add(res);
+              
             }
         }
 
@@ -67,32 +74,12 @@ public class JdbcSave extends SearchRresultHandler {
 
             for (ResultatItem res : newItems) {
                 res.setResultatRecherche(resultatRecherche);
-
-
-                if (resultatRecherche.getRecherche().isEmailnotif()) {
-                    SimpleMailMessage message = new SimpleMailMessage();
-                    List<User> lstuser = userRepository.findAll();
-                    for (int j = 0; j < lstuser.size(); j++) {
-
-
-                        message.setTo(lstuser.get(j).getEmail());
-                        message.setSubject("Résultat");
-                        message.setText("**Titre**"+res.getTitre()+"\n**Contenu**"+res.getContenu()+"\n**url**"+res.getUrl());
-                        this.emailSender.send(message);
-
-                    }
-                }
-
-
                 resultatItemRepository.save(res);
             }
         }
+       
+        return newItems;
 
-    }
-
-    public ResultatItem saveitem(ResultatItem resultatItem) {
-        // TODO Auto-generated method stub
-        return resultatItemRepository.save(resultatItem);
     }
 
 }

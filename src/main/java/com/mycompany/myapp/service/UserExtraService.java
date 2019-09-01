@@ -1,11 +1,11 @@
 package com.mycompany.myapp.service;
 
-import com.mycompany.myapp.domain.UserExtra;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Optional;
+import com.mycompany.myapp.domain.UserExtra;
 
 /**
  * Service Interface for managing UserExtra.

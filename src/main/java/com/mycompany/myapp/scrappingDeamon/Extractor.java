@@ -29,8 +29,6 @@ public class Extractor {
 
                 for (Element page : otherLinks) {
                     if (links.add(URL)) {
-                        //Remove the comment from the line below if you want to see it running on your editor
-                        System.out.println(URL);
                     }
                     getPageLinks(page.attr("abs:href"));
                 }
@@ -52,7 +50,6 @@ public class Extractor {
                     if (article.text().matches("^.*?(Java 8|java 8|JAVA 8).*$")) {
                         //Remove the comment from the line below if you want to see it running on your editor,
                         //or wait for the File at the end of the execution
-                        //System.out.println(article.attr("abs:href"));
 
                         ArrayList<String> temporary = new ArrayList<>();
                         temporary.add(article.text()); //The title of the article
@@ -74,7 +71,6 @@ public class Extractor {
                 try {
                     String temp = "- Title: " + a.get(0) + " (link: " + a.get(1) + ")\n";
                     //display to console
-                    System.out.println(temp);
                     //save to file
                     writer.write(temp);
                 } catch (IOException e) {

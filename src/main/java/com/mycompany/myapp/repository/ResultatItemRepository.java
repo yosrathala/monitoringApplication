@@ -1,10 +1,11 @@
 package com.mycompany.myapp.repository;
 
-import com.mycompany.myapp.domain.ResultatItem;
-import org.springframework.data.jpa.repository.*;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import com.mycompany.myapp.domain.ResultatItem;
 
 
 /**

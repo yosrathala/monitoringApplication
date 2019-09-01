@@ -1,8 +1,9 @@
 package com.mycompany.myapp;
 
-import com.mycompany.myapp.config.DefaultProfileUtil;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+import com.mycompany.myapp.config.DefaultProfileUtil;
 
 /**
  * This is a helper Java class that provides an alternative to creating a web.xml.

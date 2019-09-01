@@ -1,16 +1,24 @@
 package com.mycompany.myapp.web.rest;
 
-import com.mycompany.myapp.ProjetApp;
-import com.mycompany.myapp.domain.Authority;
-import com.mycompany.myapp.domain.User;
-import com.mycompany.myapp.repository.UserRepository;
-import com.mycompany.myapp.security.AuthoritiesConstants;
-import com.mycompany.myapp.service.MailService;
-import com.mycompany.myapp.service.UserService;
-import com.mycompany.myapp.service.dto.UserDTO;
-import com.mycompany.myapp.service.mapper.UserMapper;
-import com.mycompany.myapp.web.rest.errors.ExceptionTranslator;
-import com.mycompany.myapp.web.rest.vm.ManagedUserVM;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasItems;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.time.Instant;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.EntityManager;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,15 +34,17 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.time.Instant;
-import java.util.*;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItems;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.mycompany.myapp.ProjetApp;
+import com.mycompany.myapp.domain.Authority;
+import com.mycompany.myapp.domain.User;
+import com.mycompany.myapp.repository.UserRepository;
+import com.mycompany.myapp.security.AuthoritiesConstants;
+import com.mycompany.myapp.service.MailService;
+import com.mycompany.myapp.service.UserService;
+import com.mycompany.myapp.service.dto.UserDTO;
+import com.mycompany.myapp.service.mapper.UserMapper;
+import com.mycompany.myapp.web.rest.errors.ExceptionTranslator;
+import com.mycompany.myapp.web.rest.vm.ManagedUserVM;
 
 /**
  * Test class for the UserResource REST controller.

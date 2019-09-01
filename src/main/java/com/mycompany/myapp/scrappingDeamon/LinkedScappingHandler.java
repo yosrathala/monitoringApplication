@@ -29,23 +29,15 @@ public class LinkedScappingHandler extends SearchScrappingHandler {
 
 
     @Override
-    public ResultatRecherche getResult(Recherche search) {
+    public ResultatRecherche getResult(JobConfig jobConfig) {
     	System.out.println("=============================== Start Scrapping LinkedIn =============================== ");
         ResultatRecherche resultatRecherche=new ResultatRecherche();
         Set<ResultatItem> resultatItems=new HashSet<>();
         
-        Set<Source>sources= search.getSources();
-        Motcle motcle = search.getMotcle();
-        String login="";
-        String pass="";
-        for(Source src : sources)
-        {
-            if(src.getNom().contains("linkedin"))
-            {
-                login=src.getLogin();
-                pass=src.getMotPasse();
-            }
-        }
+        Motcle motcle = jobConfig.getMotcle();
+        String login = jobConfig.getSourceLogin();
+        String pass= jobConfig.getSourcePassword();
+
         Connection.Response iniResponse=null;
         Connection.Response response=null;
         String data = null;
@@ -160,7 +152,7 @@ public class LinkedScappingHandler extends SearchScrappingHandler {
         
         resultatRecherche.setResultatItems(resultatItems);
 		resultatRecherche.setDate(ZonedDateTime.now());
-		resultatRecherche.setRecherche(search);
+
 		System.out.println("=============================== End Scrapping Linkedin =============================== ");
         return resultatRecherche;
     }

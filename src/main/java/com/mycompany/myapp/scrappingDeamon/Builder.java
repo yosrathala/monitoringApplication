@@ -31,9 +31,10 @@ public class Builder {
 	}
 
     public Job build() {
+    	
         List<NotificationHandler> notificationsHandlers = new ArrayList<>();
         SearchScrappingHandler scrapHandler = HandlerFactory.getSearchHandler(this.source.getNom());
-    	SearchRresultHandler searchResultHandler = HandlerFactory.getSearchResultHandler(this.setSearchResultDestination);
+    	SearchResultHandler searchResultHandler = HandlerFactory.getSearchResultHandler(this.setSearchResultDestination);
     	
     	if(recherche.isEmailnotif()) {
     		notificationsHandlers.add(HandlerFactory.getNotificationHandler("email"));
@@ -45,7 +46,9 @@ public class Builder {
     		notificationsHandlers.add(HandlerFactory.getNotificationHandler("push"));
     	}
     	
-        return new Job(scrapHandler, notificationsHandlers, searchResultHandler, recherche);
+    	JobConfig jobConfig = new JobConfig(recherche, source);
+    	
+        return new Job(scrapHandler, notificationsHandlers, searchResultHandler, jobConfig);
     }
 
 

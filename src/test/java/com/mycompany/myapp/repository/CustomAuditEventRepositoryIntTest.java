@@ -1,9 +1,15 @@
 package com.mycompany.myapp.repository;
 
-import com.mycompany.myapp.ProjetApp;
-import com.mycompany.myapp.config.Constants;
-import com.mycompany.myapp.config.audit.AuditEventConverter;
-import com.mycompany.myapp.domain.PersistentAuditEvent;
+import static com.mycompany.myapp.repository.CustomAuditEventRepository.EVENT_DATA_COLUMN_MAX_LENGTH;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.time.Instant;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,14 +22,10 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpSession;
-import java.time.Instant;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static com.mycompany.myapp.repository.CustomAuditEventRepository.EVENT_DATA_COLUMN_MAX_LENGTH;
+import com.mycompany.myapp.ProjetApp;
+import com.mycompany.myapp.config.Constants;
+import com.mycompany.myapp.config.audit.AuditEventConverter;
+import com.mycompany.myapp.domain.PersistentAuditEvent;
 
 /**
  * Test class for the CustomAuditEventRepository class.

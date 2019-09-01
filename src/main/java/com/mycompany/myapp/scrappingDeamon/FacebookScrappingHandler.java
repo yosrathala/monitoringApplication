@@ -24,23 +24,17 @@ public class FacebookScrappingHandler extends SearchScrappingHandler{
 
 
     @Override
-    public ResultatRecherche getResult(Recherche search) {
+    public ResultatRecherche getResult(JobConfig jobConfig) {
     	System.out.println("=============================== Start Scrapping Facebook =============================== ");
         ResultatRecherche resultatRecherche=new ResultatRecherche();
         Set<ResultatItem> resultatItems=new HashSet<>();
         
-        Set<Source> sources= search.getSources();
-        Motcle motcle= search.getMotcle();
+        Motcle motcle=  jobConfig.getMotcle();
         String login="";
         String pass="";
-        for(Source src : sources)
-        {
-            if(src.getNom().contains("facebook"))
-            {
-                login=src.getLogin();
-                pass=src.getMotPasse();
-            }
-        }
+        login=jobConfig.getSourceLogin();
+        pass=jobConfig.getSourcePassword();
+
         Response req;
         try {
             String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36";
@@ -101,7 +95,7 @@ public class FacebookScrappingHandler extends SearchScrappingHandler{
                         resultatItem.setDate(datePub);
                         resultatItem.setUrl(url);
                 		resultatRecherche.setDate(ZonedDateTime.now());
-                		resultatRecherche.setRecherche(search);
+                		
             			System.out.println("Found on Facebook ---------> " + title);
     					resultatItems.add(resultatItem);
     				}

@@ -12,12 +12,14 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.github.jhipster.service.QueryService;
-
+// for static metamodels
+import com.mycompany.myapp.domain.Recherche_;
 import com.mycompany.myapp.domain.Source;
-import com.mycompany.myapp.domain.*; // for static metamodels
+import com.mycompany.myapp.domain.Source_;
 import com.mycompany.myapp.repository.SourceRepository;
 import com.mycompany.myapp.service.dto.SourceCriteria;
+
+import io.github.jhipster.service.QueryService;
 
 /**
  * Service for executing complex queries for Source entities in the database.
