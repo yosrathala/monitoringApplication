@@ -1,13 +1,14 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-source-heading" jhiTranslate="projetApp.source.home.createOrEditLabel">Create or edit a Source</h2>
+            <h2 id="jhi-source-heading" jhiTranslate="projetApp.source.home.createOrEditLabel">Create or edit a
+                Source</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!source.id">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id"
-                           [(ngModel)]="source.id" readonly />
+                           [(ngModel)]="source.id" readonly/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="projetApp.source.nom" for="field_nom">Nom</label>
@@ -15,29 +16,36 @@
                            [(ngModel)]="source.nom" required/>
                     <div [hidden]="!(editForm.controls.nom?.dirty && editForm.controls.nom?.invalid)">
                         <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.nom?.errors?.required" jhiTranslate="entity.validation.required">
+                               [hidden]="!editForm.controls.nom?.errors?.required"
+                               jhiTranslate="entity.validation.required">
                             This field is required.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="projetApp.source.login" for="field_login">Login</label>
+                    <label class="form-control-label" jhiTranslate="projetApp.source.login"
+                           for="field_login">Login</label>
                     <input type="text" class="form-control" name="login" id="field_login"
                            [(ngModel)]="source.login" required/>
                     <div [hidden]="!(editForm.controls.login?.dirty && editForm.controls.login?.invalid)">
                         <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.login?.errors?.required" jhiTranslate="entity.validation.required">
+                               [hidden]="!editForm.controls.login?.errors?.required"
+                               jhiTranslate="entity.validation.required">
                             This field is required.
                         </small>
                     </div>
                 </div>
+
+
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="projetApp.source.motPasse" for="field_motPasse">Mot Passe</label>
-                    <input type="text" class="form-control" name="motPasse" id="field_motPasse"
+                    <label class="form-control-label" jhiTranslate="projetApp.source.motPasse" for="motPasse">Mot
+                        Passe</label>
+                    <input type="password" class="form-control" name="motPasse" id="motPasse"
                            [(ngModel)]="source.motPasse" required/>
                     <div [hidden]="!(editForm.controls.motPasse?.dirty && editForm.controls.motPasse?.invalid)">
                         <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.motPasse?.errors?.required" jhiTranslate="entity.validation.required">
+                               [hidden]="!editForm.controls.motPasse?.errors?.required"
+                               jhiTranslate="entity.validation.required">
                             This field is required.
                         </small>
                     </div>
@@ -48,7 +56,8 @@
                            [(ngModel)]="source.url" required/>
                     <div [hidden]="!(editForm.controls.url?.dirty && editForm.controls.url?.invalid)">
                         <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.url?.errors?.required" jhiTranslate="entity.validation.required">
+                               [hidden]="!editForm.controls.url?.errors?.required"
+                               jhiTranslate="entity.validation.required">
                             This field is required.
                         </small>
                     </div>
@@ -59,7 +68,8 @@
                            [(ngModel)]="source.key" required/>
                     <div [hidden]="!(editForm.controls.key?.dirty && editForm.controls.key?.invalid)">
                         <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.key?.errors?.required" jhiTranslate="entity.validation.required">
+                               [hidden]="!editForm.controls.key?.errors?.required"
+                               jhiTranslate="entity.validation.required">
                             This field is required.
                         </small>
                     </div>
@@ -67,18 +77,20 @@
 
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="projetApp.source.dataHandler" for="field_dataHandler">Data Handler</label>
+                    <label class="form-control-label" jhiTranslate="projetApp.source.dataHandler"
+                           for="field_dataHandler">Data Handler</label>
                     <input type="text" class="form-control" name="dataHandler" id="field_dataHandler"
-                           [(ngModel)]="source.dataHandler" />
+                           [(ngModel)]="source.dataHandler"/>
 
                 </div>
 
             </div>
             <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving"
+                        class="btn btn-primary">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>
