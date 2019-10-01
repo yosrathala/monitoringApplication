@@ -351,6 +351,18 @@
             <artifactId>selenium-java</artifactId>
             <version>3.8.1</version>
         </dependency>
+	<dependency>
+		<groupId>org.jsoup</groupId>
+		<artifactId>jsoup</artifactId>
+		<version>1.8.3</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.apache.clerezza.ext/org.json.simple -->
+	<dependency>
+		<groupId>org.apache.clerezza.ext</groupId>
+		<artifactId>org.json.simple</artifactId>
+		<version>0.4</version>
+	</dependency>
+	
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>
 
@@ -1056,6 +1068,8 @@
                     <groupId>org.hibernate</groupId>
                     <artifactId>hibernate-jpamodelgen</artifactId>
                 </dependency>
+				
+                
             </dependencies>
         </profile>
         <profile>
