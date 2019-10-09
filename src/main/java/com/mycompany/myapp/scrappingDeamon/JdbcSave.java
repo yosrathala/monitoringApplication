@@ -17,6 +17,7 @@ import com.mycompany.myapp.repository.RechercheRepository;
 import com.mycompany.myapp.repository.ResultatItemRepository;
 import com.mycompany.myapp.repository.ResultatRechercheRepository;
 import com.mycompany.myapp.repository.SourceRepository;
+import com.mycompany.myapp.spark.SVMPostInterest;
 
 @Service
 @Transactional
@@ -68,13 +69,29 @@ public class JdbcSave extends SearchResultHandler {
               
             }
         }
-
         if (newItems.size() > 0) {
             resultRechercheRepository.save(resultatRecherche);
 
-            for (ResultatItem res : newItems) {
-                res.setResultatRecherche(resultatRecherche);
-                resultatItemRepository.save(res);
+            for (ResultatItem newResult : newItems) {
+            	newResult.setResultatRecherche(resultatRecherche);
+            	
+
+                // appel api sur newResult newResult.getContenu()
+                
+            	int result = 0;
+            	System.out.println("======================POST PREDICTED ===========================");
+            	System.out.println(newResult.getContenu());
+				result = SVMPostInterest.predict(newResult.getContenu());	
+				System.out.println("======================POST PREDICTED result : " + result);
+				System.out.println("======================END POST PREDICTED===========================");
+            	if(result==1) {
+            		
+            		
+            		resultatItemRepository.save(newResult);
+            		
+            	}
+            	SVMPostInterest.sc.stop();
+            	SVMPostInterest.sc.close();
             }
         }
        

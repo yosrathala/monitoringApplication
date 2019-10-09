@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.spark.mllib.classification.SVMModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.TaskScheduler;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.mycompany.myapp.domain.Recherche;
 import com.mycompany.myapp.domain.Source;
+import com.mycompany.myapp.spark.SVMPostInterest;
 
 @Service
 public class WatchDog {
@@ -25,9 +27,17 @@ public class WatchDog {
     private List<ScheduledFuture> futureList = new ArrayList();
     @Autowired
     private ApplicationContext context;
+    
 
     public void init(List<Recherche> recherches) {
-
+		String file = "/home/bji/Documents/sparkBase.csv";
+		System.out.println("======================UPLOAD FILE===========================");
+		SVMPostInterest.init(file);
+		System.out.println("======================END UPLOAD FILE===========================");
+		System.out.println("======================BUILDING MODEL===========================");
+		SVMPostInterest.buildModel();
+		System.out.println("======================END BUILDING MODEL===========================");
+     
         HandlerFactory.initContext(context);
 
 
