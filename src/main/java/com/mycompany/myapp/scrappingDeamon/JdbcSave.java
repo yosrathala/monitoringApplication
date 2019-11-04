@@ -78,20 +78,20 @@ public class JdbcSave extends SearchResultHandler {
 
                 // appel api sur newResult newResult.getContenu()
                 
-            	int result = 0;
+            	boolean result = false;
             	System.out.println("======================POST PREDICTED ===========================");
             	System.out.println(newResult.getContenu());
 				result = SVMPostInterest.predict(newResult.getContenu());	
 				System.out.println("======================POST PREDICTED result : " + result);
 				System.out.println("======================END POST PREDICTED===========================");
-            	if(result==1) {
+            	if(result==true) {
             		
             		
             		resultatItemRepository.save(newResult);
             		
             	}
-            	SVMPostInterest.sc.stop();
-            	SVMPostInterest.sc.close();
+            	SVMPostInterest.getSc().stop();
+            	SVMPostInterest.getSc().close();
             }
         }
        

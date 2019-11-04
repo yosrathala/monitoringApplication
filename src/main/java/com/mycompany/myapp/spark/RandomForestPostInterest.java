@@ -1,136 +1,120 @@
 package com.mycompany.myapp.spark;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.apache.spark.api.java.function.FlatMapFunction;
 import org.apache.spark.api.java.function.ForeachFunction;
+import org.apache.spark.api.java.function.MapFunction;
 import org.apache.spark.ml.Pipeline;
-import org.apache.spark.sql.types.ArrayType;
-import org.apache.spark.sql.types.DataTypes;
-import org.apache.spark.sql.types.Metadata;
-import org.apache.spark.sql.types.StructField;
-import org.apache.spark.sql.types.StructType;
 import org.apache.spark.ml.PipelineModel;
 import org.apache.spark.ml.PipelineStage;
 import org.apache.spark.ml.classification.RandomForestClassifier;
+import org.apache.spark.ml.classification.RandomForestClassificationModel;
 import org.apache.spark.ml.feature.HashingTF;
 import org.apache.spark.ml.feature.IDF;
 import org.apache.spark.ml.feature.IDFModel;
 import org.apache.spark.ml.feature.IndexToString;
+import org.apache.spark.ml.feature.StopWordsRemover;
 import org.apache.spark.ml.feature.StringIndexer;
 import org.apache.spark.ml.feature.StringIndexerModel;
 import org.apache.spark.ml.feature.Tokenizer;
 import org.apache.spark.ml.feature.VectorIndexer;
 import org.apache.spark.ml.feature.VectorIndexerModel;
+import org.apache.spark.ml.feature.Word2Vec;
+import org.apache.spark.ml.feature.Word2VecModel;
 import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SparkSession;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.spark.sql.RowFactory;
+import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.types.DataTypes;
+import org.apache.spark.sql.types.Metadata;
+import org.apache.spark.sql.types.StructField;
+import org.apache.spark.sql.types.StructType;
 
 public class RandomForestPostInterest implements PostInterestManager
 {
 	private static SparkSession spark;
 	private static Dataset<Row> textData;
-	private static PipelineModel model;
-
+	//private static PipelineModel model;
+	private static RandomForestClassificationModel rfModel;
+	
+	
 	public static void init(String file) {
 		// TODO Auto-generated method stub
-		 spark = SparkSession.builder().appName("RandomForest").master("local[4]").getOrCreate();
+		 spark = SparkSession.builder().appName("RandomForestPostInterest").master("local[5]").getOrCreate();
 		textData = spark.read().format("com.databricks.spark.csv").option("header", "false").option("inferSchema", "true").option("delimiter", "\t").load(file);
 	}
-
 	
-	public static void buildModel() {
-		// TODO Auto-generated method stub
+	public static void buildModel() 
+	{
 		Tokenizer tokenizer = new Tokenizer()
 				  .setInputCol("_c1")
 				  .setOutputCol("words");
 		Dataset<Row> wordsData = tokenizer.transform(textData);
+		String[] stopword = StopWordsRemover.loadDefaultStopWords("french");
 		
-		HashingTF hashingTF = new HashingTF()
-				  .setNumFeatures(1000)
-				  .setInputCol(tokenizer.getOutputCol())
-				  .setOutputCol("rawFeatures");
-		
-		Dataset<Row> tf = hashingTF.transform(wordsData);
-		
-		IDF idf = new IDF()
-				.setInputCol("rawFeatures")
-				.setOutputCol("features");
-		
-		IDFModel tfidf = idf.fit(tf);
-		
-		Dataset<Row> d = tfidf.transform(tf);
-		Dataset<Row> dataset = d.select("_c4", "features", "_c1");
-		
+		StopWordsRemover remover = new StopWordsRemover()
+				  .setStopWords(stopword)
+				  .setInputCol("words")
+				  .setOutputCol("filtered");
+		Dataset<Row> realWords = remover.transform(wordsData);
+		Word2Vec word2vec = new Word2Vec().setInputCol("filtered").setOutputCol("features").setVectorSize(15).setMinCount(0);
+		Word2VecModel word2vecmodel = word2vec.fit(realWords);
+		Dataset<Row> result = word2vecmodel.transform(realWords);
+		Dataset<Row> dataset = result.select("_c4", "features", "_c1");
 		StringIndexerModel labelIndexer = new StringIndexer()
 				  .setInputCol("_c4")
 				  .setOutputCol("indexedLabel")
 				  .fit(dataset);
-		VectorIndexerModel featureIndexer = new VectorIndexer()
+		/*VectorIndexerModel featureIndexer = new VectorIndexer()
 				  .setInputCol("features")
 				  .setOutputCol("indexedFeatures")
 				  .setMaxCategories(4)
-				  .fit(dataset);
-		/*Dataset<Row>[] splits = dataset.randomSplit(new double[] {0.7, 0.3});
-		Dataset<Row> trainingData = splits[0];
-		Dataset<Row> testData = splits[1];
-		//trainingData.show();*/
+				  .fit(dataset);*/
+		
 		RandomForestClassifier rf = new RandomForestClassifier()
 				.setLabelCol("indexedLabel")
-				.setFeaturesCol("indexedFeatures")
-				.setNumTrees(10000);
-		
+				.setFeaturesCol("features")
+				.setNumTrees(1000);
 		IndexToString labelConverter = new IndexToString()
 				  .setInputCol("prediction")
 				  .setOutputCol("predictedLabel")
 				  .setLabels(labelIndexer.labels());
-		
 		Pipeline pipeline = new Pipeline()
-				  .setStages(new PipelineStage[] {labelIndexer, featureIndexer, rf, labelConverter});
+				  .setStages(new PipelineStage[] {labelIndexer, rf, labelConverter});
 		
-		model = pipeline.fit(dataset);
+		PipelineModel model = pipeline.fit(dataset);
+		rfModel = (RandomForestClassificationModel)(model.stages()[1]);
 	}
-
 	
-	public static int predict(String newPosts) {
+	public static boolean predict(String newPosts) {
 		// TODO Auto-generated method stub
 		Tokenizer tokenizer = new Tokenizer()
-				  .setInputCol("_c0")
-				  .setOutputCol("words");
+				  .setInputCol("text")
+				  .setOutputCol("wordsP");
 		 StructType schema = new StructType(new StructField[]{
-			      new StructField("words", DataTypes.StringType, false, Metadata.empty())
+			      new StructField("text", DataTypes.StringType, false, Metadata.empty())
 			    });
 		List<Row> rows = new ArrayList<>();
         rows.add(RowFactory.create(newPosts));
         Dataset<Row> listNewPosts = spark.createDataFrame(rows, schema);
 		Dataset<Row> wordsData = tokenizer.transform(listNewPosts);
-		
-		HashingTF hashingTF = new HashingTF()
-				  .setNumFeatures(1000)
+		String[] stopword = StopWordsRemover.loadDefaultStopWords("french");
+		StopWordsRemover remover = new StopWordsRemover()
+				  .setStopWords(stopword)
 				  .setInputCol(tokenizer.getOutputCol())
-				  .setOutputCol("rawFeatures");
-		
-		Dataset<Row> tf = hashingTF.transform(wordsData);
-		IDF idf = new IDF()
-				.setInputCol("rawFeatures")
-				.setOutputCol("features");
-		
-		IDFModel tfidf = idf.fit(tf);
-		Dataset<Row> d = tfidf.transform(tf);
-		
-		VectorIndexerModel featureIndexer = new VectorIndexer()
-				  .setInputCol("features")
-				  .setOutputCol("indexedFeatures")
-				  .setMaxCategories(4)
-				  .fit(d);
-		Dataset<Row> dd = featureIndexer.transform(d);
-		Dataset<Row> dataset = dd.select("features");
-		Dataset<Row> predictions = model.transform(dataset);
-		//predictions.show();
-		//predictions.foreach((ForeachFunction<Row>) row -> System.out.println(row));
-		return 1;
+				  .setOutputCol("filteredP");
+		Dataset<Row> realWords = remover.transform(wordsData);
+		Word2Vec word2vec = new Word2Vec().setInputCol(remover.getOutputCol()).setOutputCol("features").setVectorSize(15).setMinCount(0);
+		Word2VecModel word2vecmodel = word2vec.fit(realWords);
+		Dataset<Row> result = word2vecmodel.transform(realWords);
+		Dataset<Row> dataset = result.select("features");
+		Dataset<Row> predictions = rfModel.transform(dataset);
+		Dataset<Row> v_pred = predictions.selectExpr("cast(prediction as int) prediction");
+		int i = v_pred.first().getInt(0);
+		return i==1 ? true : false;
 	}
-
-	
-
 }
