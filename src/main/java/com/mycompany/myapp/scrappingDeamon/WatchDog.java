@@ -31,9 +31,9 @@ public class WatchDog {
 
     public void init(List<Recherche> recherches) {
 		String file = "/home/bji/Documents/sparkBase.csv";
-		System.out.println("======================UPLOAD FILE===========================");
+		System.out.println("======================Read FILE===========================");
 		SVMPostInterest.init(file);
-		System.out.println("======================END UPLOAD FILE===========================");
+		System.out.println("======================END Reading FILE===========================");
 		System.out.println("======================BUILDING MODEL===========================");
 		SVMPostInterest.buildModel();
 		System.out.println("======================END BUILDING MODEL===========================");

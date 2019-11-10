@@ -22,7 +22,7 @@ import com.mycompany.myapp.domain.Source;
 @Service
 public class ProgonlineScrappingHandler extends SearchScrappingHandler {
 
-	static final String chromeDriverPath = "/home/intellitech/workspace/clients_projects/projetappmonitoring/chromedriver";
+	static final String chromeDriverPath = "/home/bji/workspace/projetappmonitoring/chromedriver";
 	static final int MAX_PAGE = 20;
 
 	@Override

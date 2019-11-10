@@ -62,6 +62,7 @@ public class JdbcSave extends SearchResultHandler {
         List<ResultatItem> newItems = new ArrayList<>();
         resultatRecherche.setRecherche(search.get());
         resultatRecherche.setSource(source.get());
+        
         for (ResultatItem res : resultatRecherche.getResultatItems()) {
             Optional<ResultatItem> ri = resultatItemRepository.findByPostId(res.getPostId());
             if (!ri.isPresent()) {
@@ -79,16 +80,14 @@ public class JdbcSave extends SearchResultHandler {
                 // appel api sur newResult newResult.getContenu()
                 
             	boolean result = false;
-            	System.out.println("======================POST PREDICTED ===========================");
-            	System.out.println(newResult.getContenu());
-				result = SVMPostInterest.predict(newResult.getContenu());	
-				System.out.println("======================POST PREDICTED result : " + result);
-				System.out.println("======================END POST PREDICTED===========================");
-            	if(result==true) {
-            		
-            		
-            		resultatItemRepository.save(newResult);
-            		
+            	result = SVMPostInterest.predict(newResult.getContenu());	
+            	System.err.println("-----------------------Post Text ------------------------------");
+            	System.err.println(newResult.getContenu());
+            	System.err.println("-------------------------------- ------------------------------");
+							
+				System.err.println("======================> PREDICTION result : " + result);
+				if(result==true) {           		          		
+            		resultatItemRepository.save(newResult);         		
             	}
             	SVMPostInterest.getSc().stop();
             	SVMPostInterest.getSc().close();
