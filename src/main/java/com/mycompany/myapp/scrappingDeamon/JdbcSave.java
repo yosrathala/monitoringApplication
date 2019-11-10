@@ -1,8 +1,10 @@
 package com.mycompany.myapp.scrappingDeamon;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -55,11 +57,11 @@ public class JdbcSave extends SearchResultHandler {
     private SourceRepository sourceRepository;
 
     @Override
-    public List<ResultatItem> save(ResultatRecherche resultatRecherche, JobConfig jobConfig) {
+    public ResultatRecherche getNewItems(ResultatRecherche resultatRecherche, JobConfig jobConfig) {
     	Optional<Recherche> search = rechercheRepository.findById(jobConfig.getSearchId());
     	Optional<Source> source = sourceRepository.findById(jobConfig.getSourceId());
     	
-        List<ResultatItem> newItems = new ArrayList<>();
+        Set<ResultatItem> newItems = new  HashSet<>();
         resultatRecherche.setRecherche(search.get());
         resultatRecherche.setSource(source.get());
         
@@ -70,32 +72,27 @@ public class JdbcSave extends SearchResultHandler {
               
             }
         }
-        if (newItems.size() > 0) {
-            resultRechercheRepository.save(resultatRecherche);
-
-            for (ResultatItem newResult : newItems) {
-            	newResult.setResultatRecherche(resultatRecherche);
-            	
-
-                // appel api sur newResult newResult.getContenu()
-                
-            	boolean result = false;
-            	result = SVMPostInterest.predict(newResult.getContenu());	
-            	System.err.println("-----------------------Post Text ------------------------------");
-            	System.err.println(newResult.getContenu());
-            	System.err.println("-------------------------------- ------------------------------");
-							
-				System.err.println("======================> PREDICTION result : " + result);
-				if(result==true) {           		          		
-            		resultatItemRepository.save(newResult);         		
-            	}
-            	SVMPostInterest.getSc().stop();
-            	SVMPostInterest.getSc().close();
-            }
-        }
-       
-        return newItems;
+        resultatRecherche.setResultatItems(newItems);
+        return resultatRecherche;
 
     }
+    
+    
+    @Override
+    public Set<ResultatItem> save(ResultatRecherche resultatRecherche ) {
+
+            resultRechercheRepository.save(resultatRecherche);
+
+            for (ResultatItem newResult : resultatRecherche.getResultatItems()) {
+            	newResult.setResultatRecherche(resultatRecherche);   		          		
+            	resultatItemRepository.save(newResult);         		
+            }
+        
+       
+        return resultatRecherche.getResultatItems();
+
+    }
+    
+
 
 }

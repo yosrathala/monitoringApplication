@@ -2,7 +2,9 @@ package com.mycompany.myapp.spark;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.spark.api.java.function.FlatMapFunction;
 import org.apache.spark.api.java.function.ForeachFunction;
@@ -24,6 +26,7 @@ import org.apache.spark.ml.feature.VectorIndexer;
 import org.apache.spark.ml.feature.VectorIndexerModel;
 import org.apache.spark.ml.feature.Word2Vec;
 import org.apache.spark.ml.feature.Word2VecModel;
+import org.apache.spark.mllib.classification.SVMModel;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
@@ -33,22 +36,27 @@ import org.apache.spark.sql.types.DataTypes;
 import org.apache.spark.sql.types.Metadata;
 import org.apache.spark.sql.types.StructField;
 import org.apache.spark.sql.types.StructType;
+import org.springframework.stereotype.Service;
 
+import com.mycompany.myapp.domain.ResultatItem;
+import com.mycompany.myapp.domain.ResultatRecherche;
+
+@Service
 public class RandomForestPostInterest implements PostInterestManager
 {
-	private static SparkSession spark;
-	private static Dataset<Row> textData;
+	private  SparkSession spark;
+	private  Dataset<Row> textData;
 	//private static PipelineModel model;
-	private static RandomForestClassificationModel rfModel;
+	private  RandomForestClassificationModel rfModel;
 	
 	
-	public static void init(String file) {
+	public  void init(String file) {
 		// TODO Auto-generated method stub
 		 spark = SparkSession.builder().appName("RandomForestPostInterest").master("local[5]").getOrCreate();
 		textData = spark.read().format("com.databricks.spark.csv").option("header", "false").option("inferSchema", "true").option("delimiter", "\t").load(file);
 	}
 	
-	public static void buildModel() 
+	public  void buildModel() 
 	{
 		Tokenizer tokenizer = new Tokenizer()
 				  .setInputCol("_c1")
@@ -90,7 +98,7 @@ public class RandomForestPostInterest implements PostInterestManager
 		rfModel = (RandomForestClassificationModel)(model.stages()[1]);
 	}
 	
-	public static boolean predict(String newPosts) {
+	public  boolean predict(String newPosts) {
 		// TODO Auto-generated method stub
 		Tokenizer tokenizer = new Tokenizer()
 				  .setInputCol("text")
@@ -116,5 +124,28 @@ public class RandomForestPostInterest implements PostInterestManager
 		Dataset<Row> v_pred = predictions.selectExpr("cast(prediction as int) prediction");
 		int i = v_pred.first().getInt(0);
 		return i==1 ? true : false;
+	}
+	
+    public  void filterGoodPosts(ResultatRecherche resultatRecherche ) {
+
+    	Set<ResultatItem> filtredPost = new HashSet<>();
+        for (ResultatItem newResult : resultatRecherche.getResultatItems()) {
+       	        
+        	boolean result = false;
+        	result = predict(newResult.getContenu());	
+        	System.err.println("-----------------------Post Text ------------------------------");
+        	System.err.println(newResult.getContenu());
+        	System.err.println("-------------------------------- ------------------------------");				
+			System.err.println("======================> PREDICTION result : " + result);
+			if(result) {  
+				filtredPost.add(newResult);      		
+        	}
+			resultatRecherche.setResultatItems(filtredPost);;
+
+        }
+   
+    }
+	public  boolean isModelSet() {
+		return rfModel != null;
 	}
 }

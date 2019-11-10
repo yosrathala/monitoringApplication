@@ -1,6 +1,8 @@
 package com.mycompany.myapp.spark;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.AbstractJavaRDDLike;
@@ -10,20 +12,25 @@ import org.apache.spark.mllib.classification.SVMModel;
 import org.apache.spark.mllib.classification.SVMWithSGD;
 import org.apache.spark.mllib.feature.HashingTF;
 import org.apache.spark.mllib.regression.LabeledPoint;
+import org.springframework.stereotype.Service;
 
+import com.mycompany.myapp.domain.ResultatItem;
+import com.mycompany.myapp.domain.ResultatRecherche;
+
+@Service
 public class SVMPostInterest implements PostInterestManager
 {
-	private static SparkConf conf = new SparkConf().setAppName("SVM Classifier Example").setMaster("local[5]");
-	private static JavaSparkContext sc = new JavaSparkContext(conf);
-	private static JavaRDD<String> textData;
-	private static SVMModel model;
+	private  SparkConf conf = new SparkConf().setAppName("SVM Classifier Example").setMaster("local[5]");
+	private  JavaSparkContext sc = new JavaSparkContext(conf);
+	private  JavaRDD<String> textData;
+	private  SVMModel model;
 	
-	public static void init(String file) {
+	public  void init(String file) {
 		// TODO Auto-generated method stub
 		textData = sc.textFile(file);
 	}
 
-	public static void buildModel() {
+	public  void buildModel() {
 		// TODO Auto-generated method stub
 		
 		final HashingTF tf = new HashingTF();
@@ -34,7 +41,7 @@ public class SVMPostInterest implements PostInterestManager
         model = SVMWithSGD.train(data.rdd(), iterations);
 	}
 
-	public static boolean predict(String newPosts) 
+	public  boolean predict(String newPosts) 
 	{
 		// TODO Auto-generated method stub
 		final HashingTF tf = new HashingTF();
@@ -43,8 +50,34 @@ public class SVMPostInterest implements PostInterestManager
 		return i == 1 ? true : false ;
 	}
 
-	public static JavaSparkContext getSc() {
+    public  void filterGoodPosts(ResultatRecherche resultatRecherche ) {
+
+    	Set<ResultatItem> filtredPost = new HashSet<>();
+        for (ResultatItem newResult : resultatRecherche.getResultatItems()) {
+       	        
+        	boolean result = false;
+        	result = predict(newResult.getContenu());	
+        	System.err.println("-----------------------Post Text ------------------------------");
+        	System.err.println(newResult.getContenu());
+        	System.err.println("-------------------------------- ------------------------------");				
+			System.err.println("======================> PREDICTION result : " + result);
+			if(result) {  
+				filtredPost.add(newResult);      		
+        	}
+			resultatRecherche.setResultatItems(filtredPost);;
+        	getSc().stop();
+        	getSc().close();
+        }
+   
+    }
+    
+    
+	public  JavaSparkContext getSc() {
 		return sc;
+	}
+
+	public  boolean isModelSet() {
+		return model != null;
 	}
 
 }

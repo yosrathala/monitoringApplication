@@ -2,6 +2,10 @@ package com.mycompany.myapp.scrappingDeamon;
 
 import org.springframework.context.ApplicationContext;
 
+import com.mycompany.myapp.spark.PostInterestManager;
+import com.mycompany.myapp.spark.RandomForestPostInterest;
+import com.mycompany.myapp.spark.SVMPostInterest;
+
 
 public class HandlerFactory {
 
@@ -30,6 +34,16 @@ public class HandlerFactory {
 			return context.getBean(ProgonlineScrappingHandler.class);
 		}
 		return scrapHandler;
+	}
+	
+	public  static PostInterestManager getPredictionHnadler(String type) {
+		if(type.equals("svm")) {
+			return context.getBean(SVMPostInterest.class);
+		}else if(type.equals("rf")) {
+			return context.getBean(RandomForestPostInterest.class);
+		}else 
+			return null;
+		
 	}
 	
 	public static SearchResultHandler getSearchResultHandler(String type) {

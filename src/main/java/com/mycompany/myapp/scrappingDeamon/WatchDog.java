@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.mycompany.myapp.domain.Recherche;
 import com.mycompany.myapp.domain.Source;
+import com.mycompany.myapp.spark.PostInterestManager;
 import com.mycompany.myapp.spark.SVMPostInterest;
 
 @Service
@@ -30,17 +31,17 @@ public class WatchDog {
     
 
     public void init(List<Recherche> recherches) {
-		String file = "/home/bji/Documents/sparkBase.csv";
-		System.out.println("======================Read FILE===========================");
-		SVMPostInterest.init(file);
-		System.out.println("======================END Reading FILE===========================");
-		System.out.println("======================BUILDING MODEL===========================");
-		SVMPostInterest.buildModel();
-		System.out.println("======================END BUILDING MODEL===========================");
-     
-        HandlerFactory.initContext(context);
-
-
+    	HandlerFactory.initContext(context);
+    	
+    	PostInterestManager predictionHandler = HandlerFactory.getPredictionHnadler("svm");
+    	
+    	if(!predictionHandler.isModelSet()) {
+    		String file = "/home/bji/workspace/projetappmonitoring/sparkBase.csv";
+    		predictionHandler.init(file);
+    		predictionHandler.buildModel();
+    		
+    	}
+		
         for (Recherche search : recherches) {
             if (search.isActivated()) {
                 for (Source source : search.getSources()) {

@@ -2,6 +2,7 @@ package com.mycompany.myapp.scrappingDeamon;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class MailNotification extends NotificationHandler {
 	UserRepository userRepository;
 
 	@Override
-	void send(List<ResultatItem> newItems, JobConfig jobConfig) {
+	void send(Set<ResultatItem> newItems, JobConfig jobConfig) {
 
 		StringBuilder content = new StringBuilder();
 		for (ResultatItem resultatItem : newItems) {

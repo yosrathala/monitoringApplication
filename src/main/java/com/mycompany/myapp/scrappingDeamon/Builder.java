@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.mycompany.myapp.domain.Recherche;
 import com.mycompany.myapp.domain.Source;
+import com.mycompany.myapp.spark.PostInterestManager;
 
 
 public class Builder {
@@ -46,9 +47,11 @@ public class Builder {
     		notificationsHandlers.add(HandlerFactory.getNotificationHandler("push"));
     	}
     	
+    	PostInterestManager predictionHandler = HandlerFactory.getPredictionHnadler("svm");
+    	
     	JobConfig jobConfig = new JobConfig(recherche, source);
     	
-        return new Job(scrapHandler, notificationsHandlers, searchResultHandler, jobConfig);
+        return new Job(scrapHandler, notificationsHandlers, searchResultHandler, predictionHandler, jobConfig);
     }
 
 
