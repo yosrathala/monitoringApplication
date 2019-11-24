@@ -12,12 +12,14 @@ import org.apache.spark.mllib.classification.SVMModel;
 import org.apache.spark.mllib.classification.SVMWithSGD;
 import org.apache.spark.mllib.feature.HashingTF;
 import org.apache.spark.mllib.regression.LabeledPoint;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import com.mycompany.myapp.domain.ResultatItem;
 import com.mycompany.myapp.domain.ResultatRecherche;
 
 @Service
+@Scope("singleton")
 public class SVMPostInterest implements PostInterestManager
 {
 	private  SparkConf conf = new SparkConf().setAppName("SVM Classifier Example").setMaster("local[5]");

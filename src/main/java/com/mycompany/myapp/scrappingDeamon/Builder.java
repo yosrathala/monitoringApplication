@@ -47,7 +47,7 @@ public class Builder {
     		notificationsHandlers.add(HandlerFactory.getNotificationHandler("push"));
     	}
     	
-    	PostInterestManager predictionHandler = HandlerFactory.getPredictionHnadler("svm");
+    	PostInterestManager predictionHandler = HandlerFactory.getPredictionHnadler("rf");
     	
     	JobConfig jobConfig = new JobConfig(recherche, source);
     	

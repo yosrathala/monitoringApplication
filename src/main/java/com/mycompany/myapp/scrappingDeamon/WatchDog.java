@@ -33,7 +33,7 @@ public class WatchDog {
     public void init(List<Recherche> recherches) {
     	HandlerFactory.initContext(context);
     	
-    	PostInterestManager predictionHandler = HandlerFactory.getPredictionHnadler("svm");
+    	PostInterestManager predictionHandler = HandlerFactory.getPredictionHnadler("rf");
     	
     	if(!predictionHandler.isModelSet()) {
     		String file = "/home/bji/workspace/projetappmonitoring/sparkBase.csv";
